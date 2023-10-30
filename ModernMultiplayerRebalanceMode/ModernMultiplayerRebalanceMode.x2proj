@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Default" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Guid>d343bd51-11cb-472b-94ba-43e735362ea8</Guid>
+    <Name>ModernMultiplayerRebalanceMode</Name>
+    <Description>In this mod, existing units have been rebalanced, 6 new units have been added, and existing multiplayer bugs have been removed.</Description>
+    <SteamPublishID>0</SteamPublishID>
+    <AssemblyName>ModernMultiplayerRebalanceMode</AssemblyName>
+    <RootNamespace>ModernMultiplayerRebalanceMode</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Config\" />
+    <Folder Include="Localization\" />
+    <Folder Include="Content" />
+    <Folder Include="Src\" />
+    <Folder Include="Src\ModernMultiplayerRebalanceMode\" />
+    <Folder Include="Src\ModernMultiplayerRebalanceMode\Classes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\XComClassData.ini">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Config\XComGameCore.ini">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Config\XComGameData.ini">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Config\XComGameData_CharacterStats.ini">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Config\XComGameData_SoldierSkills.ini">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Config\XComGameData_WeaponData.ini">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Config\XComMPCharacterData.ini">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\%40VELSAdventMEC_M2_NewMPimage.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\Mercury_Turret.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\MPcard_ArchonKingMPbyVEL.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\VELMPcard_WarlockMP.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\VELSAdvGeneralMPImage.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\VELSAssassinMPImage.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\VELSAvatarMPImage.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\VELSFeralMECMPImage.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\VELSSniperMPImage.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\VELSTheLostMPImage.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\VELSViperKingMPMode.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\VELSViperNeonateMPImage.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Localization\ModernMultiplayerRebalanceMode.rus">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Localization\XComGame.rus">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ModPreview.jpg">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ReadMe.txt" />
+    <Content Include="Config\XComEditor.ini" />
+    <Content Include="Config\XComEngine.ini" />
+    <Content Include="Config\XComGame.ini" />
+    <Content Include="Localization\XComGame.int" />
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\MPSquadValidator.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\UIMPShell_CharacterTemplateSelector_Overrides.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\UIMPShell_SquadLoadoutList_AcceptingInviteNew.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\UIMPShell_SquadLoadoutList_CustomGameCreateNew.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\UIMPShell_SquadLoadoutList_CustomGameSearchNew.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\UIMPShell_SquadLoadoutList_PresetNew.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\UIMPShell_SquadLoadoutList_QuickMatchNew.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\UIMPShell_SquadLoadoutList_RankedGameNew.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\UIScreenListener_YourUISL.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\UITacticalHUD_EnemiesNew.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\UITacticalHUD_EnemyPreviewNew.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_PlaceTurret_Custom.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_ZombieTurnLife.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Action_ViewShake.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Character_ViperKing.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Condition_EverVigilant_Override.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Condition_ViperTongueMP.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2DownloadableContentInfo_ModernMultiplayerRebalanceMode.uc" />
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_ApplyViperTongueDamageMP.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_IRI_DelayedDamage.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_ReplaceActionPoints.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_SpawnSpectralArmyNew.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_SpawnSpectralZombiesNew.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_SpawnTurretScaled_XCom.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2EventListener_RemovePersistentEffects.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Helpers_PersistentStatChangeFix.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Item_ViperKingWPN_MP.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\XComGameState_AdventChosen_Overide.uc">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildLocalExtensionPath)\XCOM2.targets" />
+</Project>

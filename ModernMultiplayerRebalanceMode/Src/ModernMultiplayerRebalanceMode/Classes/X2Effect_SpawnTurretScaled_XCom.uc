@@ -16,6 +16,23 @@ function vector GetSpawnLocation(const out EffectAppliedData ApplyEffectParamete
 	return DropPosition;
 }
 
+function OnSpawnComplete(const out EffectAppliedData ApplyEffectParameters, StateObjectReference NewUnitRef, XComGameState NewGameState, XComGameState_Effect NewEffectState)
+{
+local XComGameState_Unit SpectralUnit;
+
+    SpectralUnit = XComGameState_Unit(NewGameState.GetGameStateForObjectID(NewUnitRef.ObjectID));
+    
+    `LOG("Spawned zombie:" @ SpectralUnit.GetFullName() @ SpectralUnit.ObjectID,, 'IRITEST');
+
+    if (SpectralUnit == none)
+    {
+        `RedScreen("X2Effect_SpectralArmyUnit: Spectral Zombie is missing: " $SpectralUnit.ObjectID);
+        return;
+    }
+
+    SpectralUnit.ActionPoints.Length = 0;
+}
+
 function ETeam GetTeam(const out EffectAppliedData ApplyEffectParameters)
 {
 	return GetSourceUnitsTeam(ApplyEffectParameters);

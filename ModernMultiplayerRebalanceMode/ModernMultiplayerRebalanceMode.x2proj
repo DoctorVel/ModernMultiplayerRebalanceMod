@@ -136,6 +136,9 @@
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Condition_EverVigilant_Override.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Condition_RevivalProtocolNew.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Condition_ViperTongueMP.uc">
       <SubType>Content</SubType>
     </Content>
@@ -144,6 +147,9 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_IRI_DelayedDamage.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_ParthenogenicPoisonNew.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_ReplaceActionPoints.uc">

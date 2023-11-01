@@ -19,6 +19,7 @@ static function X2AbilityTemplate AddLinkedEffectAbility()
 
 	`CREATE_X2ABILITY_TEMPLATE(Template, 'ZombieTurnLife');
 
+	Template.eAbilityIconBehaviorHUD = eAbilityIconBehavior_NeverShow;
 	Template.IconImage = "img:///UILibrary_PerkIcons.UIPerk_sectoid_psireanimate";
 
 	Template.AbilityTargetStyle = new class'X2AbilityTarget_Single';

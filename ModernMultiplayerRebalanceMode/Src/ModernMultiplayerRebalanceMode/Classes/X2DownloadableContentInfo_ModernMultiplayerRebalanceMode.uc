@@ -103,6 +103,10 @@ static event OnPostTemplatesCreated()
 	ChosenLowProfileTriggerPatch();
 	StasisMPPatch();
 	StasisPriestMPPatch();
+	SwitchToRobotPatch();
+	ChryssalidSlashMPPatch();
+	SpawnChryssalidMPPatch2();
+	RevivalProtocolPatch();
 } 
 
 static private function RapidFirePatch()
@@ -2419,6 +2423,7 @@ static private function StasisMPPatch()
 			UnitType.ExcludeTypes.AddItem('ChosenAssassinMP');
 			UnitType.ExcludeTypes.AddItem('ChosenWarlockMP');
 			UnitType.ExcludeTypes.AddItem('ChosenSniperMP');
+			UnitType.ExcludeTypes.AddItem('AdventPsiWitch');
 			Template.AbilityTargetConditions.AddItem(UnitType);
         }
     }
@@ -2445,9 +2450,130 @@ static private function StasisPriestMPPatch()
 			UnitType.ExcludeTypes.AddItem('ChosenAssassinMP');
 			UnitType.ExcludeTypes.AddItem('ChosenWarlockMP');
 			UnitType.ExcludeTypes.AddItem('ChosenSniperMP');
+			UnitType.ExcludeTypes.AddItem('AdventPsiWitch');
 			Template.AbilityTargetConditions.AddItem(UnitType);
         }
     }
 }
 
+static private function SwitchToRobotPatch()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+	local X2Effect_SwitchToRobot   SwitchToRobotEffect;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('SwitchToRobotMP', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+        
+        for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
+        {
+            if (X2Effect_SwitchToRobot(Template.AbilityTargetEffects[i]) != none)
+            {
+             X2Effect_SwitchToRobot(Template.AbilityTargetEffects[i]).bAddToSourceGroup=true;
+            }
+        }
+    }
+}
+
+static private function ChryssalidSlashMPPatch()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+	local X2Effect_ParthenogenicPoisonNew  ParthenogenicPoisonEffect;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('ChryssalidSlashMP', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+        
+        for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
+        {
+            if (X2Effect_ParthenogenicPoison(Template.AbilityTargetEffects[i]) != none)
+          {
+            Template.AbilityTargetEffects.Remove(i, 1);
+          }
+		 }
+            ParthenogenicPoisonEffect = new class'X2Effect_ParthenogenicPoisonNew';
+            ParthenogenicPoisonEffect.UnitToSpawnName = 'ChryssalidCocoonMP';
+            ParthenogenicPoisonEffect.AltUnitToSpawnName = 'ChryssalidCocoonHumanMP';
+            ParthenogenicPoisonEffect.BuildPersistentEffect(class'X2Ability_Chryssalid'.default.POISON_DURATION, true, false, false, eGameRule_PlayerTurnEnd);
+            ParthenogenicPoisonEffect.SetDisplayInfo(ePerkBuff_Penalty, class'X2Ability_Chryssalid'.default.ParthenogenicPoisonFriendlyName, class'X2Ability_Chryssalid'.default.ParthenogenicPoisonFriendlyDesc, Template.IconImage, true);
+            ParthenogenicPoisonEffect.DuplicateResponse = eDupe_Ignore;
+            ParthenogenicPoisonEffect.bAddToSourceGroup=true;
+            ParthenogenicPoisonEffect.SetPoisonDamageDamage();
+			Template.AddTargetEffect(ParthenogenicPoisonEffect);
+        
+    }
+}
+
+static private function SpawnChryssalidMPPatch2()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('SpawnChryssalidMP', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+        
+        for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
+        {
+            if (X2Effect_SpawnChryssalid(Template.AbilityTargetEffects[i]) != none)
+            {
+             X2Effect_SpawnChryssalid(Template.AbilityTargetEffects[i]).bAddToSourceGroup=true;
+            }
+        }
+    }
+}
+
+static private function RevivalProtocolPatch()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('RevivalProtocol', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+        
+        for (i = Template.AbilityTargetConditions.Length - 1; i >= 0; i--)
+        {
+            if (X2Condition_RevivalProtocol(Template.AbilityTargetConditions[i]) != none)
+            {
+               Template.AbilityTargetConditions.Remove(i, 1);
+            }
+	   Template.AbilityTargetConditions.AddItem(new class'X2Condition_RevivalProtocolNew');
+        }
+    }
+}
 

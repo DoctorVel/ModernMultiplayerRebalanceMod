@@ -457,6 +457,7 @@ static function X2CharacterTemplate CreateTemplate_AdvPsiWitchMP()
 	CharTemplate.CharacterGroupName = 'AdventPsiWitch';
 	CharTemplate.DefaultLoadout = 'AdvPsiWitchM3_Loadout';
 	CharTemplate.BehaviorClass = class'XGAIBehavior';
+	CharTemplate.strMatineePackages.AddItem("CIN_Advent");
     CharTemplate.strPawnArchetypes.AddItem("GameUnit_AdvPsiWitch.ARC_GameUnit_AdvPsiWitchM3_M");
 	CharTemplate.strPawnArchetypes.AddItem("GameUnit_AdvPsiWitch.ARC_GameUnit_AdvPsiWitchM3_F");
 	CharTemplate.SightedNarrativeMoments.Length = 0;
@@ -520,10 +521,10 @@ static function X2CharacterTemplate CreateTemplate_ChosenWarlockMP()
 	CharTemplate.DefaultLoadout = 'ChosenWarlockM2_Loadout';
 	CharTemplate.BehaviorClass = class'XGAIBehavior';
     CharTemplate.strPawnArchetypes.AddItem("GameUnit_ChosenWarlock.ARC_GameUnit_ChosenWarlockM4");
-	CharTemplate.strMatineePackages.AddItem("CIN_XP_ChosenAssassin");
 	CharTemplate.strMatineePackages.AddItem("CIN_XP_ChosenWarlock");
 	CharTemplate.strTargetingMatineePrefix = "CIN_XP_ChosenWarlock";
-	CharTemplate.RevealMatineePrefix = "CIN_ChosenWarlock";
+	CharTemplate.RevealMatineePrefix = "CIN_XP_ChosenWarlock";
+
 
 	CharTemplate.UnitSize = 1;
 
@@ -592,7 +593,6 @@ static function X2CharacterTemplate CreateTemplate_ChosenSniperMP()
 	CharTemplate.DefaultLoadout = 'ChosenSniperM4_Loadout';
 	CharTemplate.BehaviorClass = class'XGAIBehavior';
     CharTemplate.strPawnArchetypes.AddItem("GameUnit_ChosenHunter.ARC_GameUnit_ChosenHunter_M4");
-	CharTemplate.strMatineePackages.AddItem("CIN_XP_ChosenAssassin");
 	CharTemplate.strMatineePackages.AddItem("CIN_XP_ChosenHunter");
 	CharTemplate.RevealMatineePrefix = "CIN_ChosenHunter";
 

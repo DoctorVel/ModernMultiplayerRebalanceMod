@@ -2486,15 +2486,15 @@ static private function SwitchToRobotPatch()
 
 static private function ChryssalidSlashMPPatch()
 {
-    local X2AbilityTemplateManager           AbilityTemplateManager;
-    local X2AbilityTemplate                       Template;
-    local array<X2DataTemplate>             DifficultyVariants;
-    local X2DataTemplate                         DifficultyVariant;
-	local X2Effect_ParthenogenicPoisonNew  ParthenogenicPoisonEffect;
+    local X2AbilityTemplateManager			AbilityTemplateManager;
+    local X2AbilityTemplate					Template;
+    local array<X2DataTemplate>				DifficultyVariants;
+    local X2DataTemplate					DifficultyVariant;
+	local X2Effect_ParthenogenicPoisonNew	ParthenogenicPoisonEffect;
+	local X2Condition_UnitProperty			UnitPropertyCondition;
 	local int i;
 
     AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
     AbilityTemplateManager.FindDataTemplateAllDifficulties('ChryssalidSlashMP', DifficultyVariants);
 
     foreach DifficultyVariants(DifficultyVariant)
@@ -2502,24 +2502,33 @@ static private function ChryssalidSlashMPPatch()
         Template = X2AbilityTemplate(DifficultyVariant);
         if (Template == none) continue;
         
-        for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
-        {
-            if (X2Effect_ParthenogenicPoison(Template.AbilityTargetEffects[i]) != none)
-          {
-            Template.AbilityTargetEffects.Remove(i, 1);
-          }
-		 }
-            ParthenogenicPoisonEffect = new class'X2Effect_ParthenogenicPoisonNew';
-            ParthenogenicPoisonEffect.UnitToSpawnName = 'ChryssalidCocoonMP';
-            ParthenogenicPoisonEffect.AltUnitToSpawnName = 'ChryssalidCocoonHumanMP';
-            ParthenogenicPoisonEffect.BuildPersistentEffect(class'X2Ability_Chryssalid'.default.POISON_DURATION, true, false, false, eGameRule_PlayerTurnEnd);
-            ParthenogenicPoisonEffect.SetDisplayInfo(ePerkBuff_Penalty, class'X2Ability_Chryssalid'.default.ParthenogenicPoisonFriendlyName, class'X2Ability_Chryssalid'.default.ParthenogenicPoisonFriendlyDesc, Template.IconImage, true);
-            ParthenogenicPoisonEffect.DuplicateResponse = eDupe_Ignore;
-            ParthenogenicPoisonEffect.bAddToSourceGroup=true;
-            ParthenogenicPoisonEffect.SetPoisonDamageDamage();
-			Template.AddTargetEffect(ParthenogenicPoisonEffect);
-        
-    }
+		for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
+		{
+			if (X2Effect_ParthenogenicPoison(Template.AbilityTargetEffects[i]) != none)
+			{
+				Template.AbilityTargetEffects.Remove(i, 1);
+			}
+		}
+
+		ParthenogenicPoisonEffect = new class'X2Effect_ParthenogenicPoisonNew';
+		ParthenogenicPoisonEffect.UnitToSpawnName = 'ChryssalidCocoonMP';
+		ParthenogenicPoisonEffect.AltUnitToSpawnName = 'ChryssalidCocoonHumanMP';
+		ParthenogenicPoisonEffect.BuildPersistentEffect(class'X2Ability_Chryssalid'.default.POISON_DURATION, true, false, false, eGameRule_PlayerTurnEnd);
+		ParthenogenicPoisonEffect.SetDisplayInfo(ePerkBuff_Penalty, class'X2Ability_Chryssalid'.default.ParthenogenicPoisonFriendlyName, class'X2Ability_Chryssalid'.default.ParthenogenicPoisonFriendlyDesc, Template.IconImage, true);
+		ParthenogenicPoisonEffect.DuplicateResponse = eDupe_Ignore;
+		ParthenogenicPoisonEffect.bAddToSourceGroup = true;
+		ParthenogenicPoisonEffect.SetPoisonDamageDamage();
+
+		UnitPropertyCondition = new class'X2Condition_UnitProperty';
+		UnitPropertyCondition.ExcludeRobotic = true;
+		UnitPropertyCondition.ExcludeAlive = false;
+		UnitPropertyCondition.ExcludeDead = false;
+		UnitPropertyCondition.ExcludeFriendlyToSource = false;
+		ParthenogenicPoisonEffect.TargetConditions.AddItem(UnitPropertyCondition);
+
+		Template.AddTargetEffect(ParthenogenicPoisonEffect);
+ 
+	}
 }
 
 static private function SpawnChryssalidMPPatch2()

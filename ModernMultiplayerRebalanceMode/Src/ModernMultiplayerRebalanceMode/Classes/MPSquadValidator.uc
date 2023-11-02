@@ -104,7 +104,7 @@ static final function bool AreUnitItemsValid(const XComGameState_Unit UnitState,
 		ItemTemplate = InventoryItem.GetMyTemplate();
 		if (ItemTemplate == none)
 		{
-			strDisabledReason = strMissingItemTemplate @ InventoryItem.GetMyTemplateName();
+			strDisabledReason = default.strMissingItemTemplate @ InventoryItem.GetMyTemplateName();
 			return false;
 		}
 
@@ -117,7 +117,7 @@ static final function bool AreUnitItemsValid(const XComGameState_Unit UnitState,
 				return true;
 			default:
 				`LOG("Item not valid:" @ InventoryItem.GetMyTemplateName(),, 'Fear_MP');
-				strDisabledReason = strItemNotAllowedInMP @ ItemTemplate.GetItemFriendlyNameNoStats(InventoryItem);
+				strDisabledReason = default.strItemNotAllowedInMP @ ItemTemplate.GetItemFriendlyNameNoStats();
 				return false;
 		}
 	}

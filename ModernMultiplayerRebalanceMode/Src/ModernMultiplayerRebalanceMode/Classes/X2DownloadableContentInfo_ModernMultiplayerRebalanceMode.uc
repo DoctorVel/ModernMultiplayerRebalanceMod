@@ -2463,7 +2463,6 @@ static private function SwitchToRobotPatch()
     local X2AbilityTemplate                       Template;
     local array<X2DataTemplate>             DifficultyVariants;
     local X2DataTemplate                         DifficultyVariant;
-	local X2Effect_SwitchToRobot   SwitchToRobotEffect;
 	local int i;
 
     AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();

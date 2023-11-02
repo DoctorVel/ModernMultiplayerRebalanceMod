@@ -17,7 +17,6 @@ $builder = [BuildProject]::new("ModernMultiplayerRebalanceMode", $srcDirectory, 
 
 # Uncomment the next line to enable building against Highlander.
 $builder.IncludeSrc("$srcDirectory\X2WOTCCommunityHighlander\X2WOTCCommunityHighlander\Src")
-# $builder.IncludeSrc("$srcDirectory\CustomSrc")
 
 switch ($config)
 {
@@ -32,5 +31,5 @@ switch ($config)
 }
 
 # Uncomment this line to enable cooking.
-$ $builder.SetContentOptionsJsonFilename("ContentOptions.json")
+$builder.SetContentOptionsJsonFilename("ContentOptions.json")
 $builder.InvokeBuild()

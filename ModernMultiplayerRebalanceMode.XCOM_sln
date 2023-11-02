@@ -3,15 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # XCOM ModBuddy Solution File, Format Version 11.00
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{5DAE07AF-E217-45C1-8DE7-FF99D6011E8A}") = "ModernMultiplayerRebalanceMode", "ModernMultiplayerRebalanceMode\ModernMultiplayerRebalanceMode.x2proj", "{22C7FE32-E69C-41BB-9D60-F05210D3A848}"
+Project("{5DAE07AF-E217-45C1-8DE7-FF99D6011E8A}") = "ModernMultiplayerRebalanceMode", "ModernMultiplayerRebalanceMode\ModernMultiplayerRebalanceMode.x2proj", "{1CCC03D8-E9AB-431E-9CBE-3FEEAD8148AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|XCOM 2 = Debug|XCOM 2
 		Default|XCOM 2 = Default|XCOM 2
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{22C7FE32-E69C-41BB-9D60-F05210D3A848}.Default|XCOM 2.ActiveCfg = Default|XCOM 2
-		{22C7FE32-E69C-41BB-9D60-F05210D3A848}.Default|XCOM 2.Build.0 = Default|XCOM 2
+		{1CCC03D8-E9AB-431E-9CBE-3FEEAD8148AC}.Debug|XCOM 2.ActiveCfg = Debug|XCOM 2
+		{1CCC03D8-E9AB-431E-9CBE-3FEEAD8148AC}.Debug|XCOM 2.Build.0 = Debug|XCOM 2
+		{1CCC03D8-E9AB-431E-9CBE-3FEEAD8148AC}.Default|XCOM 2.ActiveCfg = Default|XCOM 2
+		{1CCC03D8-E9AB-431E-9CBE-3FEEAD8148AC}.Default|XCOM 2.Build.0 = Default|XCOM 2
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -22,9 +22,53 @@ static final function bool ValidateSquad(const XComGameState CheckSquad, out str
 	}
 	
 	// Сюда добавляй макс. число разрешенных юнитов определенного типа
-	if (!CountUnitsOfType(UnitTypes, 'SectoidMP', 1, strDisabledReason)) return false;
-	if (!CountUnitsOfType(UnitTypes, 'Trooper', 2, strDisabledReason)) return false;
-	if (!CountUnitsOfType(UnitTypes, 'Gatekeeper', 1, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'AdvTrooperMP', 6, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'AdvCaptainMP', 6, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'AdvStunLancerMP', 6, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'AdvPurifierMP', 6, strDisabledReason)) return false;	
+	if (!CountUnitsOfType(UnitTypes, 'FeralMEC_MP', 6, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'AdvShieldBearerMP', 3, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'AdvMEC_MP', 2, strDisabledReason)) return false;	
+	if (!CountUnitsOfType(UnitTypes, 'AdvPriestMP', 6, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'AdvMEC_M2_MP', 2, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'AdvGeneralMP', 2, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'AdvPsiWitchMP', 1, strDisabledReason)) return false;
+
+	if (!CountUnitsOfType(UnitTypes, 'TheLostDasherMP', 6, strDisabledReason)) return false;
+
+	if (!CountUnitsOfType(UnitTypes, 'SectoidMP', 3, strDisabledReason)) return false;
+
+	if (!CountUnitsOfType(UnitTypes, 'FacelessMP', 6, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'SectoidMP', 3, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'ChryssalidMP', 6, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'ViperMP', 6, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'MutonMP', 3, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'BerserkerMP', 2, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'ViperNeonateMP', 2, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'CyberusMP', 2, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'SpectreMP', 2, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'ArchonMP', 2, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'AndromedonMP', 2, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'ViperKingMP', 1, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'ArchonKingMP', 1, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'GatekeeperMP', 2, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'SectopodMP', 1, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'ChosenAssassinMP', 1, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'ChosenWarlockMP', 1, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'ChosenSniperMP', 1, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'PhantomRanger', 2, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'BlademasterRanger', 2, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'SniperSharpshooter', 2, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'MP_Grenadier', 2, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'HeavyGunnerGrenadier', 1, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'DemoExpertGrenadier', 1, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'BattlefieldMedicSpecialis', 2, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'CombatHackerSpecialist', 1, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'PsiOperative ', 2, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'Reaper', 2, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'Skirmisher', 2, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'Templar', 2, strDisabledReason)) return false;
+
 	
 	return true;
 }
@@ -57,7 +101,8 @@ static final function bool ValidateUnit(const XComGameState_Unit UnitState, cons
 	CharTemplate = UnitState.GetMyTemplate();
 	if (CharTemplate == none)
 	{
-		strDisabledReason = UnitState.GetFullName() @ default.strUnitMissingCharTemplate;
+		strDisabledReason = UnitState.GetFullName() @ default.strUnitMissingCharTemplate;	
+
 		return false;
 	}
 	
@@ -68,9 +113,7 @@ static final function bool ValidateUnit(const XComGameState_Unit UnitState, cons
 	}
 	
 	// У пришельцев и адвенты предметы не проверяем
-	if (CharTemplate.bIsAlien || CharTemplate.bIsAdvent)
-		return true;
-		
+	`LOG("Item not valid:" @ UnitState.GetMyTemplate(),, 'Fear_MP');
 	return AreUnitItemsValid(UnitState, CheckGameState, strDisabledReason);
 }
 
@@ -79,8 +122,43 @@ static final function bool IsValidUnitType(const name UnitType)
 	switch (UnitType)
 	{
 		// Сюда добавляй имена темплпатов юнитов разрешенных в МП
+		case 'AdvTrooperMP':
+
+		case 'AdvCaptainMP':
+		case 'AdvStunLancerMP':
+		case 'AdvPurifierMP':
+		case 'FeralMEC_MP':
+		case 'AdvShieldBearerMP':
+		case 'AdvMEC_MP':
+		case 'AdvPriestMP':
+		case 'AdvMEC_M2_MP':
+		case 'AdvGeneralMP':
+		case 'AdvPsiWitchMP':
+		
+		case 'TheLostDasherMP':
+
+		case 'FacelessMP':
 		case 'SectoidMP':
-		case 'AdvTrooper':
+		case 'ViperMP':
+		case 'ChryssalidMP':
+		case 'MutonMP':
+		case 'BerserkerMP':
+		case 'ViperNeonateMP':
+		case 'CyberusMP':
+		case 'SpectreMP':
+		case 'ArchonMP':
+		case 'AndromedonMP':
+		case 'ViperKingMP':
+		case 'GatekeeperMP':
+		case 'ArchonKingMP':
+		case 'SectopodMP':
+		case 'ChosenAssassinMP':
+		case 'ChosenSniperMP':
+		case 'ChosenWarlockMP':
+
+		case 'TemplarSoldier':
+		case 'SkirmisherSoldier':
+		case 'ReaperSoldier':
 		case 'Soldier':
 			return true;
 		default:
@@ -105,13 +183,26 @@ static final function bool AreUnitItemsValid(const XComGameState_Unit UnitState,
 		if (ItemTemplate == none)
 		{
 			strDisabledReason = default.strMissingItemTemplate @ InventoryItem.GetMyTemplateName();
+			`LOG("Item not valid:" @ InventoryItem.GetMyTemplateName(),, 'Fear_MP');
 			return false;
 		}
 
 		switch (InventoryItem.GetMyTemplateName())
 		{
 			// Сюда добавляй имена темплатов разрешенных предметов
-			case 'EMPGrenade':
+			case 'AlienGrenade':
+			case 'FragGrenade':
+			case 'EMPGrenad':
+			case 'MindShield':
+			case 'APRounds':
+			case 'TracerRounds':
+
+			case 'Hellweave':
+			case 'StasisVest':
+			case 'HazmatVest':
+			case 'NanoMedikit':
+			case 'TalonRounds':
+			`LOG("Item  valid:" @ InventoryItem.GetMyTemplateName(),, 'Fear_MP');
 				return true;
 			default:
 				`LOG("Item not valid:" @ InventoryItem.GetMyTemplateName(),, 'Fear_MP');

@@ -374,7 +374,6 @@ static function X2CharacterTemplate CreateTemplate_TheLostDasherMP()
 	
 	CharTemplate.bAllowSpawnFromATT = false;
 
-	CharTemplate.strScamperBT = "TheLostScamperRoot";
 
 	CharTemplate.ImmuneTypes.AddItem('Mental');
 	CharTemplate.ImmuneTypes.AddItem('Poison');
@@ -382,6 +381,9 @@ static function X2CharacterTemplate CreateTemplate_TheLostDasherMP()
 
 	CharTemplate.Abilities.AddItem('StandardMove');
 	CharTemplate.Abilities.AddItem('ZombieInitialization');
+	CharTemplate.Abilities.AddItem('TheLost');
+	CharTemplate.Abilities.AddItem('LostHowlerAbility');
+	CharTemplate.Abilities.AddItem('LostCatchingFire');
 	CharTemplate.MPPointValue = CharTemplate.XpKillscore * 10;
 
 	CharTemplate.strTargetIconImage = class'UIUtilities_Image'.const.TargetIcon_TheLost;

@@ -65,7 +65,7 @@ static function X2AbilityTemplate AddPlaceTurretAbility()
 	Template.TargetingMethod = class'X2TargetingMethod_Pillar';
 
 	CursorTarget = new class'X2AbilityTarget_Cursor';
-//	CursorTarget.FixedAbilityRange = 64;
+	CursorTarget.FixedAbilityRange = 27;
 	CursorTarget.bRestrictToSquadsightRange = true;
 	Template.AbilityTargetStyle = CursorTarget;
 

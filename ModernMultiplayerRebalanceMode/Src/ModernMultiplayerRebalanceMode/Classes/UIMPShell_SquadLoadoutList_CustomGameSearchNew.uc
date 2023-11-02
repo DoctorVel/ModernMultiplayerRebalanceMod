@@ -8,6 +8,8 @@ function UpdateSquadListItems()
 	local XComGameStateContext_SquadSelect kSquadLoadoutContext;
 	local XComGameState_Unit kLoadoutUnit;
 
+	local string strDisabledReason;
+
 	SquadList.ClearItems();
 
 	UIListItemString(SquadList.CreateItem(class'UIListItemString')).InitListItem(m_strCreateNewLoadout);
@@ -30,13 +32,14 @@ function UpdateSquadListItems()
 		if( `ISCONTROLLERACTIVE )
 		{
 			kListItem.SetWidgetType(EUILineItemType_Description);
-			kListItem.UpdateDataDescription(kSquadLoadoutContext.strLoadoutName@"-"@pointTotal@m_strPointTotalPostfix);
+			kListItem.UpdateDataDescription(kSquadLoadoutContext.strLoadoutName @ "-" @ pointTotal @ m_strPointTotalPostfix);
 		}
 		else
 		{
 			kListItem.SetWidgetType(EUILineItemType_Checkbox);
-			kListItem.UpdateDataCheckbox(kSquadLoadoutContext.strLoadoutName@"-"@pointTotal@m_strPointTotalPostfix, "", false, OnCheckboxClicked);
+			kListItem.UpdateDataCheckbox(kSquadLoadoutContext.strLoadoutName @ "-" @ pointTotal @ m_strPointTotalPostfix, "", false, OnCheckboxClicked);
 		}
+
 		kListItem.metadataObject = kSquadLodoutState;
 		kListItem.metadataInt = pointTotal;
 
@@ -50,13 +53,30 @@ function UpdateSquadListItems()
 		}
 		
 		// Валидация отряда
-		if (!class'MPSquadValidator'.static.ValidateSquad(kSquadLodoutState))
+		if (!class'MPSquadValidator'.static.ValidateSquad(kSquadLodoutState, strDisabledReason))
 		{
 			kListItem.SetDisabled(true);
+			kListItem.Desc.SetHTMLText(kListItem.Desc.htmlText @ strDisabledReason);			
 		}
 		
 		kListItem.Show();
 	}
 
 	SelectFirstLoadout();
+}
+
+simulated function bool CanJoinGame()
+{
+	local string strDummyString;
+
+	// Валидация отряда
+	if (m_kSquadLoadout != none)
+	{
+		if (!class'MPSquadValidator'.static.ValidateSquad(m_kSquadLoadout, strDummyString))
+		{
+			return false;
+		}
+	}
+
+	return super.CanJoinGame();
 }

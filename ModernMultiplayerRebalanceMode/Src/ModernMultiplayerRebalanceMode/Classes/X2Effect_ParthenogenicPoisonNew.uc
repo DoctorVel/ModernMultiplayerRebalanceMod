@@ -17,8 +17,5 @@ function OnSpawnComplete(const out EffectAppliedData ApplyEffectParameters, Stat
     }
 
     CocoonUnit.ActionPoints.Length = 0;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 81b7223d8401c0c65117057697faf766cfe8764b
+

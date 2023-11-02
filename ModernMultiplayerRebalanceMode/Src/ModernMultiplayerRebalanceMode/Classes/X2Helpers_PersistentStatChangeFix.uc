@@ -69,7 +69,7 @@ static final function bool HandlePlayerTurnEvent(XComGameState NewGameState,
 static private function EEffectClass_Type LogEffectInfo(
     name EffectName, const out XComGameState_Effect EffectState)
 {
-    local X2Effect_PersistentStatChange StatChangeEffect;
+  //  local X2Effect_PersistentStatChange StatChangeEffect;
     local X2Effect_Persistent Effect;
     local EEffectClass_Type eType;
 
@@ -88,7 +88,7 @@ static private function EEffectClass_Type LogEffectInfo(
     
     if (Effect.IsA('X2Effect_PersistentStatChange'))
     {
-        StatChangeEffect = X2Effect_PersistentStatChange(Effect);
+        //StatChangeEffect = X2Effect_PersistentStatChange(Effect);
         eType = eEffectClass_StatChange;
     }
 

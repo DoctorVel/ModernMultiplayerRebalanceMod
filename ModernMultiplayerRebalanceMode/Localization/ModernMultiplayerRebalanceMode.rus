@@ -1,3 +1,10 @@
 [X2Ability_ZombieTurnLife]
 DelayedDamageBuffName="Контроль зомби"
-DelayedDamageBuffText="Зомби, управляемые Чародеем, исчезают спустя 3 хода после появления.".
+DelayedDamageBuffText="Зомби, управляемые Чародеем, исчезают спустя 3 хода после появления."
+
+[MPSquadValidator]
+strUnitMissingCharTemplate = "У юнита нет X2CharacterTemplate:"
+strUnitNotAllowedInMP = "Юнит не разрешен в МП:"
+strMissingItemTemplate = "У предмета нет X2ItemTemplate:"
+strItemNotAllowedInMP = "Предмет не разрешен в МП:"
+strTooManyUnitsOfSameType = "Слишком много юнитов одного типа: %NumUnits% (макс. %MaxAllowed%)"

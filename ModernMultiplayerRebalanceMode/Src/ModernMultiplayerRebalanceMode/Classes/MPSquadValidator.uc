@@ -22,7 +22,7 @@ static final function bool ValidateSquad(const XComGameState CheckSquad, out str
 	}
 	
 	// Сюда добавляй макс. число разрешенных юнитов определенного типа
-	if (!CountUnitsOfType(UnitTypes, 'Sectoid', 3, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'SectoidMP', 1, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'Trooper', 2, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'Gatekeeper', 1, strDisabledReason)) return false;
 	
@@ -79,7 +79,7 @@ static final function bool IsValidUnitType(const name UnitType)
 	switch (UnitType)
 	{
 		// Сюда добавляй имена темплпатов юнитов разрешенных в МП
-		case 'Sectoid':
+		case 'SectoidMP':
 		case 'AdvTrooper':
 		case 'Soldier':
 			return true;
@@ -111,9 +111,7 @@ static final function bool AreUnitItemsValid(const XComGameState_Unit UnitState,
 		switch (InventoryItem.GetMyTemplateName())
 		{
 			// Сюда добавляй имена темплатов разрешенных предметов
-			case 'KevlarArmor':
-			case 'AssaultRifle_CV':
-			case 'FragGrenade':
+			case 'EMPGrenade':
 				return true;
 			default:
 				`LOG("Item not valid:" @ InventoryItem.GetMyTemplateName(),, 'Fear_MP');

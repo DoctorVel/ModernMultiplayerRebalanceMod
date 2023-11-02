@@ -1,10 +1,10 @@
 [X2Ability_ZombieTurnLife]
-DelayedDamageBuffName="Контроль зомби"
-DelayedDamageBuffText="Зомби, управляемые Чародеем, исчезают спустя 3 хода после появления."
+DelayedDamageBuffName="РљРѕРЅС‚СЂРѕР»СЊ Р·РѕРјР±Рё"
+DelayedDamageBuffText="Р—РѕРјР±Рё, СѓРїСЂР°РІР»СЏРµРјС‹Рµ Р§Р°СЂРѕРґРµРµРј, РёСЃС‡РµР·Р°СЋС‚ СЃРїСѓСЃС‚СЏ 3 С…РѕРґР° РїРѕСЃР»Рµ РїРѕСЏРІР»РµРЅРёСЏ."
 
 [MPSquadValidator]
-strUnitMissingCharTemplate = "У юнита нет X2CharacterTemplate:"
-strUnitNotAllowedInMP = "Юнит не разрешен в МП:"
-strMissingItemTemplate = "У предмета нет X2ItemTemplate:"
-strItemNotAllowedInMP = "Предмет не разрешен в МП:"
-strTooManyUnitsOfSameType = "Слишком много юнитов одного типа: %NumUnits% (макс. %MaxAllowed%)"
+strUnitMissingCharTemplate = "РЈ СЋРЅРёС‚Р° РЅРµС‚ X2CharacterTemplate:"
+strUnitNotAllowedInMP = "Р®РЅРёС‚ РЅРµ СЂР°Р·СЂРµС€РµРЅ РІ РњРџ:"
+strMissingItemTemplate = "РЈ РїСЂРµРґРјРµС‚Р° РЅРµС‚ X2ItemTemplate:"
+strItemNotAllowedInMP = "РџСЂРµРґРјРµС‚ РЅРµ СЂР°Р·СЂРµС€РµРЅ РІ РњРџ:"
+strTooManyUnitsOfSameType = "РЎР»РёС€РєРѕРј РјРЅРѕРіРѕ СЋРЅРёС‚РѕРІ РѕРґРЅРѕРіРѕ С‚РёРїР°: %NumUnits% (РјР°РєСЃ. %MaxAllowed%)"

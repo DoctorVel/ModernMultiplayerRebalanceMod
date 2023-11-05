@@ -380,10 +380,9 @@ static function X2CharacterTemplate CreateTemplate_TheLostDasherMP()
 	CharTemplate.ImmuneTypes.AddItem(class'X2Item_DefaultDamageTypes'.default.ParthenogenicPoisonType);
 
 	CharTemplate.Abilities.AddItem('StandardMove');
-	CharTemplate.Abilities.AddItem('ZombieInitialization');
-	CharTemplate.Abilities.AddItem('TheLost');
-	CharTemplate.Abilities.AddItem('LostHowlerAbility');
-	CharTemplate.Abilities.AddItem('LostCatchingFire');
+	CharTemplate.Abilities.AddItem('ZombieInitialization');;
+	CharTemplate.Abilities.AddItem('VulnerabilityToFire');
+
 	CharTemplate.MPPointValue = CharTemplate.XpKillscore * 10;
 
 	CharTemplate.strTargetIconImage = class'UIUtilities_Image'.const.TargetIcon_TheLost;
@@ -572,6 +571,7 @@ static function X2CharacterTemplate CreateTemplate_ChosenWarlockMP()
 	CharTemplate.Abilities.AddItem('ChosenBrutal');
 	CharTemplate.Abilities.AddItem('ChosenRevenge');
 	CharTemplate.Abilities.AddItem('ChosenGroundling');
+	CharTemplate.Abilities.AddItem('KillZombie');
 
 	CharTemplate.ImmuneTypes.AddItem('Mental');
 
@@ -658,7 +658,7 @@ static function X2CharacterTemplate CreateTemplate_ArchonKingMP()
 	local X2CharacterTemplate CharTemplate;
 
 	`CREATE_X2CHARACTER_TEMPLATE(CharTemplate, 'ArchonKingMP');
-	CharTemplate.CharacterGroupName = 'ArchonKingMP';
+	CharTemplate.CharacterGroupName = 'Archon';
 	CharTemplate.DefaultLoadout = 'ArchonKingMP_Loadout';
 	CharTemplate.BehaviorClass = class'XGAIBehavior';
 	CharTemplate.strPawnArchetypes.AddItem("GameUnit_ArchonKing.ARC_GameUnit_ArchonKing");

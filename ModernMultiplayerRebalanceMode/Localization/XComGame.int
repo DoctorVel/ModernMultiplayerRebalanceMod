@@ -297,3 +297,8 @@ LocFriendlyName="Controlling Spectral Zombies"
 LocHelpText="Warlock is able to maintain life in the created zombies for 4 turns from the moment of creation, after which their psionic shells dissipate"
 LocLongDescription="Warlock is able to maintain life in the created zombies for 4 turns from the moment of creation, after which their psionic shells dissipate"
 LocFlyOverText="Controlling Spectral Zombies"
+
+[VulnerabilityToFirePassive X2AbilityTemplate]
+LocFriendlyName="Vulnerable to Fire"
+LocLongDescription="Wanderers take increased fire damage."
+LocHelpText="Increased fire damage."

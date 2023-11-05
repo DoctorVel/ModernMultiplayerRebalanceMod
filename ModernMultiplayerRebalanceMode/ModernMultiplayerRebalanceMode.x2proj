@@ -134,6 +134,9 @@
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_PlaceTurret_Custom.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_VulnerabilityToFire.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_ZombieTurnLife.uc">
       <SubType>Content</SubType>
     </Content>

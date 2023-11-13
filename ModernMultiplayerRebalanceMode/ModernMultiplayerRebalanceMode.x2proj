@@ -131,6 +131,9 @@
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\UITacticalHUD_EnemyPreviewNew.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_BerserkerQueenMPPunch.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_PlaceTurret_Custom.uc">
       <SubType>Content</SubType>
     </Content>

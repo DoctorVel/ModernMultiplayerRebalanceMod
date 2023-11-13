@@ -17,7 +17,7 @@ static function array<X2DataTemplate> CreateTemplates()
 	Templates.AddItem(CreateTemplate_ChosenSniperMP());
 	Templates.AddItem(CreateTemplate_ArchonKingMP());
 	Templates.AddItem(CreateTemplate_AdvTurretMP());
-
+	Templates.AddItem(CreateTemplate_BerserkerQueenMP());
 	return Templates;
 }
 
@@ -120,12 +120,12 @@ static function X2CharacterTemplate CreateTemplate_AdvGeneralMP()
 	CharTemplate.bIsAfraidOfFire = true;
 
 	CharTemplate.Abilities.AddItem('MarkTarget');
-	CharTemplate.Abilities.AddItem('CombatPresence');
 	CharTemplate.Abilities.AddItem('HunkerDown');
 	CharTemplate.Abilities.AddItem('ChosenKineticPlating');
 	CharTemplate.Abilities.AddItem('GrapplePowered');
 	CharTemplate.Abilities.AddItem('TotalCombat');
 	CharTemplate.Abilities.AddItem('Interactive_PlaceTurretObject');
+	CharTemplate.Abilities.AddItem('DarkEventAbility_UndyingLoyalty');
 
 	CharTemplate.AddTemplateAvailablility(CharTemplate.BITFIELD_GAMEAREA_Multiplayer); // Allow in MP!
 	CharTemplate.MPPointValue = CharTemplate.XpKillscore * 10;
@@ -380,7 +380,7 @@ static function X2CharacterTemplate CreateTemplate_TheLostDasherMP()
 	CharTemplate.ImmuneTypes.AddItem(class'X2Item_DefaultDamageTypes'.default.ParthenogenicPoisonType);
 
 	CharTemplate.Abilities.AddItem('StandardMove');
-	CharTemplate.Abilities.AddItem('ZombieInitialization');;
+	CharTemplate.Abilities.AddItem('ZombieInitializationPassive');;
 	CharTemplate.Abilities.AddItem('VulnerabilityToFire');
 
 	CharTemplate.MPPointValue = CharTemplate.XpKillscore * 10;
@@ -774,6 +774,67 @@ static function X2CharacterTemplate CreateTemplate_AdvTurretMP()
 	CharTemplate.strTargetIconImage = class'UIUtilities_Image'.const.TargetIcon_Turret;
 
 	CharTemplate.bDisablePodRevealMovementChecks = true;
+
+	return CharTemplate;
+}
+
+static function X2CharacterTemplate CreateTemplate_BerserkerQueenMP()
+{
+	local X2CharacterTemplate CharTemplate;
+
+	`CREATE_X2CHARACTER_TEMPLATE(CharTemplate, 'BerserkerQueenMP');
+	CharTemplate.CharacterGroupName = 'BerserkerQueenMP';
+	CharTemplate.DefaultLoadout = 'BerserkerQueenMP_Loadout';
+	CharTemplate.BehaviorClass = class'XGAIBehavior';
+	CharTemplate.strPawnArchetypes.AddItem("GameUnit_BerserkerQueen.ARC_GameUnit_BerserkerQueen");
+
+	CharTemplate.strMatineePackages.AddItem("CIN_Berserker");
+	CharTemplate.strMatineePackages.AddItem("CIN_BerserkerQueen");
+
+	CharTemplate.UnitSize = 1;
+	CharTemplate.UnitHeight = 3; //One unit taller than normal
+	// Traversal Rules
+	CharTemplate.bCanUse_eTraversal_Normal = true;
+	CharTemplate.bCanUse_eTraversal_ClimbOver = true;
+	CharTemplate.bCanUse_eTraversal_ClimbOnto = true;
+	CharTemplate.bCanUse_eTraversal_ClimbLadder = true;
+	CharTemplate.bCanUse_eTraversal_DropDown = true;
+	CharTemplate.bCanUse_eTraversal_Grapple = false;
+	CharTemplate.bCanUse_eTraversal_Landing = true;
+	CharTemplate.bCanUse_eTraversal_BreakWindow = true;
+	CharTemplate.bCanUse_eTraversal_KickDoor = true;
+	CharTemplate.bCanUse_eTraversal_JumpUp = false;
+	CharTemplate.bCanUse_eTraversal_WallClimb = false;
+	CharTemplate.bCanUse_eTraversal_BreakWall = false;
+	CharTemplate.bAppearanceDefinesPawn = false;
+	CharTemplate.bCanTakeCover = false;
+
+	CharTemplate.bIsAlien = true;
+	CharTemplate.bIsAdvent = false;
+	CharTemplate.bIsCivilian = false;
+	CharTemplate.bIsPsionic = false;
+	CharTemplate.bIsRobotic = false;
+	CharTemplate.bIsSoldier = false;
+	CharTemplate.bIsMeleeOnly = true;
+
+	CharTemplate.bCanBeTerrorist = false;
+	CharTemplate.bCanBeCriticallyWounded = false;
+	CharTemplate.bIsAfraidOfFire = true;
+
+	CharTemplate.bAllowSpawnFromATT = false;
+	CharTemplate.bAllowRushCam = false;
+
+	CharTemplate.AddTemplateAvailablility(CharTemplate.BITFIELD_GAMEAREA_Multiplayer); // Allow in MP!
+	CharTemplate.MPPointValue = CharTemplate.XpKillscore * 10;
+	CharTemplate.strScamperBT = "ScamperRoot_MeleeNoCover";
+
+	CharTemplate.Abilities.AddItem('TriggerRageDamageListener');
+	CharTemplate.Abilities.AddItem('DevastatingPunchMP');
+
+
+	CharTemplate.strTargetIconImage = class'UIUtilities_Image'.const.TargetIcon_Alien;
+
+	CharTemplate.ChallengePowerLevel = 50;
 
 	return CharTemplate;
 }

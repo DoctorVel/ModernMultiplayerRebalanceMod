@@ -108,6 +108,11 @@ static event OnPostTemplatesCreated()
 	SpawnChryssalidMPPatch2();
 	RevivalProtocolPatch();
 	PatchBattleScaner();
+	DarkEventAbility_UndyingLoyaltyPatch();
+	PsiZombiePatch();
+	ChosenKineticPlatingPatch();
+	PoisonSpitPatch();
+	ChosenImmunitiesPatch();
 } 
 
 static private function RapidFirePatch()
@@ -250,7 +255,7 @@ static private function HideTeleportAlly()
         Template = X2AbilityTemplate(DifficultyVariant);
         if (Template == none) continue;
 
-        SetHidden(Template);;
+        SetHidden(Template);
     }
 }
 
@@ -2607,4 +2612,131 @@ static private function PatchBattleScaner()
         
 	}
 
+}
+
+static private function DarkEventAbility_UndyingLoyaltyPatch()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('DarkEventAbility_UndyingLoyalty', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+        
+        for (i = Template.AbilityShooterConditions.Length - 1; i >= 0; i--)
+        {
+            if (X2Condition_GameplayTag(Template.AbilityShooterConditions[i]) != none)
+            {
+               Template.AbilityShooterConditions.Remove(i, 1);
+            }
+        }
+
+		for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
+        {
+            if (X2Effect_SpawnPsiZombie(Template.AbilityTargetEffects[i]) != none)
+            {
+             X2Effect_SpawnPsiZombie(Template.AbilityTargetEffects[i]).bAddToSourceGroup=true;
+            }
+		}
+		Template.IconImage = "img:///UILibrary_PerkIcons.UIPerk_sectoid_psireanimate";
+		SetHidden(Template);
+		Template.AdditionalAbilities.AddItem('DarkEventAbility_UndyingLoyaltyPassive');
+
+    }
+}
+
+static private function PsiZombiePatch()
+{
+    local X2CharacterTemplateManager    CharacterTemplateManager;
+    local X2CharacterTemplate    Template;
+    local array<X2DataTemplate>    DifficultyVariants;
+    local X2DataTemplate        DifficultyVariant;
+
+    CharacterTemplateManager = class'X2CharacterTemplateManager'.static.GetCharacterTemplateManager();
+
+    CharacterTemplateManager.FindDataTemplateAllDifficulties('PsiZombie', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2CharacterTemplate(DifficultyVariant);
+        if (Template != none)
+        {
+        Template.DefaultLoadout = 'SpectralZombieM2MP_Loadout';
+        }
+    }
+}
+
+
+static private function ChosenKineticPlatingPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('ChosenKineticPlating', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+        SetHidden(Template);
+		Template.AdditionalAbilities.AddItem('ChosenKineticPlatingPassive');
+    }
+}
+
+
+static private function PoisonSpitPatch()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+	local X2AbilityCooldown Cooldown;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('PoisonSpit', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template != none)
+        {
+            Cooldown = new class'X2AbilityCooldown';
+            Cooldown.iNumTurns = 3;
+            Template.AbilityCooldown = Cooldown;
+        }
+    }
+}
+
+static private function ChosenImmunitiesPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('ChosenImmunities', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+		
+		Template.IconImage = "img:///UILibrary_PerkIcons.UIPerk_mentalfortress";
+    }
 }

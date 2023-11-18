@@ -64,6 +64,10 @@ simulated function PopulateData() {
      {
   kListItem.SetDisabled(true);
   }
+  if (MPCharTemplate.DataName == 'AdvDroneMP' && GetNumCharsInSquad(MPCharTemplate.DataName) > 1)
+     {
+  kListItem.SetDisabled(true);
+  }
   if (MPCharTemplate.DataName == 'AdvMEC_M2_MP' && GetNumCharsInSquad(MPCharTemplate.DataName) > 1)
      {
   kListItem.SetDisabled(true);

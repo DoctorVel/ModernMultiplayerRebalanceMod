@@ -4,7 +4,6 @@ static function array<X2DataTemplate> CreateTemplates()
 {
 	local array<X2DataTemplate> Templates;
 
-	
 	Templates.AddItem(CreateTemplate_ViperKingMP());
 	Templates.AddItem(CreateTemplate_AdvGeneralMP());
 	Templates.AddItem(CreateTemplate_FeralMEC_MP());
@@ -18,6 +17,11 @@ static function array<X2DataTemplate> CreateTemplates()
 	Templates.AddItem(CreateTemplate_ArchonKingMP());
 	Templates.AddItem(CreateTemplate_AdvTurretMP());
 	Templates.AddItem(CreateTemplate_BerserkerQueenMP());
+	Templates.AddItem(CreateTemplate_AHWElder());
+	Templates.AddItem(CreateTemplate_MutonElite_MP());
+	Templates.AddItem(CreateTemplate_AdvDroneMP());
+	Templates.AddItem(CreateTemplate_SectoidM2_MP());
+
 	return Templates;
 }
 
@@ -68,6 +72,7 @@ static function X2CharacterTemplate CreateTemplate_ViperKingMP()
 
 	CharTemplate.Abilities.AddItem('Bind');
 	CharTemplate.Abilities.AddItem('ShadowStep');
+	CharTemplate.Abilities.AddItem('StoneSkin');
 
 	CharTemplate.AddTemplateAvailablility(CharTemplate.BITFIELD_GAMEAREA_Multiplayer); // Allow in MP!
 	CharTemplate.MPPointValue = CharTemplate.XpKillscore * 10;
@@ -184,6 +189,7 @@ static function X2CharacterTemplate CreateTemplate_FeralMEC_MP()
 	CharTemplate.strScamperBT = "ScamperRoot_Flanker";
 
 	CharTemplate.Abilities.AddItem('RobotImmunities');
+	CharTemplate.Abilities.AddItem('BD_ReadyForAnything_LW');
 
 
 	CharTemplate.strHackIconImage = "UILibrary_Common.TargetIcons.Hack_robot_icon";
@@ -502,7 +508,6 @@ static function X2CharacterTemplate CreateTemplate_AdvPsiWitchMP()
 	CharTemplate.ImmuneTypes.AddItem('Poison');
 	CharTemplate.ImmuneTypes.AddItem('ParthenogenicPoison');
 
-	CharTemplate.AddTemplateAvailablility(CharTemplate.BITFIELD_GAMEAREA_Multiplayer); // Allow in MP!
 	CharTemplate.MPPointValue = CharTemplate.XpKillscore * 10;
 
 	CharTemplate.strHackIconImage = "UILibrary_Common.TargetIcons.Hack_captain_icon";
@@ -708,6 +713,9 @@ static function X2CharacterTemplate CreateTemplate_ArchonKingMP()
 
 	CharTemplate.Abilities.AddItem('FrenzyDamageListener');
 	CharTemplate.Abilities.AddItem('BlazingPinionsStage1MP');
+	CharTemplate.Abilities.AddItem('IcarusDropGrab');
+	CharTemplate.Abilities.AddItem('BD_Executioner_LW');
+	CharTemplate.Abilities.AddItem('Groundling');
 
 	CharTemplate.strTargetIconImage = class'UIUtilities_Image'.const.TargetIcon_Alien;
 
@@ -829,12 +837,250 @@ static function X2CharacterTemplate CreateTemplate_BerserkerQueenMP()
 	CharTemplate.strScamperBT = "ScamperRoot_MeleeNoCover";
 
 	CharTemplate.Abilities.AddItem('TriggerRageDamageListener');
-	CharTemplate.Abilities.AddItem('DevastatingPunchMP');
+	CharTemplate.Abilities.AddItem('DevastatingPunchBQMP');
+	CharTemplate.Abilities.AddItem('Quake');
+	CharTemplate.Abilities.AddItem('Faithbreaker');
 
 
 	CharTemplate.strTargetIconImage = class'UIUtilities_Image'.const.TargetIcon_Alien;
 
 	CharTemplate.ChallengePowerLevel = 50;
+
+	return CharTemplate;
+}
+
+static function X2CharacterTemplate CreateTemplate_AHWElder()
+{
+	local X2CharacterTemplate CharTemplate;
+
+	`CREATE_X2CHARACTER_TEMPLATE(CharTemplate, 'AHWElder');
+	CharTemplate.CharacterGroupName = 'Ethereal';
+	CharTemplate.DefaultLoadout='Elder_Loadout';
+	CharTemplate.BehaviorClass=class'XGAIBehavior';
+	CharTemplate.strBehaviorTree = "AHWElder::CharacterRoot";
+	CharTemplate.strPawnArchetypes.AddItem("GameUnit_Ethereal.ARC_GameUnit_Elder");
+
+	CharTemplate.strMatineePackages.AddItem("CIN_AHWElder");
+
+	CharTemplate.UnitSize = 1;
+	// Traversal Rules
+	CharTemplate.bCanUse_eTraversal_Normal = true;
+	CharTemplate.bCanUse_eTraversal_ClimbOver = true;
+	CharTemplate.bCanUse_eTraversal_ClimbOnto = true;
+	CharTemplate.bCanUse_eTraversal_ClimbLadder = false;
+	CharTemplate.bCanUse_eTraversal_DropDown = true;
+	CharTemplate.bCanUse_eTraversal_Grapple = false;
+	CharTemplate.bCanUse_eTraversal_Landing = true;
+	CharTemplate.bCanUse_eTraversal_BreakWindow = true;
+	CharTemplate.bCanUse_eTraversal_KickDoor = true;
+	CharTemplate.bCanUse_eTraversal_JumpUp = true;
+	CharTemplate.bCanUse_eTraversal_WallClimb = false;
+	CharTemplate.bCanUse_eTraversal_BreakWall = false;
+	CharTemplate.bAppearanceDefinesPawn = false;    
+	CharTemplate.bCanTakeCover = false;
+
+	CharTemplate.bIsAlien = true;
+	CharTemplate.bIsAdvent = false;
+	CharTemplate.bIsCivilian = false;
+	CharTemplate.bIsPsionic = true;
+	CharTemplate.bIsRobotic = false;
+	CharTemplate.bIsSoldier = false;
+
+	CharTemplate.bAllowSpawnFromATT = false;
+
+	CharTemplate.bImmueToFalling = true;
+
+	CharTemplate.bCanBeTerrorist = true;
+	CharTemplate.bCanBeCriticallyWounded = false;
+	CharTemplate.bIsAfraidOfFire = true;
+
+
+	CharTemplate.Abilities.AddItem('VulnerabilityMelee');
+	CharTemplate.Abilities.AddItem('AHWEtherealDivinity');
+	CharTemplate.Abilities.AddItem('AHWElderReflect');
+	CharTemplate.Abilities.AddItem('AHWElderReflectShot');
+	CharTemplate.Abilities.AddItem('MentalFortress');
+	CharTemplate.ImmuneTypes.AddItem('Mental');
+	
+
+	CharTemplate.strTargetIconImage = "UI_Icons_Elder.TargetIcons.Target_Elder";
+	CharTemplate.ScamperActionPoints = 1;
+
+	return CharTemplate;
+}
+
+static function X2CharacterTemplate CreateTemplate_MutonElite_MP()
+{
+	local X2CharacterTemplate CharTemplate;
+
+	`CREATE_X2CHARACTER_TEMPLATE(CharTemplate, 'MutonElite_MP');
+	CharTemplate.CharacterGroupName = 'Muton';
+	CharTemplate.DefaultLoadout='MutonElite_MP_Loadout';
+	CharTemplate.BehaviorClass=class'XGAIBehavior';
+	CharTemplate.strPawnArchetypes.AddItem("LWMutonM3.Archetypes.ARC_GameUnit_MutonM3"); // SCRUBBED AFTER S&R
+
+	CharTemplate.strMatineePackages.AddItem("CIN_Muton");
+
+	CharTemplate.UnitSize = 1;
+	// Traversal Rules -- same as base Muton
+	CharTemplate.bCanUse_eTraversal_Normal = true;
+	CharTemplate.bCanUse_eTraversal_ClimbOver = true;
+	CharTemplate.bCanUse_eTraversal_ClimbOnto = true;
+	CharTemplate.bCanUse_eTraversal_ClimbLadder = true;
+	CharTemplate.bCanUse_eTraversal_DropDown = true;
+	CharTemplate.bCanUse_eTraversal_Grapple = false;
+	CharTemplate.bCanUse_eTraversal_Landing = true;
+	CharTemplate.bCanUse_eTraversal_BreakWindow = true;
+	CharTemplate.bCanUse_eTraversal_KickDoor = true;
+	CharTemplate.bCanUse_eTraversal_JumpUp = false;
+	CharTemplate.bCanUse_eTraversal_WallClimb = false;
+	CharTemplate.bCanUse_eTraversal_BreakWall = false;
+	CharTemplate.bAppearanceDefinesPawn = false;    
+	CharTemplate.bCanTakeCover = true;
+
+	CharTemplate.bIsAlien = true;
+	CharTemplate.bIsAdvent = false;
+	CharTemplate.bIsCivilian = false;
+	CharTemplate.bIsPsionic = false;
+	CharTemplate.bIsRobotic = false;
+	CharTemplate.bIsSoldier = false;
+    CharTemplate.bIsChosen = false;
+
+	CharTemplate.bCanBeTerrorist = false;
+	CharTemplate.bCanBeCriticallyWounded = false;
+	CharTemplate.bIsAfraidOfFire = true;
+
+	CharTemplate.bAllowSpawnFromATT = false;
+
+	CharTemplate.Abilities.AddItem('CounterattackPreparation');
+	CharTemplate.Abilities.AddItem('CounterattackDescription');
+	CharTemplate.Abilities.AddItem('BD_WarCry_LW');
+
+	CharTemplate.Abilities.AddItem('BD_Personalshield_LW');
+
+
+	CharTemplate.MPPointValue = CharTemplate.XpKillscore * 10;
+	CharTemplate.strBehaviorTree = "LWMutonM3::CharacterRoot"; // new config behavior tree parsing means we could use the group instead
+
+
+	CharTemplate.strTargetIconImage = class'UIUtilities_Image'.const.TargetIcon_Alien;
+
+	return CharTemplate;
+}
+
+static function X2CharacterTemplate CreateTemplate_AdvDroneMP()
+{
+	local X2CharacterTemplate CharTemplate;
+
+	`CREATE_X2CHARACTER_TEMPLATE(CharTemplate, 'AdvDroneMP');
+	CharTemplate.CharacterGroupName = 'AdventDrone';
+	CharTemplate.DefaultLoadout='AdvDroneMP_Loadout';
+	CharTemplate.BehaviorClass=class'XGAIBehavior';
+	CharTemplate.strPawnArchetypes.AddItem("LWDrone.Archetypes.ARC_GameUnit_DroneM1"); 
+
+	CharTemplate.strMatineePackages.AddItem("LW_CIN_Drone");
+
+	CharTemplate.UnitSize = 1;
+
+	CharTemplate.bCanUse_eTraversal_Normal = true;
+	CharTemplate.bCanUse_eTraversal_ClimbOver = false;
+	CharTemplate.bCanUse_eTraversal_ClimbOnto = false;
+	CharTemplate.bCanUse_eTraversal_ClimbLadder = false;
+	CharTemplate.bCanUse_eTraversal_DropDown = false;
+	CharTemplate.bCanUse_eTraversal_Grapple = false;
+	CharTemplate.bCanUse_eTraversal_Landing = true;
+	CharTemplate.bCanUse_eTraversal_BreakWindow = true;
+	CharTemplate.bCanUse_eTraversal_KickDoor = true;
+	CharTemplate.bCanUse_eTraversal_JumpUp = false;
+	CharTemplate.bCanUse_eTraversal_WallClimb = false;
+	CharTemplate.bCanUse_eTraversal_BreakWall = false;
+	CharTemplate.bCanUse_eTraversal_Launch = true;
+	CharTemplate.bCanUse_eTraversal_Flying = true;
+	CharTemplate.bCanUse_eTraversal_Land = true;
+	CharTemplate.bAppearanceDefinesPawn = false;    
+	CharTemplate.bCanTakeCover = false;
+
+	CharTemplate.bIsAlien = false;
+	CharTemplate.bIsAdvent = true;
+	CharTemplate.bIsCivilian = false;
+	CharTemplate.bIsPsionic = false;
+	CharTemplate.bIsRobotic = true;
+	CharTemplate.bIsSoldier = false;
+    CharTemplate.bIsChosen = false;
+
+	CharTemplate.bCanBeTerrorist = false;
+	CharTemplate.bCanBeCriticallyWounded = false;
+	CharTemplate.bIsAfraidOfFire = false;
+
+	CharTemplate.bWeakAgainstTechLikeRobot = true;
+
+	CharTemplate.Abilities.AddItem('RobotImmunities');
+
+	CharTemplate.MPPointValue = CharTemplate.XpKillscore * 10;
+	CharTemplate.strBehaviorTree = "LWDrone::CharacterRoot"; // new config behavior tree parsing means we could use the group instead
+
+
+	CharTemplate.strHackIconImage = "UILibrary_Common.TargetIcons.Hack_robot_icon";
+	CharTemplate.strTargetIconImage = class'UIUtilities_Image'.const.TargetIcon_Advent;  
+
+	return CharTemplate;
+}
+
+static function X2CharacterTemplate CreateTemplate_SectoidM2_MP()  
+{
+	local X2CharacterTemplate CharTemplate;
+
+	`CREATE_X2CHARACTER_TEMPLATE(CharTemplate, 'SectoidM2_MP');
+	CharTemplate.CharacterGroupName = 'Sectoid';
+	CharTemplate.DefaultLoadout='SectoidM2_MP_Loadout';
+	CharTemplate.BehaviorClass=class'XGAIBehavior';
+	CharTemplate.strPawnArchetypes.AddItem("LWSectoidM2.Archetypes.ARC_GameUnit_SectoidM2"); 
+
+	CharTemplate.strMatineePackages.AddItem("CIN_Sectoid");
+
+	CharTemplate.UnitSize = 1;
+	// Traversal Rules
+	CharTemplate.bCanUse_eTraversal_Normal = true;
+	CharTemplate.bCanUse_eTraversal_ClimbOver = true;
+	CharTemplate.bCanUse_eTraversal_ClimbOnto = true;
+	CharTemplate.bCanUse_eTraversal_ClimbLadder = true;
+	CharTemplate.bCanUse_eTraversal_DropDown = true;
+	CharTemplate.bCanUse_eTraversal_Grapple = false;
+	CharTemplate.bCanUse_eTraversal_Landing = true;
+	CharTemplate.bCanUse_eTraversal_BreakWindow = true;
+	CharTemplate.bCanUse_eTraversal_KickDoor = true;
+	CharTemplate.bCanUse_eTraversal_JumpUp = false;
+	CharTemplate.bCanUse_eTraversal_WallClimb = false;
+	CharTemplate.bCanUse_eTraversal_BreakWall = false;
+	CharTemplate.bAppearanceDefinesPawn = false;    
+	CharTemplate.bCanTakeCover = true;
+
+	CharTemplate.bIsAlien = true;
+	CharTemplate.bIsAdvent = false;
+	CharTemplate.bIsCivilian = false;
+	CharTemplate.bIsPsionic = true;
+	CharTemplate.bIsRobotic = false;
+	CharTemplate.bIsSoldier = false;
+
+	CharTemplate.bCanBeTerrorist = false;
+	CharTemplate.bCanBeCriticallyWounded = false;
+	CharTemplate.bIsAfraidOfFire = true;
+
+	CharTemplate.bAllowSpawnFromATT = false;
+
+	CharTemplate.Abilities.AddItem('VulnerabilityMelee');
+	CharTemplate.Abilities.AddItem('KillSiredZombies');
+
+	CharTemplate.Abilities.AddItem('BD_MassReanimation_LW');
+	CharTemplate.Abilities.AddItem('Mindspin');
+	CharTemplate.Abilities.AddItem('BD_MassMindSpin_LW');
+	
+	CharTemplate.MPPointValue = CharTemplate.XpKillscore * 10;
+
+	CharTemplate.strBehaviorTree = "LWSectoidM2::CharacterRoot"; // new config behavior tree parsing means we could use the group instead
+
+
+	CharTemplate.strTargetIconImage = class'UIUtilities_Image'.const.TargetIcon_Alien;
 
 	return CharTemplate;
 }

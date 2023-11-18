@@ -11,7 +11,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Config\" />
+    <Folder Include="ContentForCook\Elder" />
     <Folder Include="Localization\" />
+    <Folder Include="Content" />
     <Folder Include="Src\" />
     <Folder Include="Content\" />
     <Folder Include="ContentForCook\" />
@@ -52,7 +54,40 @@
     <Content Include="ContentForCook\%40VELSAdventMEC_M2_NewMPimage.upk">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="ContentForCook\BerserkerQueenMPCard.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ContentForCook\Elder\CIN_AHWElder.umap">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ContentForCook\Elder\EU_Char_Ethereal_ANIM.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ContentForCook\Elder\EU_CHR_Ethereal_Assets.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ContentForCook\Elder\FX_Ethereal_Unit.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ContentForCook\Elder\GameUnit_Ethereal.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ContentForCook\Elder\Perk_AHW_ElderReflect.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ContentForCook\Elder\TheEthereals_ModShaderCache.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ContentForCook\Elder\WP_Ethereal_AHW.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ContentForCook\EtherealMPCard.upk">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="ContentForCook\Mercury_Turret.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ContentForCook\MPCardSparkMPbyVEL.upk">
       <SubType>Content</SubType>
     </Content>
     <Content Include="ContentForCook\MPcard_ArchonKingMPbyVEL.upk">
@@ -85,6 +120,48 @@
     <Content Include="ContentForCook\VELSViperNeonateMPImage.upk">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Content\CharTextures-a_WOTC_AlienPack_DLCTFC_XPACK_.tfc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\CharTextures_WOTC_AlienPack_DLCTFC_XPACK_.tfc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\LWAdvDroneMatinee.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\LWDrone.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\LWDroneWeapon.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\LWMutonM3.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\LWMutonM3Rifle.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\LWSectoidM2.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\LW_CIN_Drone.umap">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\LW_Perk_MutonM3.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\LW_Perk_Psi_MassMindspin.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\LW_Perk_Psi_MassReanimation.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\UILibrary_BD_LWAlienPack.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\UI_Icons_Elder.upk">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Localization\ModernMultiplayerRebalanceMode.rus">
       <SubType>Content</SubType>
     </Content>
@@ -98,6 +175,15 @@
     <Content Include="ModPreview.jpg" />
     <Content Include="ContentOptions.json" />
     <Content Include="Src\extra_globals.uci" />
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\AHW_Abilities_Ethereals.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\AHW_Effect_ElderReflect.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\AHW_Effect_EtherealDivinity.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\MPSquadValidator.uc">
       <SubType>Content</SubType>
     </Content>
@@ -131,10 +217,31 @@
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\UITacticalHUD_EnemyPreviewNew.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_AdvDroneMP.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_ArchonKingMP.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_BerserkerQueenMPPunch.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_FeralMEC.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_MutonElite.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_PlaceTurret_Custom.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_SectoidM2MP.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_StandardShotWarlock.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_StoneSkin.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_VulnerabilityToFire.uc">
@@ -164,13 +271,22 @@
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_ApplyViperTongueDamageMP.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_Executioner_AP.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_IRI_DelayedDamage.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_ParthenogenicPoisonNew.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_ReadyForAnything.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_ReplaceActionPoints.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_SimpleHeal.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_SpawnSpectralArmyNew.uc">
@@ -180,6 +296,9 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_SpawnTurretScaled_XCom.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_WarCry.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2EventListener_RemovePersistentEffects.uc">

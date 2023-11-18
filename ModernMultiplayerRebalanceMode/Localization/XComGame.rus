@@ -340,3 +340,28 @@ LocFriendlyName="Уязвимость к огню"
 LocLongDescription="Странники получают повышенный урон от огня."
 LocHelpText="Увеличенный урон от огня."
 
+[DevastatingPunchBQMP X2AbilityTemplate]
+LocFriendlyName="Сокрушительный удар"
+LocLongDescription="Берсерк настолько силен, что способен кулаками насмерть забить врага. Эта атака может оглушить или дезориентировать противника."
+LocHelpText="Удар в ближнем бою, который может оглушить цель."
+LocFlyOverText="Сокрушительная атака"
+
+[StoneSkinPassive X2AbilityTemplate]
+LocFriendlyName="Каменная кожа"
+LocLongDescription="Чешуя Короля вайперов настолько прочная, что способна защитить его от выстрелов. Снижает входящий урон на 1."
+LocHelpText="Снижает входящий урон на 1."
+
+[StoneSkin X2AbilityTemplate]
+LocFriendlyName="Каменная кожа"
+LocLongDescription="Чешуя Короля вайперов настолько прочная, что способна защитить его от выстрелов. Снижает входящий урон на 1."
+LocHelpText="Снижает входящий урон на 1."
+
+[StandardShotWarlock X2AbilityTemplate]
+LocFriendlyName="Выстрел"
+LocHelpText="Выстрелить в цель. <Ability:CANNOTBEDODGED/>"
+LocLongDescription="Стрельба из основного оружия завершает ход солдата."
+
+[StandardShotWarlock_NoEnd X2AbilityTemplate]
+LocFriendlyName="Выстрел"
+LocHelpText="Выстрел в цель. Не завершает ход."
+LocLongDescription="Выстрел из этого оружия не завершает ход солдата."

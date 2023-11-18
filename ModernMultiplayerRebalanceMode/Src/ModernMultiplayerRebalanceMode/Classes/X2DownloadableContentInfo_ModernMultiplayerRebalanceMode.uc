@@ -113,6 +113,19 @@ static event OnPostTemplatesCreated()
 	ChosenKineticPlatingPatch();
 	PoisonSpitPatch();
 	ChosenImmunitiesPatch();
+	BindPatch2();
+	FrostbitePatch();
+	PatchPoisonSpitGlob();
+	QuakePatch();
+	IcarusDropGrabPatch();
+	OverdrivePatch();
+	RainmakerPatch();
+	BulwarkPatch();
+	IntimidatePatch();
+	RepairkPatch();
+	AbsorptionFieldPatch();
+	NovaInitPatch();
+	SparkSoldierPatch();
 } 
 
 static private function RapidFirePatch()
@@ -943,7 +956,10 @@ static private function PatchChosenRifle_MG()
         Template = X2WeaponTemplate(DifficultyVariant);
         if (Template != none)
         {
+		Template.Abilities.AddItem('StandardShotWarlock');
+		Template.Abilities.RemoveItem('StandardShot');
 		Template.strImage = "img:///UILibrary_XPACK_StrategyImages.Inv_Chosen_AssaultRifle";
+
 	    }
 	}
 
@@ -2738,5 +2754,301 @@ static private function ChosenImmunitiesPatch()
         if (Template == none) continue;
 		
 		Template.IconImage = "img:///UILibrary_PerkIcons.UIPerk_mentalfortress";
+    }
+}
+
+static private function BindPatch2()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('Bind', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+        
+        for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
+        {
+            if (X2Effect_ApplyDirectionalWorldDamage(Template.AbilityTargetEffects[i]) != none)
+            {
+               Template.AbilityTargetEffects.Remove(i, 1);
+            }
+        }
+
+    }
+}
+
+static private function FrostbitePatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('Frostbite', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+		
+		Template.IconImage = "img:///UILibrary_DLC2Images.UIPerk_freezingbreath";
+    }
+}
+
+static private function PatchPoisonSpitGlob()
+{
+    local X2ItemTemplateManager ItemTemplateManager;
+	local X2WeaponTemplate Template;
+	local array<X2DataTemplate>    DifficultyVariants;
+    local X2DataTemplate        DifficultyVariant;
+
+
+	ItemTemplateManager = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
+	ItemTemplateManager.FindDataTemplateAllDifficulties('PoisonSpitGlob', DifficultyVariants);
+
+	 foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2WeaponTemplate(DifficultyVariant);
+
+		if (Template == none) continue;
+
+		Template.iRange = 16;
+        
+	}
+
+}
+
+static private function QuakePatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+	local X2Effect_ApplyWeaponDamage DamageEffect;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('Quake', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AbilityMultiTargetEffects.Length = 0;
+
+		DamageEffect = new class'X2Effect_ApplyWeaponDamage';
+		DamageEffect.EffectDamageValue = class'X2Ability_DLC_Day60BerserkerQueen'.default.QUAKE_DAMAGE;
+		Template.AddMultiTargetEffect(DamageEffect);
+		
+		Template.IconImage = "img:///UILibrary_DLC2Images.UIPerk_beserker_quake";
+    }
+}
+
+
+static private function IcarusDropGrabPatch()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('IcarusDropGrab', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+        
+        for (i = Template.AbilityTargetConditions.Length - 1; i >= 0; i--)
+        {
+            if (X2Condition_UnitProperty(Template.AbilityTargetConditions[i]) != none)
+            {
+                X2Condition_UnitProperty(Template.AbilityTargetConditions[i]).ExcludeAdvent=true;
+            }
+        }
+
+
+    }
+}
+
+static private function OverdrivePatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('Overdrive', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
+    }
+}
+
+static private function RainmakerPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('Rainmaker', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
+    }
+}
+
+static private function BulwarkPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('Bulwark', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
+    }
+}
+
+static private function IntimidatePatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('Intimidate', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
+    }
+}
+
+static private function RepairkPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('Repair', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
+    }
+}
+
+static private function AbsorptionFieldPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('AbsorptionField', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
+    }
+}
+
+static private function NovaInitPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('NovaInit', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
+    }
+}
+
+static private function SparkSoldierPatch()
+{
+    local X2CharacterTemplateManager    CharacterTemplateManager;
+    local X2CharacterTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    CharacterTemplateManager = class'X2CharacterTemplateManager'.static.GetCharacterTemplateManager();
+
+   CharacterTemplateManager.FindDataTemplateAllDifficulties('SparkSoldier', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2CharacterTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
     }
 }

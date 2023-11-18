@@ -33,6 +33,7 @@ static final function bool ValidateSquad(const XComGameState CheckSquad, out str
 	if (!CountUnitsOfType(UnitTypes, 'AdvMEC_M2_MP', 2, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'AdvGeneralMP', 2, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'AdvPsiWitchMP', 1, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'AdvDroneMP', 2, strDisabledReason)) return false;
 
 	if (!CountUnitsOfType(UnitTypes, 'TheLostDasherMP', 6, strDisabledReason)) return false;
 
@@ -123,7 +124,6 @@ static final function bool IsValidUnitType(const name UnitType)
 	{
 		// Сюда добавляй имена темплпатов юнитов разрешенных в МП
 		case 'AdvTrooperMP':
-
 		case 'AdvCaptainMP':
 		case 'AdvStunLancerMP':
 		case 'AdvPurifierMP':
@@ -133,8 +133,7 @@ static final function bool IsValidUnitType(const name UnitType)
 		case 'AdvPriestMP':
 		case 'AdvMEC_M2_MP':
 		case 'AdvGeneralMP':
-		case 'AdvPsiWitchMP':
-		
+		case 'AdvDroneMP':
 		case 'TheLostDasherMP':
 
 		case 'FacelessMP':

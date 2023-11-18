@@ -95,38 +95,9 @@ static function X2AbilityTemplate CreateDevastatingPunchAbilityBQMP(optional Nam
 	Template.bFrameEvenWhenUnitIsHidden = true;
 	Template.bOverrideMeleeDeath = true;
 	Template.BuildNewGameStateFn = TypicalMoveEndAbility_BuildGameState;
-	Template.BuildVisualizationFn = DevastatingPunchAbility_BuildVisualization;
+	Template.BuildVisualizationFn = class'X2Ability_Berserker'.static.DevastatingPunchAbility_BuildVisualization;
 	Template.BuildInterruptGameStateFn = TypicalMoveEndAbility_BuildInterruptGameState;
 	Template.CinescriptCameraType = "Berserker_DevastatingPunch";
 
 	return Template;
-}
-
-function DevastatingPunchAbility_BuildVisualization(XComGameState VisualizeGameState)
-{
-	local XComGameStateHistory History;
-	local XComGameState_Unit SourceState, TargetState;
-	local XComGameStateContext_Ability  Context;
-	local VisualizationActionMetadata				ActionMetadata;
-	local X2Action_PlaySoundAndFlyOver SoundAndFlyOver;
-
-	TypicalAbility_BuildVisualization(VisualizeGameState);
-	
-	// Check if we should add a fly-over for 'Blind Rage' (iff both source and target are AI).
-	History = `XCOMHISTORY;
-	Context = XComGameStateContext_Ability(VisualizeGameState.GetContext());
-	SourceState = XComGameState_Unit(History.GetGameStateForObjectID(Context.InputContext.SourceObject.ObjectID));
-	if( SourceState.ControllingPlayerIsAI() && SourceState.IsUnitAffectedByEffectName(RageTriggeredEffectName))
-	{
-		TargetState = XComGameState_Unit(History.GetGameStateForObjectID(Context.InputContext.PrimaryTarget.ObjectID));
-		if( TargetState.GetTeam() == SourceState.GetTeam() )
-		{
-			ActionMetadata.StateObject_OldState = History.GetGameStateForObjectID(SourceState.ObjectID, eReturnType_Reference, VisualizeGameState.HistoryIndex - 1);
-			ActionMetadata.StateObject_NewState = VisualizeGameState.GetGameStateForObjectID(SourceState.ObjectID);
-			ActionMetadata.VisualizeActor = History.GetVisualizer(SourceState.ObjectID);
-
-			SoundAndFlyOver = X2Action_PlaySoundAndFlyOver(class'X2Action_PlaySoundAndFlyOver'.static.AddToVisualizationTree(ActionMetadata, Context, false, ActionMetadata.LastActionAdded));
- 			SoundAndFlyOver.SetSoundAndFlyOverParameters(None, default.BlindRageFlyover, '', eColor_Good);
-		}
-	}
 }

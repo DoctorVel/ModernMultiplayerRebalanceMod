@@ -11,6 +11,15 @@
 		"VELSTheLostMPImage",
 		"VELSViperKingMPMode",
 		"VELSViperNeonateMPImage",
-		"Mercury_Turret"
+		"Mercury_Turret",
+		"MPCardSparkMPbyVEL",
+		"BerserkerQueenMPCard",
+		"EtherealMPCard",
+		"EU_Char_Ethereal_ANIM",
+		"EU_CHR_Ethereal_Assets",
+		"FX_Ethereal_Unit",
+		"GameUnit_Ethereal",
+		"Perk_AHW_ElderReflect",
+		"WP_Ethereal_AHW"
     ]
 }

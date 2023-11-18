@@ -1,4 +1,4 @@
-class X2Ability_MutonElite extends X2Ability config(XComGameData_SoldierSkills);
+class X2Ability_MutonElite extends X2Ability config(GameData_SoldierSkills);
 
 var config int WARCRY_DURATION;
 var config int WARCRY_MUTON_OFFENSE_BONUS;
@@ -70,7 +70,6 @@ static function X2AbilityTemplate CreateMutonM2_LWAbility_WarCry()
 	MultiTargetProperty.ExcludeDead = true;
 	MultiTargetProperty.ExcludeHostileToSource = true;
 	MultiTargetProperty.ExcludeFriendlyToSource = false;
-	MultiTargetProperty.RequireSquadmates = true;
 	MultiTargetProperty.ExcludePanicked = true;
 	MultiTargetProperty.ExcludeRobotic = true;
 	MultiTargetProperty.ExcludeStunned = true;
@@ -95,7 +94,7 @@ static function X2AbilityTemplate CreateMutonM2_LWAbility_WarCry()
 	StatEffect.AddPersistentStatChange (eStat_Will, float (default.WARCRY_MUTON_WILL_BONUS), true);
 
 
-	//Template.AddShooterEffect(StatEffect); This would make Centurion gain bonuses from own War Cry
+	Template.AddShooterEffect(StatEffect); 
 	Template.AddMultiTargetEffect(StatEffect);
 
 	Template.bSkipFireAction = true;

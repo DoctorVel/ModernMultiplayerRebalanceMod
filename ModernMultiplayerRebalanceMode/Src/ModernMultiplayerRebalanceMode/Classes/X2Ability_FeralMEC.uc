@@ -41,6 +41,7 @@ static function X2DataTemplate CreateReadyForAnythingAbility()
 	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
 
 
+
 	return Template;
 }
 

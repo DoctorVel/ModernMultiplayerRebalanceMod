@@ -19,6 +19,7 @@ static function array<X2DataTemplate> CreateTemplates()
 
 	Templates.AddItem(CreateMutonM2_LWAbility_BayonetCharge());
 	Templates.AddItem(CreateMutonM2_LWAbility_WarCry());	
+	Templates.AddItem(CreatePersonalShieldAbility());
 
 	return Templates;
 }
@@ -253,6 +254,7 @@ static function X2DataTemplate CreatePersonalShieldAbility()
 	local X2AbilityCost_ActionPoints				ActionPointCost;
 	local array<name>								SkipExclusions;
 	local X2Effect_EnergyShield						PersonalShieldEffect;
+	local X2Effect_ConditionalDamageModifier		DamageEffect;
 
 	`CREATE_X2ABILITY_TEMPLATE (Template, 'BD_Personalshield_LW');
 
@@ -295,10 +297,20 @@ static function X2DataTemplate CreatePersonalShieldAbility()
 	PersonalShieldEffect.EffectName='PersonalShield';
 	Template.AddTargetEffect(PersonalShieldEffect);
 
+	DamageEffect = new class'X2Effect_ConditionalDamageModifier';
+	DamageEffect.bModifyIncomingDamage = true;
+	DamageEffect.DamageBonus = -1;
+	DamageEffect.BuildPersistentEffect(3, false, true, false, eGameRule_PlayerTurnEnd);
+	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
+	Template.AddTargetEffect(DamageEffect);
+
+
 	Template.CustomFireAnim = 'HL_SignalPositive';
 	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
 	Template.BuildVisualizationFn = TypicalAbility_BuildVisualization;
 	Template.CinescriptCameraType = "AdvShieldBearer_EnergyShieldArmor"; //??
+
+	Template.bShowActivation = true;
 
 	return Template;
 }

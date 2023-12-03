@@ -34,7 +34,6 @@ static function X2DataTemplate CreateStoneSkin()
 	DamageEffect.BuildPersistentEffect(1, true);
 	DamageEffect.SetDisplayInfo(ePerkBuff_Bonus, Template.LocFriendlyName, Template.GetMyHelpText(), "img:///UILibrary_PerkIcons.UIPerk_ironskin", true);
 	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
-	Template.BuildVisualizationFn = TypicalAbility_BuildVisualization;
     Template.bShowActivation = false;
     Template.bSkipFireAction = false;
 	Template.AddTargetEffect(DamageEffect);

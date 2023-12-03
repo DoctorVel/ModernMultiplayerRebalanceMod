@@ -27,6 +27,7 @@ static final function bool ValidateSquad(const XComGameState CheckSquad, out str
 	if (!CountUnitsOfType(UnitTypes, 'AdvStunLancerMP', 6, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'AdvPurifierMP', 6, strDisabledReason)) return false;	
 	if (!CountUnitsOfType(UnitTypes, 'FeralMEC_MP', 6, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'AdvMedic_MP', 2, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'AdvShieldBearerMP', 3, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'AdvMEC_MP', 2, strDisabledReason)) return false;	
 	if (!CountUnitsOfType(UnitTypes, 'AdvPriestMP', 6, strDisabledReason)) return false;
@@ -48,15 +49,20 @@ static final function bool ValidateSquad(const XComGameState CheckSquad, out str
 	if (!CountUnitsOfType(UnitTypes, 'ViperNeonateMP', 2, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'CyberusMP', 2, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'SpectreMP', 2, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'Centurioin', 2, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'ArchonMP', 2, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'SectoidM2_MP', 2, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'AndromedonMP', 2, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'ViperKingMP', 1, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'MutonElite_MP', 2, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'BerserkerQueenMP', 1, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'ArchonKingMP', 1, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'GatekeeperMP', 2, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'SectopodMP', 1, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'ChosenAssassinMP', 1, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'ChosenWarlockMP', 1, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'ChosenSniperMP', 1, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'AHWElder', 1, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'PhantomRanger', 2, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'BlademasterRanger', 2, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'SniperSharpshooter', 2, strDisabledReason)) return false;
@@ -69,6 +75,7 @@ static final function bool ValidateSquad(const XComGameState CheckSquad, out str
 	if (!CountUnitsOfType(UnitTypes, 'Reaper', 2, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'Skirmisher', 2, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'Templar', 2, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'SparkSoldierMP', 2, strDisabledReason)) return false;
 
 	
 	return true;
@@ -128,12 +135,14 @@ static final function bool IsValidUnitType(const name UnitType)
 		case 'AdvStunLancerMP':
 		case 'AdvPurifierMP':
 		case 'FeralMEC_MP':
+		case 'AdvMedicMP':
 		case 'AdvShieldBearerMP':
 		case 'AdvMEC_MP':
 		case 'AdvPriestMP':
 		case 'AdvMEC_M2_MP':
 		case 'AdvGeneralMP':
 		case 'AdvDroneMP':
+		case 'AdvPsiWitchMP':
 		case 'TheLostDasherMP':
 
 		case 'FacelessMP':
@@ -144,20 +153,26 @@ static final function bool IsValidUnitType(const name UnitType)
 		case 'BerserkerMP':
 		case 'ViperNeonateMP':
 		case 'CyberusMP':
+		case 'SectoidM2_MP':
+		case 'Centurion':
 		case 'SpectreMP':
 		case 'ArchonMP':
+		case 'MutonElite_MP':
 		case 'AndromedonMP':
 		case 'ViperKingMP':
+		case 'BerserkerQueenMP':
 		case 'GatekeeperMP':
 		case 'ArchonKingMP':
 		case 'SectopodMP':
 		case 'ChosenAssassinMP':
 		case 'ChosenSniperMP':
 		case 'ChosenWarlockMP':
+		case 'AHWElder':
 
 		case 'TemplarSoldier':
 		case 'SkirmisherSoldier':
 		case 'ReaperSoldier':
+		case 'SparkSoldier':
 		case 'Soldier':
 			return true;
 		default:

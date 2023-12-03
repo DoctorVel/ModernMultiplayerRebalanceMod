@@ -1,156 +1,316 @@
-[AdvGeneralMP X2MPCharacterTemplate]
-DisplayName="ADVENT General"
-DisplayDescription="A high-ranking Advent rank, capable of coordinating the actions of hundreds of units at once. Unlike regular Advent officers, Generals are equipped with more powerful psionic chips, allowing them to process millions of tactical situations per second. They have high willpower, improved physical fitness, and a number of powerful abilities. They carry a plasma grenade with them."
+; New units
 
-[AdvMEC_M2_MP X2MPCharacterTemplate]
-DisplayName="ADVENT Heavy MEC"
-DisplayDescription="A heavily armored version of the Advent MEC, designed to suppress the XCOM insurgency and restore order in emergency situations. It has an increased supply of micro-missiles (2 charges), increased damage from a magnetic gun, and an improved anti-hacking system."
+[AdvTurretMP X2CharacterTemplate]
+strCharacterName="ADVENT Turret"
 
-[AdvPsiWitchMP X2MPCharacterTemplate]
-DisplayName="Avatar"
-DisplayDescription="The greatest achievement of the Ethereals on Earth, possessing truly incredible psionic power. Combines the strengths of a human and an Elder. It has a number of advantages, but some of them can be turned into weaknesses, be careful. No living creature can resist their psionic abilities."
 
-[ChosenWarlockMP X2MPCharacterTemplate]
-DisplayName="Chosen: Warlock"
-DisplayDescription="A loyal and powerful servant of the Elders, ready to crush anyone who encroaches on their greatness. Having honed his psionics skills to perfection, he is able to destroy his opponent with just the power of thought. He is able to summon a ghostly army to his aid, as well as control and burn the minds of his enemies."
+; Advent Drone
 
-[ChosenSniperMP X2MPCharacterTemplate]
-DisplayName="Chosen: Sniper"
-DisplayDescription="The best in the business, the Hunter destroys enemies hundreds of kilometers away. Thanks to hundreds of years of training, he is able to shoot from a sniper rifle even after making a move. In case of close contact, he also does not hesitate to use a pistol. Fast and agile, the Hunter is ideal for taking down opponents with grace. He carries a sabotage grenade that can disorient and stun the enemy."
+[AdvDroneMP X2CharacterTemplate]
+strCharacterName="ADVENT Drone"
 
-[ChosenAssassinMP X2MPCharacterTemplate]
-DisplayName="Chosen: Assassin"
-DisplayDescription="The most secretive and fast of all the Chosen, the Assassin prefers to kill her enemies with the help of her Arashi from the darkness. In addition, she is capable of causing a psionic wave that deals damage to anyone who gets in the way. Her task is to hunt down and kill every Defender. Carries a blind grenade that can blind an enemy, significantly reducing their range of vision."
+[AdvDroneMP X2MPCharacterTemplate]
+DisplayName="Drone"
+DisplayDescription="A repair drone used by Advent to maintain the combat effectiveness of mechanized troops on the battlefield. Capable of quickly repairing damaged mechanisms, as well as removing acid burns from them."
 
-[ChosenWarlockMP X2CharacterTemplate]
-strCharacterName="Chosen: Warlock"
+[LWDroneM1_WPN X2WeaponTemplate]
+FriendlyName="Drone stun gun"
+AbilityDescName="Drone stun gun"
 
-[ChosenSniperMP X2CharacterTemplate]
-strCharacterName="Chosen: Sniper"
 
-[ChosenAssassinMP X2CharacterTemplate]
-strCharacterName="Chosen: Assassin"
+;Feral MEC
+
+
+[FeralMEC_MP X2CharacterTemplate]
+strCharacterName="Obsolete MEC"
+
+[FeralMEC_MP X2MPCharacterTemplate]
+DisplayName="Obsolete MEC"
+DisplayDescription="An outdated version of the MEC used by ADVENT during the early days of the coalition. Later it was superseded by more modern models. However, alien alloy jacketed ammunition is still capable of damaging even the toughest armor (armor shred: 2)."
+
+[FeralMEC_MP_WPN X2WeaponTemplate]
+FriendlyName="ADVENT Mag Cannon"
+FriendlyNamePlural="ADVENT Mag Cannons"
+BriefSummary="XCOM has managed to salvage a variety of standard infantry small arms; this is the most common variety, similar to the rifle used twenty years before. While decidedly inferior to ADVENT magnetic technology, it can at least be upgraded using additional weapons salvage, once a standard technical approach is discovered."
+TacticalText="<Bullet/> Firing the primary weapon always ends the soldier's turn\n<Bullet/> If the soldier fires with both actions available, three shots will be taken at reduced accuracy, but overall increased efficiency\n<Bullet/> Use upgrades looted from enemies to improve assault rifle tactical effectiveness"
+
+
+; Advent Medic
+
+
+[AdvMedicMP X2CharacterTemplate]
+strCharacterName="Advent Medic""
+
+[AdvMedicMP X2MPCharacterTemplate]
+DisplayName="Medic"
+DisplayDescription="Field medic who provides support to Advent forces during combat operations. Carries a nanomedicine kit (3 charges) and a smoke grenade. Otherwise, it has neither good firepower nor good armor."
+
+
+; ADvent MEC M2
+
 
 [AdvMEC_M2_MP X2CharacterTemplate]
 strCharacterName="ADVENT Heavy MEC"
 
+[AdvMEC_M2_MP X2MPCharacterTemplate]
+DisplayName="ADVENT Heavy MEC"
+DisplayDescription="A heavily armored version of the Advent MEC, designed to suppress the XCOM insurgency and restore order in emergency situations. It has an increased damage from their Magnetic Cannon and an improved protection from hacking."
+
+
+;Advent General
+
+
+[AdvGeneralMP X2CharacterTemplate]
+strCharacterName="ADVENT General"
+
+[AdvGeneralMP X2MPCharacterTemplate]
+DisplayName="ADVENT General"
+DisplayDescription="A high-ranking Advent official, capable of coordinating the actions of hundreds of squads at once. Unlike regular Advent officers, Generals are equipped with more powerful psionic chips, allowing them to process millions of tactical situations per second. They have high willpower, improved physical condition, and a number of powerful abilities. They carry both a plasma and an EMP grenade with them."."
+
+
+;Advent Psi Witch
+
+
 [AdvPsiWitchMP X2CharacterTemplate]
 strCharacterName="Avatar"
+
+[AdvPsiWitchMP X2MPCharacterTemplate]
+DisplayName="Avatar"
+DisplayDescription="The greatest achievement of the Elders on Earth, possessing truly incredible psionic power. It combines the strengths of both a human and an Elder. Avatar has a number of advantages but some of them can be turned into weaknesses - be careful. No living creature can resist their psionic abilities"
+
+
+;The Lost
+
 
 [TheLostDasherMP X2CharacterTemplate]
 strCharacterName="The Lost"
 
+[TheLostDasherMP X2MPCharacterTemplate]
+DisplayName="The Lost"
+DisplayDescription="This terrible individual is clear proof of what the use of biological weapons leads to. There is nothing left in these creatures from their past, only a primitive instinct that forces them to stay in groups and attack any other living creature."
+
+[TheLostTier3_MeleeAttack X2WeaponTemplate]
+FriendlyName="Claws of the Lost"
+FriendlyNamePlural="Claws of the Lost"
+
+
+;Viper Hunter
+
+
+[ViperNeonateMP X2CharacterTemplate]
+strCharacterName="Viper Hunter"
+
+[ViperNeonateMP X2MPCharacterTemplate]
+DisplayName="Viper Hunter"
+DisplayDescription="A genetically modified version of Viper that has had its venom glands removed in favor of increased muscle mass, allowing it to capture and pull in humanoids from a greater distance (16 tiles)."
+
+
+; Sectoid M2
+
+
+[SectoidM2_MP X2CharacterTemplate]
+strCharacterName="Sectoid Commander"
+
+[SectoidM2_MP X2MPCharacterTemplate]
+DisplayName="Sectoid Commander"
+DisplayDescription="A modified Sectoid specimen with more powerful brain implants, which allows it to unleash its psionic potential to a much greater extent. It is capable of raising several psi zombies at once, controlling the minds of enemies, and also has a good supply of health."
+
+[SectoidM2_WPN X2WeaponTemplate]
+FriendlyName="Sectoid Commander's Plasma Pistol"
+FriendlyNamePlural="Sectoid Commander's Plasma Pistol"
+
+
+; Centurion
+
+
+[Centurion X2CharacterTemplate]
+strCharacterName="Centurion"
+
+[Centurion X2MPCharacterTemplate]
+DisplayName="Centurion"
+DisplayDescription="Mutons that show outstanding results in accuracy and endurance become Centurions. These are especially used for assaulting well-fortified enemy positions. Their armor has a miniature psionic module built into it, converting psionic energy directed from the sectoid into a powerful psionic shield."
+
+[MutonM2_LW_WPN X2WeaponTemplate]
+FriendlyName="Centurion Beam Weapon"
+AbilityDescName="Centurion Beam Weapon"
+
+
+; Muton Elite
+
+[MutonElite_MP X2CharacterTemplate]
+strCharacterName="Muton Elite"
+
+[MutonElite_MP X2MPCharacterTemplate]
+DisplayName="Muton Elite"
+DisplayDescription="An elite caste in the Muton tribe, where only the most worthy individuals are admitted. They are used by the Elders as personal guards, as well as to protect key objects. They are able to strengthen their closest associates, increasing a number of their characteristics. They have powerful beam weapons, and their armor built-in portable shield."
+
+[MutonM2_LW_MeleeAttack X2WeaponTemplate]
+FriendlyName="Bayonet"
+
+[MutonM3_LW_Wpn X2WeaponTemplate]
+FriendlyName="Elite Muton Beam Weapon"
+AbilityDescName="Elite Muton Beam Weapon"
+
+
+; Viper King
+
+
+[ViperKingMP X2CharacterTemplate]
+strCharacterName="Viper King"
+
+[ViperKingMP X2MPCharacterTemplate]
+DisplayName="Viper King"
+DisplayDescription="A genetically engineered individual that has impressive health, armor, and a more powerful beam rifle than the classic Viper. It is also able to pull in humanoids from a greater distance (16 tiles) and deal increased choking damage."
+
+[ViperKingWPN_MP X2WeaponTemplate]
+FriendlyName="Beam Rifle"
+FriendlyNamePlural="Beam Rifles"
+BriefSummary="XCOM has managed to salvage a variety of standard infantry small arms; this is the most common variety, similar to the rifle used twenty years before. While decidedly inferior to ADVENT magnetic technology, it can at least be upgraded using additional weapons salvage, once a standard technical approach is discovered."
+TacticalText="<Bullet/> Firing the primary weapon always ends the soldier's turn\n<Bullet/> If the soldier fires with both actions available, three shots will be taken at reduced accuracy, but overall increased efficiency\n<Bullet/> Use upgrades looted from enemies to improve assault rifle tactical effectiveness."
+
+; Berserker Queen
+
+[BerserkerQueenMP X2CharacterTemplate]
+strCharacterName="Berserker Queen"
+
+[BerserkerQueenMP X2MPCharacterTemplate]
+DisplayName="Berserker Queen"
+DisplayDescription="A genetically modified individual berserker, possessing crushing power, armor, and a huge supply of health. The already quite strong muscles of an ordinary berserker have been supplemented with mechanical amplifiers, allowing the Queen to inflict damage on several opponents at once."
+
+
+; Archon King
 
 
 [ArchonKingMP X2CharacterTemplate]
 strCharacterName="Archon King"
 
-[AdvTurretMP X2CharacterTemplate]
-strCharacterName="ADVENT Turret"
+[ArchonKingMP X2MPCharacterTemplate]
+DisplayName="Archon King"
+DisplayDescription="The most dangerous of all genetically modified aliens. Has a large supply of health and increased damage. His abilities allow him to effectively finish off the wounded, as well as compensate for the enemy's height advantage."
 
-[ChosenImmunities X2AbilityTemplate]
-LocFriendlyName="Mental Bastion"
-LocLongDescription="The Chosen are completely immune to mental influences, as well as to the effects of various psionic enhancements. In addition, they are completely immune to chryssalid poison.""
-LocHelpText="The Chosen are completely immune to mental influences, as well as to the effects of various psionic enhancements. In addition, they are completely immune to chryssalid poison."
+[ArchonKingMP_WPN X2WeaponTemplate]
+FriendlyName="Archin King staff"
+FriendlyNamePlural="Beam Rifles"
+BriefSummary="XCOM has managed to salvage a variety of standard infantry small arms; this is the most common variety, similar to the rifle used twenty years before. While decidedly inferior to ADVENT magnetic technology, it can at least be upgraded using additional weapons salvage, once a standard technical approach is discovered."
+TacticalText="<Bullet/> Firing the primary weapon always ends the soldier's turn\n<Bullet/> If the soldier fires with both actions available, three shots will be taken at reduced accuracy, but overall increased efficiency\n<Bullet/> Use upgrades looted from enemies to improve assault rifle tactical effectiveness."
 
-[PsiDimensionalRiftStage2 X2AbilityTemplate]
-LocFriendlyName="Psionic Burst"
-LocLongDescription="When a dimensional rift closes, a powerful psionic explosion occurs, destroying everything in its path. Creatures caught in it receive increased damage and may also receive negative mental effects."
-LocHelpText="When a spatial rift closes, a powerful psionic explosion occurs, destroying everything in its path. Creatures caught in it receive increased damage and may also receive negative mental effects."
 
-[AvatarInitialization X2AbilityTemplate]
-LocFriendlyName="Supreme Being"
-LocLongDescription="The Ethereals transferred their consciousness into the Avatar's body. His willpower and psionic abilities are increased, and his body is completely immune to the effects of fire and poison."
-LocHelpText="The Ethereals transferred their consciousness into the Avatar's body. His willpower and psionic abilities are increased, and his body is completely immune to the effects of fire and poison."
+; Chosen Warlock
 
-[TriggerDamagedTeleport X2AbilityTemplate]
-LocFriendlyName="Teleport"
-LocLongDescription="If wounded again, the Avatar will again teleport to a random location in an attempt to avoid death."
-LocHelpText="If wounded again, the Avatar will again teleport to a random location in an attempt to avoid death."
+
+[ChosenWarlockMP X2CharacterTemplate]
+strCharacterName="Chosen: Warlock"
+
+[ChosenWarlockMP X2MPCharacterTemplate]
+DisplayName="Chosen: Warlock"
+DisplayDescription="A loyal and powerful servant of the Elders, ready to crush anyone who dares challenge their greatness. Having honed his psionics skills to perfection, he can destroy his opponents with but a power of thought. He is able to summon a ghostly army to aid him, as well as control and burn the minds of his enemies.."
+
+
+; Chosen Sniper
+
+
+[ChosenSniperMP X2CharacterTemplate]
+strCharacterName="Chosen: Hunter"
+
+[ChosenSniperMP X2MPCharacterTemplate]
+DisplayName="Chosen: Hunter"
+DisplayDescription="The best there is, the Hunter destroys enemies hundreds of kilometers away. Thanks to extensive training he is able to shoot his sniper rifle even after moving. In close quarters he can use a pistol with no hesitation. Fast and agile, the Hunter is ideal for taking down opponents efficiently. He carries a concussion grenade that can disorient and stun the enemy.."
+
+[HunterConcussionGrenade X2GrenadeTemplate]
+BriefSummary="Deals damage to an enemy in the target area; targets are disoriented and lose 1 action."
+TacticalText="<Bullet/> Concussion grenade."
+ThrownAbilityName="Throw a Concussion grenade."
+ThrownAbilityHelpText="Throws a Concussion grenade at the target area. The enemy will be disoriented and lose 1 action."
+
+
+; Chosen Assassin
+
+
+[ChosenAssassinMP X2CharacterTemplate]
+strCharacterName="Chosen: Assassin"
+
+[ChosenAssassinMP X2MPCharacterTemplate]
+DisplayName="Chosen: Assassin"
+DisplayDescription="The most secretive and quick of all the Chosen, the Assassin prefers to kill her enemies with the help of her Arashi from the darkness. In addition, she is capable of creating a psionic wave that damages anyone in its way. Her task is to hunt down and kill every Skirmisher. Carries a blinding grenade that significantly reduces their target's sight radius (-14 tiles) and moility (-8 tiles)."
+
+[MountainMistGrenade X2GrenadeTemplate]
+FriendlyName="Mountain Mist"
+FriendlyNamePlural="Mountain Mist"
+BriefSummary="Units will receive a serious penalty for sight radius (-14 tiles) and mobility (-8 tiles)."
+TacticalText="<Bullet/> A blinding grenade."
+ThrownAbilityName="Throw Mountain Mist"
+ThrownAbilityHelpText="Throw Mountain Mist at target area."
+
+
+; Ethereal
+
+
+[AHWElder X2CharacterTemplate]
+strCharacterName="Elder"
+
+[AHWElder X2MPCharacterTemplate]
+DisplayName="Elder"
+DisplayDescription="The most advanced alien race leading the invasion of Earth. A powerful being who has unleashed the full potential of psionic power, capable of single-handedly destroying an entire squad. In addition to devastating psionic abilities, the Elder is able to reflect enemy shots at themselves, avoiding damage, and also create psionic force field."
+
+[AHW_Elder_PsiCannon X2WeaponTemplate]
+FriendlyName="Psi-locus"
+FriendlyNamePlural="Psi-locus"
+AbilityDescName="Psi-locus"
+
+[AHW_Elder_PsiWep X2WeaponTemplate]
+FriendlyName="Psi-locus"
+FriendlyNamePlural="Psi-locus"
+AbilityDescName="Psi-locus"
+
+
+; Spark
+
+
+[SparkSoldierMP X2MPCharacterTemplate]
+DisplayName="Spark"
+DisplayDescription="Developed by the late Doctor Shen, the purpose of which was to protect Lily Shen. For a long time it was in the abandoned Advent complex, which after the victory over Julian was transferred to the arsenal of the XCOM project. It has a number of powerful abilities that help in both attack and defense. However, it is mechanical Nature makes Iskra vulnerable to hacking."
+
+; Existing Units
+
+
+[AdvTrooper X2MPCharacterTemplate]
+DisplayDescription="The Trooper is the standard ADVENT combat unit. With low survivability and offensive potential, the Trooper is best used to round out a squad full of more powerful allies.They have an increased detection radius for invisible units (+2 tiles). Equipped with a battle scanner."
+
+
+; Existing Abilites
+
 
 [MarkTarget X2AbilityTemplate]
 LocLongDescription="ADVENT Officers can Mark a target, commanding other soldiers to focus their fire on that target. Any units that attack the marked target have a bonus to Aim."
 LocHelpText="Mark an enemy target. Allies gain +<Ability:MARKTARGETAIMBONUS/> Aim when attacking the target"
 
-[AdvTrooper X2MPCharacterTemplate]
-DisplayDescription="The Trooper is the standard ADVENT combat unit. With low survivability and offensive potential, the Trooper is best used to round out a squad full of more powerful allies.They have an increased detection radius for invisible units (+2 tiles)."
-
 [EnergyShield X2AbilityTemplate]
-LocLongDescription="The Shieldbearer can grant an energy shield to all nearby allies(+3 hp). Number of turns: 3 The shields will collapse if this unit is killed."
-LocHelpText="Project an energy shield around nearby allies and yourself(+3 hp)."
+LocLongDescription="The Shieldbearer can grant an energy shield to all nearby allies (+3 hp). Lasts 3 turns. The shields will collapse if this unit is killed."
+LocHelpText="Project an energy shield around nearby allies and yourself (+3 hp). Lasts 3 turns. Ends turn."
 
 [PsiOperativeMindControl X2AbilityTemplate]
 LocLongDescription="The Psi Operative can seize active control of their target's mind, forcing them to turn on their companions."
-LocHelpText="Seize active control of their target's mind. Number of turns: 2"
+LocHelpText="Seize active control of their target's mind. Lasts 2 turns."
 
 [PriestPsiMindControl X2AbilityTemplate]
 LocLongDescription="The Priest can seize active control of their target's mind, forcing them to turn on their companions. Nubmer of turns: 4."
-LocHelpText="Seize active control of the target's mind. Number of turns: 4."
+LocHelpText="Seize active control of the target's mind. Lasts 4 turns."
 
 [PsiMindControl X2AbilityTemplate]
 LocLongDescription="Seize active control of the target's mind, forcing them to turn on their companions."
-LocHelpText="Assume full mental control of the target for a short duration. Number of turns: 4"
+LocHelpText="Assume full mental control of the target for a short duration. Lasts 4 turns."
 
 [MindControl X2AbilityTemplate]
 LocLongDescription="The Avatar can seize active control of their target's mind, forcing them to turn on their companions. Nubmer of turns: 4."
-LocHelpText="Assume full mental control of the target for a short duration. Number of turns: 4."
+LocHelpText="Assume full mental control of the target for a short duration. Lasts 4 turns."
 
 [PriestStasis X2AbilityTemplate]
 LocLongDescription="Completely stuns the target for 1 turn, but renders them immune to any damage or attack. Ends turn."
 LocHelpText="Completely stuns the target for 1 turn, but renders them immune to any damage or attack. Ends turn."
 
-[AvatarRegeneration X2AbilityTemplate]
-LocLongDescription="\"Avatar\" regenerates +3 health points every turn."
-LocHelpText="\"Avatar\" regenerates +3 health points every turn."
-
 [Rage X2AbilityTemplate]
-LocLongDescription="The Berserker, when wounded, can be enraged, granting a mobility boost (+50%)."
-LocHelpText="The Berserker can be enraged, granting bonus movement radius (+50%)."
-
-[MindScorch X2AbilityTemplate]
-LocHelpText="The sorcerer opens his mind to the target and infects them with his madness. If the victim's willpower fails, they suffer damage and a disorientation effect for 1 turn."
-LocLongDescription="The sorcerer opens his mind to the target and infects them with his madness. If the victim's willpower fails, he suffers damage and a disorientation effect for 1 turn."
-
-[SpectralArmyM2 X2AbilityTemplate]
-LocHelpText="Warlock summons 2 ghostly guards who will protect him. While these guards are \"alive\", Warlock remains motionless and immune to damage. At the same time, the Warlock plunges into stasis."
-LocLongDescription="Warlock summons 2 ghostly guards to protect him. While these guards are \"alive\", Warlock remains motionless and immune to damage."
-
-[CorressM2 X2AbilityTemplate]
-LocLongDescription="Creates 2 ghostly zombies that can do the Wizard's bidding. This action does not end the turn."
-LocHelpText="Creates 2 ghostly zombies that can carry out the Wizard's orders."
-
-[VanishingWind X2AbilityTemplate]
-LocLongDescription="Assassin disappears from view and becomes completely invisible. Moreover, if she makes any attacking action or is flanked, she will be detected."
-LocHelpText="Assassin becomes invisible. Does not cost an action."
-
-[BendingReed X2AbilityTemplate]
-LocLongDescription="After being hit by Arashi,  Assassin may retreat to safe cover."
-LocHelpText="After being hit by Arashi, Assassin can retreat to safe cover."
-
-[BendingReedPassive X2AbilityTemplate]
-LocLongDescription="After being hit by Arashi, Assassin may retreat to safe cover."
-LocHelpText="After being hit by Arashi, Assassin can retreat to safe cover.""
-
-[HarborWave X2AbilityTemplate]
-LocLongDescription="Assassin creates a powerful psionic wave that deals damage to anyone caught in it. Ends the Assassin's turn."
-LocHelpText="Assassin creates a powerful psionic wave that deals damage to anyone caught in it. Ends the Assassin's turn."
-
-[PartingSilk X2AbilityTemplate]
-LocLongDescription="Assassin delivers a melee strike that can't miss."
-LocHelpText="Assassin strikes with a melee attack that can't miss."
-
-[LethalDose X2AbilityTemplate]
-LocHelpText="Sniper fires a pistol. A hit does no damage, but stuns and poisons the target. Does not end the Hunter's turn."
-LocLongDescription="Sniper fires a pistol. A hit does no damage, but stuns and poisons the target. Does not end the Hunter's turn."
-
-[HunterKillzone X2AbilityTemplate]
-LocFriendlyName="Kill Zone"
-LocLongDescription="Take a reaction shot against any enemy that moves or attacks within a cone of fire."
-LocHelpText="Enhanced squadsight overwatch in a cone of fire."
-LocFlyOverText="Kill Zone"
-
-[HunterRifleShot X2AbilityTemplate]
-LocLongDescription="<Bullet/> The Hunter's sniper rifle has an improved optical system, which allows it to hit the target accurately even at distances that would be impossible for a regular sniper. A shot is possible after moving.<br>"
+LocLongDescription="Berserker, when wounded, can be enraged, granting a 50% mobility boost."
+LocHelpText="Berserker can be enraged, granting bonus 50% movement radius"
 
 [SniperRifleOverwatch X2AbilityTemplate]
 LocLongDescription="After receiving a penalty to your accuracy, shoot the first enemy in sight."
@@ -166,103 +326,19 @@ LocHelpText="Fire your pistol at a target. This attack does not cost an action."
 LocLongDescription="Firing your pistol with your first action no longer ends your turn."
 LocHelpText="Firing your pistol with your first action no longer ends your turn."
 
-[TrackingShotMark X2AbilityTemplate]
-LocHelpText="Sniper takes aim at the enemy he sees. At the same time, he places a laser designator on the target. The enemy has one turn to move out of the line of fire. If this is not done, at the beginning of the Hunter's next turn, he will hit the target with 100% probability . This action does not end the turn."
-LocLongDescription="Sniper takes aim at an enemy that he can see. At the same time, he places a laser designator on the target. The enemy has one turn to move out of the line of fire. If this is not done, at the beginning of the Hunter's next turn, he will hit the target with a 100% chance . This action does not end the turn."
-
-[TrackingShot X2AbilityTemplate]
-LocHelpText="Sniper is guaranteed to hit a target remaining within the range of the follow shot marker. The shot does not consume action points."
-LocLongDescription="Sniper is guaranteed to hit a target remaining within the range of the Follow Shot Marker. The shot does not consume action points."
-
 [PistolStandardShot X2AbilityTemplate]
 LocLongDescription="You have been trained to effectively utilize the full flexibility of a pistol."
 LocHelpText="Fire your pistol at a target."
 
 [HolyWarriorM3 X2AbilityTemplate]
 LocFriendlyName="Holy Warrior: Warlock"
-LocHelpText="Warlock is capable of not only burning out, but also maintaining the minds of living beings. While the fusion is in effect, the characteristics of this fighter increase (+6 HP, +1 mobility units, +10% accuracy, +15% critical chance). If Warlock dies during the merger, the fighter loses the boost and dies."
-LocLongDescription="Warlock is capable of not only burning out, but also maintaining the minds of living beings. While the fusion is in effect, the characteristics of this fighter increase (+6 HP, +1 mobility units, +10% accuracy, +15% critical chance). If Warlock dies during the merger, the fighter loses the boost and dies."
+LocHelpText="Warlock is capable of not only burning out, but also maintaining the minds of living beings. While the fusion is in effect, the characteristics of this fighter increase (+4 HP, +1 mobility units, +25 will, +25  psi-offense). If Warlock dies during the merger, the fighter loses the boost and dies."
+LocLongDescription="Warlock is capable of not only burning out, but also maintaining the minds of living beings. While the fusion is in effect, the characteristics of this fighter increase (+4 HP, +1 mobility units, +25 will, +25  psi-offense). If Warlock dies during the merger, the fighter loses the boost and dies."
 LocFlyOverText="Holy Warrior: Warlock"
 
 [HolyWarriorMP X2AbilityTemplate]
-LocHelpText="Perform a mind merge with another unit. That unit gains stat boosts while the merge exists(+2 mobility, +4 hp, +10 aim, +25 crit chance). If the Priest is killed while mind-merged, the unit loses the stat boosts and is killed."
-LocLongDescription="Perform a mind merge with another unit. That unit gains stat boosts while the merge exists(+2 mobility, +4 hp, +10 aim, +25 crit chance). If the Priest is killed while mind-merged, the unit loses the stat boosts and is killed."
-
-[ChosenBewildered X2AbilityTemplate]
-LocLongDescription="Takes extra damage from the 3rd and subsequent attacks on the same turn. Damage increased by 1."
-LocHelpText="Takes extra damage from the 3rd and subsequent attacks on the same turn. Damage increased by 1."
-
-[ChosenGroundling X2AbilityTemplate]
-LocLongDescription="Easier target from a high position (-10 defense)."
-LocHelpText="Easier target from a high position (-10 defense)."
-
-[ChosenBrittle X2AbilityTemplate]
-LocLongDescription="Takes additional damage from melee attacks. Damage increased by 1."
-LocHelpText="Takes extra damage from melee attacks. Damage increased by 1."
-
-[ChosenLowProfile X2AbilityTemplate]
-LocLongDescription="After the first attack on the Chosen, each turn its defense increases (up to a maximum of +20)."
-LocHelpText="After the first attack on the Chosen, each turn, its defense increases (up to a maximum of +20)."
-
-[ChosenBrutal X2AbilityTemplate]
-LocLongDescription="Attacks reduce the Willpower of all soldiers in sight (-10 Willpower per attack)."
-LocHelpText="Attacks reduce the Willpower of all soldiers in sight (-10 Willpower per attack)."
-
-[ChosenKineticPlating X2AbilityTemplate]
-LocLongDescription="The unit receives shields from misses."
-LocHelpText="The unit receives shields from misses."
-
-[HunterConcussionGrenade X2GrenadeTemplate]
-BriefSummary="Deals damage to an enemy in the target area, and causes disorientation and the loss of 1 action."
-TacticalText="<Bullet/> Concussion grenade."
-ThrownAbilityName="Throw a Concussion grenade grenade."
-ThrownAbilityHelpText="Throws a Concussion grenade grenade at the target area. The enemy will be disoriented and lose 1 action."
-
-[AdvGeneralMP X2CharacterTemplate]
-strCharacterName="ADVENT General"
-
-[ViperKingMP X2CharacterTemplate]
-strCharacterName="Viper King"
-
-[ViperKingWPN_MP X2WeaponTemplate]
-FriendlyName="Beam Rifle"
-FriendlyNamePlural="Beam Rifles"
-BriefSummary="XCOM has managed to salvage a variety of standard infantry small arms; this is the most common variety, similar to the rifle used twenty years before. While decidedly inferior to ADVENT magnetic technology, it can at least be upgraded using additional weapons salvage, once a standard technical approach is discovered."
-TacticalText="<Bullet/> Firing the primary weapon always ends the soldier's turn\n<Bullet/> If the soldier fires with both actions available, three shots will be taken at reduced accuracy, but overall increased efficiency\n<Bullet/> Use upgrades looted from enemies to improve assault rifle tactical effectiveness."
-
-[FeralMEC_MP X2CharacterTemplate]
-strCharacterName="Derelict MEC"
-
-[FeralMEC_MP X2MPCharacterTemplate]
-DisplayName="Derelict MEC"
-DisplayDescription="An outdated version of the MEC used by Advent during the early days of the coalition. Later it was superseded by more modern models. However, ammunition encased in extraterrestrial alloys is still capable of damaging even the toughest armor (armor rupture: 2)."
-
-[FeralMEC_MP_WPN X2WeaponTemplate]
-FriendlyName="ADVENT Mag Cannon"
-FriendlyNamePlural="ADVENT Mag Cannons"
-BriefSummary="XCOM has managed to salvage a variety of standard infantry small arms; this is the most common variety, similar to the rifle used twenty years before. While decidedly inferior to ADVENT magnetic technology, it can at least be upgraded using additional weapons salvage, once a standard technical approach is discovered."
-TacticalText="<Bullet/> Firing the primary weapon always ends the soldier's turn\n<Bullet/> If the soldier fires with both actions available, three shots will be taken at reduced accuracy, but overall increased efficiency\n<Bullet/> Use upgrades looted from enemies to improve assault rifle tactical effectiveness"
-
-[ViperNeonateMP X2CharacterTemplate]
-strCharacterName="Viper Hunter"
-
-[ViperNeonateMP X2MPCharacterTemplate]
-DisplayName="Viper Hunter"
-DisplayDescription="A genetically modified version of Viper that has had its venom glands removed in favor of increased muscle mass, allowing it to capture and pull in humanoids at much greater distances (16 tiles)."
-
-[TheLostDasherMP X2MPCharacterTemplate]
-DisplayName="The Lost"
-DisplayDescription="This terrible individual is clear proof of what the use of biological weapons leads to. There is nothing left in these creatures from their past, only a primitive instinct that forces them to stay in groups and attack any other living creature."
-
-[ZombieInitialization X2AbilityTemplate]
-LocFriendlyName="Primal instinct"
-LocLongDescription="The Lost obey only instincts, and therefore cannot be controlled or panicked. They are also completely immune to poison."
-LocHelpText="Immunity from mental attacks, as well as any poison."
-
-[TheLostTier3_MeleeAttack X2WeaponTemplate]
-FriendlyName="Claws of the Lost"
-FriendlyNamePlural="Claws of the Lost"
-
+LocHelpText="Perform a mind merge with another unit. That unit gains stat boosts while the merge exists(+2 mobility, +4 HP, +10 aim, +25 crit chance). If the Priest is killed while mind-merged, the unit loses the stat boosts and is killed."
+LocLongDescription="Perform a mind merge with another unit. That unit gains stat boosts while the merge exists(+2 mobility, +4 HP, +10 aim, +25 crit chance). If the Priest is killed while mind-merged, the unit loses the stat boosts and is killed."
 
 [HoloTargeting X2AbilityTemplate]
 LocFriendlyName="Holo Targeting"
@@ -272,33 +348,302 @@ LocFlyOverText="Holo Targeting"
 LocPromotionPopupText="<Bullet/> Directed weapon -specific abilities will grant Holo Targeting.<br/><Bullet/> Any <Ability:ClassName/> abilities that target multiple units will not grant Holo Targeting.<br/>"
 
 
-[AvatarImmunities X2AbilityTemplate]
-LocFriendlyName="Mental Fortress"
-LocLongDescription="The Avatar is immune to any form of negative mental effects. Also, his suit is impervious to the effects of poison or fire."
-LocHelpText="The Avatar is immune to any form of negative mental effects. Also, his suit is impervious to the effects of poison or fire."
+; New Abilities
+
+
+; Advent drone
+
+[BD_DroneRepair_LW X2AbilityTemplate]
+LocFriendlyName="Repair"
+LocLongDescription="The drone restores 3 health to a mechanical ally and also removes acid burn."
+LocHelpText="Restore 3 health and remove acid burn."
+LocFlyOverText="Repair"
+LocPromotionPopupText="<Bullet/> Repair a mechanical unit."
+
+[StandardShotDrone X2AbilityTemplate]
+LocFriendlyName="Shot"
+LocHelpText="Shoot at the target. <Ability:CANNOT BE DODGED/>"
+LocLongDescription="Firing the main weapon completes the soldier's turn."
+
+
+
+; Feral MEC
+
+[BD_ReadyForAnything_LW X2AbilityTemplate]
+LocFriendlyName="Ready For Anything"
+LocFlyOverText="Overwatch: Ready For Anything"
+LocHelpText="Enter overwatch after firing a turn-ending standard shot with your primary weapon."
+LocLongDescription="Enter overwatch after firing a turn-ending standard shot with your primary weapon."
+LocPromotionPopupText="<Bullet/> Enter overwatch after firing a turn-ending standard shot with your primary weapon."
+
+
+[BD_ReadyForAnything_LWFlyover X2AbilityTemplate]
+LocFriendlyName="Ready For Anything"
+LocFlyOverText="Overwatch: Ready For Anything"
+LocHelpText="Enter Overwatch after firing a standard shot with your primary weapon."
+LocLongDescription="Enter Overwatch after firing a standard shot with your primary weapon."
+LocPromotionPopupText="<Bullet/> Enter Overwatch after firing a standard shot with your primary weapon."
+
+
+; Advent General
 
 [Interactive_PlaceTurretObject X2AbilityTemplate]
 LocFriendlyName="Request Turret"
 LocLongDescription="Requesting Advent Turret reset."
 LocHelpText="Summon a turret to the selected tile. Ends turn."
 
-[ArchonKingMP X2MPCharacterTemplate]
-DisplayName="Archon King"
-DisplayDescription="The most dangerous of all genetically modified aliens. Has a large supply of health and increased damage."
+[DarkEventAbility_UndyingLoyaltyPassive X2AbilityTemplate]
+LocFriendlyName="Advanced Control Chip"
+LocHelpText="A slain Advent fighter immediately rises as a psi zombie."
+LocLongDescription="More advanced control chips of high-ranking Advent ranks are even more sensitive to the psionic control network, which allows them to control their owners even after death. A killed Advent fighter immediately rises as a psi-zombie."
+LocFlyOverText="Advanced control chip"
 
-[ArchonKingMP_WPN X2WeaponTemplate]
-FriendlyName="Archin King staff"
-FriendlyNamePlural="Beam Rifles"
-BriefSummary="XCOM has managed to salvage a variety of standard infantry small arms; this is the most common variety, similar to the rifle used twenty years before. While decidedly inferior to ADVENT magnetic technology, it can at least be upgraded using additional weapons salvage, once a standard technical approach is discovered."
-TacticalText="<Bullet/> Firing the primary weapon always ends the soldier's turn\n<Bullet/> If the soldier fires with both actions available, three shots will be taken at reduced accuracy, but overall increased efficiency\n<Bullet/> Use upgrades looted from enemies to improve assault rifle tactical effectiveness."
+[X2Ability_DarkEvents]
+UndyingLoyaltyFlyoverText="Advanced Control Chip"
 
-[X2Ability_ZombieTurnLife]
-LocFriendlyName="Controlling Spectral Zombies"
-LocHelpText="Warlock is able to maintain life in the created zombies for 4 turns from the moment of creation, after which their psionic shells dissipate"
-LocLongDescription="Warlock is able to maintain life in the created zombies for 4 turns from the moment of creation, after which their psionic shells dissipate"
-LocFlyOverText="Controlling Spectral Zombies"
+
+; Advent Psi Witch
+
+[AvatarRegeneration X2AbilityTemplate]
+LocLongDescription="The Avatar regenerates +3 health points every turn."
+LocHelpText="The Avatar regenerates +3 health points every turn."
+
+[AvatarImmunities X2AbilityTemplate]
+LocFriendlyName="Mental Fortress"
+LocLongDescription="The Avatar is immune to any form of negative mental effects. Also, his suit is impervious to the effects of poison or fire."
+LocHelpText="The Avatar is immune to any form of negative mental effects. Also, his suit is impervious to the effects of poison or fire."
+
+
+
+; The Lost
+
+[ZombieInitializationPassive X2AbilityTemplate]
+LocFriendlyName="Primal instinct"
+LocLongDescription="The Lost obey only instincts, and therefore cannot be controlled or panicked. They are also completely immune to poison."
+LocHelpText="Immunity from mental attacks, as well as any poison."
+
 
 [VulnerabilityToFirePassive X2AbilityTemplate]
 LocFriendlyName="Vulnerable to Fire"
 LocLongDescription="Wanderers take increased fire damage."
 LocHelpText="Increased fire damage."
+
+
+; Sectoid Commander
+
+
+[BD_MassReanimation_LW X2AbilityTemplate]
+LocFriendlyName="Psi-reanimation"
+LocFlyOverText="Psi-reanimation"
+LocHelpText="Reanimates all slain humanoids in a specific area."
+LocLongDescription="Reanimates all slain humanoids in a specific area."
+LocPromotionPopupText="<Bullet/> Reanimates all killed humanoids in a specific area."
+
+
+; Muton Elite
+
+
+[X2Ability_MutonM2_Abilities]
+strBD_Bayonetcharge_LWPenalty="The Guardsman receives the negative effect of <XGParam:IntValue1/> protection for <XGParam:IntValue0/> turn."
+
+[BD_WarCry_LW X2AbilityTemplate]
+LocFriendlyName="Call of Blood"
+LocLongDescription="The Muton Elite emits a powerful roar that increases the combat stats of nearby Mutons and Berserkers (+10 accuracy, +3 mobility, +10 willpower). Number of turns: 3. Does not end the turn."
+LocHelpText="Increases the combat characteristics of nearby mutons and berserkers (+10 accuracy, +3 mobility, +10 willpower). Does not end the turn."
+LocFlyOverText="Call of Blood"
+LocPromotionPopupText="<Bullet/> Mutons and Berserkers gain bonuses to accuracy, mobility and willpower.<br/><Bullet/> Duration 3 turns.<br/>"
+
+[BD_Bayonetcharge_LW X2AbilityTemplate]
+LocFriendlyName="Bayonet Lunge"
+LocLongDescription="The Muton Elite charges a target with a bayonet and then suffers a defense penalty."
+LocHelpText="Attack the target with melee combat. When hit, you will receive a penalty to defense."
+LocFlyOverText="Bayonet Lunge"
+LocPromotionPopupText="<Bullet/> Attack the target in close combat with a bayonet while charging.<br/>"
+
+[BD_Personalshield_LW X2AbilityTemplate]
+LocFriendlyName="Force Shield"
+LocFlyOverText="Force Shield"
+LocHelpText="Activates a force shield that adds 5 health and reduces all incoming damage by 1. Number of turns: 3. Does not end turn."
+LocLongDescription="Activates a force shield that adds 5 health and reduces all incoming damage by 1. Number of turns: 3. Does not end turn."
+
+
+;Berserker Queen
+
+[Faithbreaker X2AbilityTemplate]
+LocFriendlyName="Faithbreaker"
+LocLongDescription="The Berserker Queen roars with her full might and rage, inflicting fear upon even the most battle-hardened soldiers.The less HP a unit has, the higher the chance that they will panic. Healthy units do not panic."
+LocHelpText="Chance to panic every visible enemy unit. Healthy units will not panic."
+LocFlyOverText="Faithbreaker"
+
+[DevastatingPunchBQMP X2AbilityTemplate]
+LocFriendlyName="Devastating Blow"
+LocLongDescription="A Berserker's Queen strength is sufficient to batter her enemies to death with nothing more than her fists. This attack can stun or disorient the target."
+LocHelpText="Attack a melee target, potentially stunning them."
+LocFlyOverText="Devastating Punch"
+
+; Viper King
+
+[Stone Skin Passive X2AbilityTemplate]
+LocFriendlyName="Stone skin"
+LocLongDescription="The scales of the Viper King are so strong that they can protect him from shots. Reduces incoming damage by 1."
+LocHelpText="Reduces incoming damage by 1."
+
+[StoneSkin X2AbilityTemplate]
+LocFriendlyName="Stone skin"
+LocLongDescription="The scales of the Viper King are so strong that they can protect him from shots. Reduces incoming damage by 1."
+LocHelpText="Reduces incoming damage by 1."
+
+
+; Archon King
+
+[Groundling X2AbilityTemplate]
+LocFriendlyName="Adaptive protection"
+LocFlyOverText="Adaptive protection"
+LocLongDescription="If the enemy attacks from a dominant height, Archon King will get +10 to defense."
+LocHelpText="You get +10 to defense if the opponent is higher than the Archon King."
+LocPromotionPopupText="<Bullet/> If the enemy attacks from a dominant height, Archon King will get +10 to defense.<br/>"
+
+[BD_Executioner_LW X2AbilityTemplate]
+LocFriendlyName="Executioner"
+LocFlyOverText="Executioner"
+LocLongDescription="Confers +10 aim  against targets at half or less of their original hit points."
+LocHelpText="Confers +10 aim  against targets at half or less of their original hit points."
+LocPromotionPopupText="<Bullet/> Confers +10 aim  against targets at half or less of their original hit points.<br/>"
+
+
+; Chosen Warlock
+
+[ChosenImmunities X2AbilityTemplate]
+LocFriendlyName="Mental Bastion"
+LocLongDescription="The Chosen are completely immune to mental influences as well as the effects of various psionic boosts. Additionaly, they are unaffected by chryssalid poison."
+LocHelpText="The Chosen are completely immune to mental influences as well as the effects of various psionic boosts. Additionaly, they are unaffected by chryssalid poison."
+
+[MindScorch X2AbilityTemplate]
+LocHelpText="The Warlock opens his mind to the target and infects them with his madness. If the victim's willpower fails, they suffer damage and become disoriented for 1 turn."
+LocLongDescription="The Warlock opens his mind to the target and infects them with his madness. If the victim's willpower fails, it suffers damage and becomes disoriented for 1 turn."
+
+[SpectralArmyM2 X2AbilityTemplate]
+LocHelpText="The Warlock summons 2 ghostly guards to defend him. While those guards still \"live\", the Warlock remains in stasis, invulnerable to harm."
+LocLongDescription="The Warlock summons 2 ghostly guards to defend him. While those guards still \"live\", the Warlock remains in stasis, invulnerable to harm."
+
+[CorressM2 X2AbilityTemplate]
+LocLongDescription="Creates 2 ghostly zombies that do the Warlock's bidding. This action does not end the turn."
+LocHelpText="Creates 2 ghostly zombies that can carry out the Warlock's orders. Does not end turn."
+
+[ChosenGroundling X2AbilityTemplate]
+LocLongDescription="Easier target from a high position (-10 defense)."
+LocHelpText="Easier target from a high position (-10 defense)."
+
+[ZombieTurnLife X2AbilityTemplate]
+LocFriendlyName="Controlling Spectral Zombies"
+LocHelpText="Warlock is able to maintain life in the created zombies for 4 turns from the moment of creation, after which their psionic shells dissipate"
+LocLongDescription="Warlock is able to maintain life in the created zombies for 4 turns from the moment of creation, after which their psionic shells dissipate"
+LocFlyOverText="Controlling Spectral Zombies"
+
+[ChosenBrutal X2AbilityTemplate]
+LocLongDescription="Attacks decrease the Will of any soldiers within sight (-10 Will per attack)."
+LocHelpText="Attacks decrease the Will of any soldiers within sight (-10 Will per attack).
+
+[StandardShotWarlock X2AbilityTemplate]
+LocFriendlyName="Shot"
+LocHelpText="Shoot at the target. <Ability:CANNOT BE DODGED/>"
+LocLongDescription="Firing the main weapon completes the soldier's turn."
+
+
+
+; Chosen Assassin
+
+[VanishingWind X2AbilityTemplate]
+LocLongDescription="Assassin disappears from view and becomes completely invisible. If she takes any offensive action or is flanked she will be detected. Does not cost an action."
+LocHelpText="Assassin becomes invisible. Does not cost an action."
+
+[BendingReed X2AbilityTemplate]
+LocLongDescription="After striking with Arashi, the Assassin can move to a different position."
+LocHelpText="After striking with Arashi, the Assassin can retreat into cover."
+
+[BendingReedPassive X2AbilityTemplate]
+LocLongDescription="After striking with Arashi, the Assassin can move to a different position."
+LocHelpText="After striking with Arashi, the Assassin can retreat into cover."
+
+[HarborWave X2AbilityTemplate]
+LocLongDescription="The Assassin creates a powerful psionic wave that deals damage to anyone caught by it. Ends the Assassin's turn."
+LocHelpText="The Assassin creates a powerful psionic wave that deals damage to anyone caught by it. Ends the Assassin's turn."
+
+[PartingSilk X2AbilityTemplate]
+LocLongDescription="The Assassin delivers a melee attack that cannot miss."
+LocHelpText="The Assassin strikes with a melee attack that can't miss."
+
+[ChosenBewildered X2AbilityTemplate]
+LocLongDescription="Takes extra damage from the 3rd and subsequent attacks on the same turn. Damage increased by 1."
+LocHelpText="Takes extra damage from the 3rd and subsequent attacks on the same turn. Damage increased by 1.
+
+[ChosenKineticPlating X2AbilityTemplate]
+LocLongDescription="Missed shots against this unit will generate shielding (+3 per miss)."
+LocHelpText="Missed shots against this unit will generate shielding (+3 per miss)."
+
+
+; Chosen Hunter
+
+
+[LethalDose X2AbilityTemplate]
+LocHelpText="The Hunter fires his pistol. If the shot hits, it does no damage but stuns and poisons the target. Does not end the Hunter's turn."
+LocLongDescription="The Hunter fires his pistol. If the shot hits, it does no damage but stuns and poisons the target. Does not end the Hunter's turn."
+
+[HunterKillzone X2AbilityTemplate]
+LocFriendlyName="Kill Zone"
+LocLongDescription="Take a reaction shot against any enemy that moves or attacks within a cone of fire."
+LocHelpText="Enhanced squadsight overwatch in a cone of fire."
+LocFlyOverText="Kill Zone"
+
+[HunterRifleShot X2AbilityTemplate]
+LocLongDescription="<Bullet/> The Hunter's sniper rifle has an advanced optical system, which allows it to accurately hit targets even at distances considered impossible for a normal shooter. He can shoot after moving.<br>"
+
+[TrackingShotMark X2AbilityTemplate]
+LocHelpText="The Hunter marks the target with a laser targeter, setting up for his next turn. Does not end turn."
+LocLongDescription="The Hunter takes aim at an enemy he can see. At the same time he places a laser targeter on them. The enemy has one turn to move out of the line of fire. If this is not done, at the beginning of the Hunter's next turn he will hit the target with a 100% chance. This action does not end the turn."
+
+[TrackingShot X2AbilityTemplate]
+LocHelpText="The hunter is guaranteed to hit the target remaining within the range of the follow-up shot marker. The shot does not cost action points."
+LocLongDescription="The hunter is guaranteed to hit the target remaining within the range of the follow-up shot marker. The shot does not cost action points."
+
+[ChosenBrittle X2AbilityTemplate]
+LocLongDescription="Takes additional damage from close range attacks (4 tile). Damage increased by 1."
+LocHelpText="Takes extra damage from close range attacks (4 tile). Damage increased by 1."
+
+[ChosenLowProfile X2AbilityTemplate]
+LocLongDescription="Defence increases after the first attack of every turn on the Chosen (up to a maximum of +20)."
+LocHelpText="Defence increases after the first attack of every turn on the Chosen (up to a maximum of +20)."
+
+
+; Ethereal
+
+
+[AHWElderImmunity X2AbilityTemplate]
+LocFriendlyName="Psionic Shield"
+LocLongDescription="Elders are able to create a powerful psionic barrier that protects them from acid, fire and electricity. Duration: 2 turns."
+LocHelpText="Creates a psionic barrier that protects against acid, fire, chryssalid poison, and electrical damage. Duration: 2 turns. Does not end turn."
+LocFlyOverText="Psionic Shielding"
+
+[AHWEtherealDivinity X2AbilityTemplate]
+LocFriendlyName="Mind over matter"
+LocLongDescription="When the Elder is hit more than 2 times, he is able to create a powerful energy field that absorbs the energy of shots and reduces all incoming damage by 40%, and the chance of a critical hit by 30%. The Elder is able to restore 1 HP per turn."
+LocHelpText="When the Elder is hit more than 2 times, he is able to create a powerful energy field that absorbs the energy of shots and reduces all incoming damage by 40%. The Elder is able to restore 1 HP per turn."
+LocFlyOverText="Mind Over Matter"
+
+[AHWElderReflect X2AbilityTemplate]
+LocFriendlyName="Reflection"
+LocLongDescription="The Elder is able to deflect shots aimed at him, thereby avoiding damage."
+LocHelpText="The Elder is able to reflect shots aimed at him, thereby avoiding damage."
+LocFlyOverText="Psychic Fortress"
+
+[AHWElderReflectShot X2AbilityTemplate]
+LocFriendlyName="Revenge"
+LocLongDescription="The Elder can direct a deflected shot back at the attacker."
+LocHelpText="The Elder can direct a deflected shot back at the attacker."
+LocFlyOverText="Revenge"
+
+[ElderMentalFortress X2AbilityTemplate]
+LocFriendlyName="Supreme Being"
+LocFlyOverText="Supreme Being"
+LocLongDescription="The Elder's mind is reliably protected from any mental influences."
+LocHelpText="The Elder's mind is reliably protected from any mental influences."

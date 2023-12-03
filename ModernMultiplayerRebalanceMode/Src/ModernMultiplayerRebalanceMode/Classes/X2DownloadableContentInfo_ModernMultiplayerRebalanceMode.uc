@@ -24,10 +24,7 @@ static final function SetHidden(out X2AbilityTemplate Template)
 
 static event OnPostTemplatesCreated()
 {
-    RapidFirePatch();
-	PatchSteadyHands();
-    PatchMindScorch();
-	HideTeleportAlly();
+    HideTeleportAlly();
 	HideWarlockLevelM2();
 	HideRemoveSpectralZombies();
 	HideAvatarDamagedTeleport();
@@ -37,45 +34,36 @@ static event OnPostTemplatesCreated()
 	HideRapidFire2();
 	HideKillzoneShot();
 	HideBendingReed();
-	HideVanishingWing_Reveal();
-	PatchVanishingWindReveal();
-	PatchPartingSilk();
-	PatchHarborWave();
-	PatchLethalDose();
+	HideVanishingWind_Reveal();
+	HideLongWatchShot();
+	HideChosenLowProfileTrigger();
+	RapidFirePatch();
+	SteadyHandsPatch();
+    MindScorchPatch();
+	PartingSilkPatch();
+	HarborWavePatch();
+	LethalDosePatch();
 	TrackingShotPatch();
 	TrackingShotMarkPatch();
 	HunterRifleShotPatch();
-	PatchHunterKillZone();
-	PatchHunterSniperRifleT4();
-	PatchChosenSniperPistolt4();
-	HideLongWatchShot();
-	PatchChosenRifle_MG();
-	PatchChosenShotgun_T4();
-    AdvPsiWitchM3Patch();
-	PatchAdvCaptainM3_WPN();
+	HunterKillZonePatch();
+	HunterSniperRifleT4Patch();
+	ChosenSniperPistolt4Patch();
+	ChosenRifle_MGPatch();
+	ChosenShotgun_T4Patch();
+	AdvCaptainM3_WPNPatch();
 	SpectralArmyM2Patch();
-	PatchEverVigilant();
-	BendingReedPatch();
-	CorressPatch();
-	HunterGrapplePatch();
-	EnergyShieldAbilityPatch();
-	VoidRiftPatch();
-	VoidRiftInsanityPatch();
-	InspirePatch();
-	StasisPatch();
-	ChryssalidBurrowPatch();
-	PatchPsiDimensionalRiftStage1();
-	PatchVanishingWing();
-	PatchGatekeeperMP_WPN();
-	PatchSpectreMP_WPN();
-	PatchAdvPriestMP_WPN();
+	PsiDimensionalRiftStage1Patch();
+	VanishingWindPatch();
+	GatekeeperMP_WPNPatch();
+	SpectreMP_WPNPatch();
+	AdvPriestMP_WPNPatch();
 	GatekeeperPatch();
-	PatchAdvMEC_M2WPN();
-	PatchHunterConcussionGrenade();
-    PatchAdvPsiWitchM3_WPN();
+	AdvMEC_M2WPNPatch();
+	HunterConcussionGrenadePatch();
+    AdvPsiWitchM3_WPNPatch();
 	AnimaGatePatch();
-	PatchMarkTargetShot();
-	HideChosenLowProfileTrigger();
+	MarkTargetShotPatch();
 	BendingReedPatch2();
 	WrathCannonStage1AbilityPatch();
 	WrathCannonStage2AbilityPatch();
@@ -85,14 +73,13 @@ static event OnPostTemplatesCreated()
 	SpawnChryssalidMPPatch();
 	CorressPatch2();
 	SpecrtalArmyPatch2();
-	PatchDarkEventReturn_Fire();
 	ChosenAllSeeingPatch();
 	ChosenLowProfilePatch();
 	ChosenRevengePatch();
-	PatchTrackingShot2();
+	TrackingShot2Patch();
 	SectopodMPPatch();
-	PatchTrackingShot2();
-	PatchHolyWarriorM3();
+	TrackingShot2Patch();
+	HolyWarriorM3Patch();
 	BindPatch();
 	GetOverHerePatch();
 	LostAttackPatch();
@@ -107,15 +94,15 @@ static event OnPostTemplatesCreated()
 	ChryssalidSlashMPPatch();
 	SpawnChryssalidMPPatch2();
 	RevivalProtocolPatch();
-	PatchBattleScaner();
+	BattleScanerPatch();
 	DarkEventAbility_UndyingLoyaltyPatch();
 	PsiZombiePatch();
 	ChosenKineticPlatingPatch();
 	PoisonSpitPatch();
 	ChosenImmunitiesPatch();
+	PoisonSpitGlobPatch();
 	BindPatch2();
 	FrostbitePatch();
-	PatchPoisonSpitGlob();
 	QuakePatch();
 	IcarusDropGrabPatch();
 	OverdrivePatch();
@@ -126,130 +113,20 @@ static event OnPostTemplatesCreated()
 	AbsorptionFieldPatch();
 	NovaInitPatch();
 	SparkSoldierPatch();
+	RevealPatch();
+	ArsenalPatch();
+	SacrificePatch();
+	StrikePatch();
+	WreckingBallPatch();
+	BombardPatch();
+	NovaPatch();
+	SparkFlamethrowerPatch();
+	IntimidateTriggerPatch();
+	SparkRocketLauncherPatch();
 } 
 
-static private function RapidFirePatch()
-{
-    local X2AbilityTemplateManager           AbilityTemplateManager;
-    local X2AbilityTemplate                       Template;
-    local array<X2DataTemplate>             DifficultyVariants;
-    local X2DataTemplate                         DifficultyVariant;
-	local X2AbilityCooldown Cooldown;
 
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('RapidFire', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template != none)
-        {
-            Cooldown = new class'X2AbilityCooldown';
-            Cooldown.iNumTurns = 2;
-            Template.AbilityCooldown = Cooldown;
-        }
-    }
-}
-
-static function PatchSteadyHands()
-{
-    local array<X2DataTemplate> DifficultyVariants;
-    local X2DataTemplate DifficultyVariant;
-    local X2Effect_PersistentStatChange StatChangeEffect;
-    local X2Effect_Persistent PersistentEffect;
-    local X2AbilityTemplate AbilityTemplate;
-    local X2AbilityTemplateManager AbilityMgr;
-    local X2Effect Effect;
-
-    AbilityMgr = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-    AbilityMgr.FindDataTemplateAllDifficulties('SteadyHands', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        AbilityTemplate = X2AbilityTemplate(DifficultyVariant);
-
-        if (AbilityTemplate == none)
-        {
-            continue;
-        }
-
-        foreach AbilityTemplate.AbilityShooterEffects(Effect)
-        {
-            PersistentEffect = X2Effect_Persistent(Effect);
-            if (PersistentEffect.EffectName != 'SteadyHands')
-            {
-                continue;
-            }
-
-            foreach PersistentEffect.ApplyOnTick(Effect)
-            {
-                StatChangeEffect = X2Effect_PersistentStatChange(Effect);
-                if (StatChangeEffect.EffectName != 'SteadyHandsStatBoost')
-                {
-                    continue;
-                }
-                StatChangeEffect.DuplicateResponse = eDupe_Ignore;
-                break;
-            }
-            break;
-        }
-    }
-}
-
-
-static private function PatchMindScorch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-    local X2Effect_ApplyWeaponDamage Damage;
-	local X2Condition_UnitProperty UnitPropertyCondition;
-    local int i;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('MindScorch', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template == none) continue;
-        
-        for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
-        {
-            if (X2Effect_Dazed(Template.AbilityTargetEffects[i]) != none)
-            {
-                Template.AbilityTargetEffects.Remove(i, 1);
-            }
-        }
-        for (i = Template.AbilityMultiTargetEffects.Length - 1; i >= 0; i--)
-        {
-            if (X2Effect_Dazed(Template.AbilityMultiTargetEffects[i]) != none)
-            {
-                Template.AbilityMultiTargetEffects.Remove(i, 1);
-            }
-        }
-        
-        Template.AddTargetEffect(class'X2StatusEffects'.static.CreateDisorientedStatusEffect());
-        Template.AddMultiTargetEffect(class'X2StatusEffects'.static.CreateDisorientedStatusEffect());
-        
-        Damage = new class'X2Effect_ApplyWeaponDamage';
-        Damage.bIgnoreBaseDamage = true;
-		Damage.bIgnoreArmor = true;
-        Damage.EffectDamageValue.Damage = 5;
-        Damage.EffectDamageValue.DamageType = 'Psi';
-        
-        Template.AddTargetEffect(Damage);
-        Template.AddMultiTargetEffect(Damage);
-
-		UnitPropertyCondition = new class'X2Condition_UnitProperty';
-		UnitPropertyCondition.ExcludeTurret = true;
-	    UnitPropertyCondition.ExcludeRobotic = true;
-	    Template.AbilityTargetConditions.AddItem(UnitPropertyCondition);
-    }
-}
+// Hide Function
 
 
 static private function HideTeleportAlly()
@@ -268,7 +145,7 @@ static private function HideTeleportAlly()
         Template = X2AbilityTemplate(DifficultyVariant);
         if (Template == none) continue;
 
-        SetHidden(Template);
+        SetHidden(Template);;
     }
 }
 
@@ -435,7 +312,7 @@ static private function HideKillzoneShot()
     }
 }
 
-static private function HideVanishingWing_Reveal()
+static private function HideVanishingWind_Reveal()
 {
     local X2AbilityTemplateManager    AbilityTemplateManager;
     local X2AbilityTemplate            Template;
@@ -485,24 +362,105 @@ static private function HideBendingReed()
     }
 }
 
-
-static private function PatchVanishingWindReveal()
+static private function HideLongWatchShot()
 {
-    local X2AbilityTemplateManager    		AbilityTemplateManager;
-    local X2AbilityTemplate            		Template;
-	local X2AbilityTrigger_EventListener	Trigger;
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
 
     AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
 
-    Template = AbilityTemplateManager.FindAbilityTemplate('VanishingWindReveal');
-	if (Template == none) return;
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('LongWatchShot', DifficultyVariants);
 
-	Trigger = new class'X2AbilityTrigger_EventListener';
-	Trigger.ListenerData.Deferral = ELD_OnStateSubmitted;
-	Trigger.ListenerData.EventFn = VanishingWindRevealOnAbilityActivation;
-	Trigger.ListenerData.EventID = 'AbilityActivated';
-	Trigger.ListenerData.Filter = eFilter_None;
-	Template.AbilityTriggers.AddItem(Trigger);
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+        SetHidden(Template);
+    }
+}
+
+static private function HideChosenLowProfileTrigger()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('ChosenLowProfileTrigger', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+        SetHidden(Template);
+    }
+}
+
+
+// Abilities and Weapons Patch
+
+
+// Chosen Assassin
+
+static private function EventListenerReturn OnAssassinAbilityActivated(Object EventData, Object EventSource, XComGameState GameState, Name EventID, Object CallbackData)
+{
+    local XComGameStateContext_Ability	AbilityContext;
+    local XComGameState_Unit			UnitState;
+	local TTile							FinalTile;
+	local XComGameState     			NewGameState;
+	
+	`LOG("Running",, 'ChosenAssassin');
+	
+	AbilityContext = XComGameStateContext_Ability(GameState.GetContext());
+    if (AbilityContext == none)
+        return ELR_NoInterrupt;
+	
+	`LOG("For ability" @ AbilityContext.InputContext.AbilityTemplateName,, 'ChosenAssassin');
+    
+	 if (AbilityContext.InterruptionStatus == eInterruptionStatus_Interrupt)
+		return ELR_NoInterrupt;
+
+	
+	`LOG("Have ability from callback data",, 'ChosenAssassin');
+
+	if (AbilityContext.InputContext.MovementPaths.Length == 0)
+		return ELR_NoInterrupt;
+	
+	//if (AbilityContext.InputContext.MovementPaths[0].MovementTiles.Length == 0)
+	//	return ELR_NoInterrupt;
+	
+	`LOG("Ability has movement",, 'ChosenAssassin');
+	
+	UnitState = XComGameState_Unit(EventSource);
+	if (UnitState == none)
+	{
+		`LOG("WARNING: No Unit State from event source",, 'ChosenAssassin');
+		UnitState = XComGameState_Unit(`XCOMHISTORY.GetGameStateForObjectID(AbilityContext.InputContext.SourceObject.ObjectID));
+		if (UnitState == none)
+			return ELR_NoInterrupt;
+	}
+	
+	`LOG("Have Unit State",, 'ChosenAssassin');
+	
+	if (!IsTargetUnitMoving(UnitState.ObjectID, AbilityContext.InputContext.MovementPaths, FinalTile))
+		return ELR_NoInterrupt;
+	
+	`LOG("Unit State is moving, destination coordinates:" @ FinalTile.X @ FinalTile.Y @ FinalTile.Z,, 'ChosenAssassin');
+	 
+	NewGameState = class'XComGameStateContext_ChangeContainer'.static.CreateChangeState("Setting Chosen Assassin Coordinates");
+	UnitState = XComGameState_Unit(NewGameState.ModifyStateObject(class'XComGameState_Unit', UnitState.ObjectID));
+	UnitState.SetUnitFloatValue('ChosenAssassinCoordinatesX', FinalTile.X, eCleanup_BeginTactical);
+	UnitState.SetUnitFloatValue('ChosenAssassinCoordinatesY', FinalTile.Y, eCleanup_BeginTactical);
+	UnitState.SetUnitFloatValue('ChosenAssassinCoordinatesZ', FinalTile.Z, eCleanup_BeginTactical);
+	`GAMERULES.SubmitGameState(NewGameState);
+	
+    return ELR_NoInterrupt;
 }
 
 
@@ -510,8 +468,7 @@ static private function EventListenerReturn VanishingWindRevealOnAbilityActivati
 {
 	local XComGameStateContext_Ability	AbilityContext;
 	local XComGameState_Ability			AbilityState;
-	local XComGameState_Ability			TriggerAbilityState;
-	local X2AbilityTemplate				AbilityTemplate;
+	local XComGameState_Ability			RevealAbilityState;
 	local array<GameRulesCache_VisibilityInfo> VisibilityInfos;
 	local GameRulesCache_VisibilityInfo VisibilityInfo;
 	local XComGameState_Unit			OwnerUnit;
@@ -519,7 +476,9 @@ static private function EventListenerReturn VanishingWindRevealOnAbilityActivati
 	local XComGameStateHistory			History;
 	local XComGameState_Unit			UnitState;
 	local StateObjectReference			AbilityRef;
-	local  XComGameState_Unit			SourceUnit;
+	local TTile							OwnerUnitTileLocation;
+	local UnitValue						UV;
+	local bool							bMissingUnitValue;
 	
 	`LOG("Begin",, 'VanishinWindReveal');
 	
@@ -539,102 +498,257 @@ static private function EventListenerReturn VanishingWindRevealOnAbilityActivati
 		return ELR_NoInterrupt;
 	
 	`LOG("Have the ability state",, 'VanishinWindReveal');
-	
-	`LOG("CallbackData exists:" @ CallbackData != none @ CallbackData.Class.Name,, 'VanishinWindReveal');
-	`LOG("EventSource exists:" @ EventSource != none @ EventSource.Class.Name,, 'VanishinWindReveal');
-	
-	TriggerAbilityState = XComGameState_Ability(CallbackData);
-	if (TriggerAbilityState == none)
-	{
-		SourceUnit = XComGameState_Unit(`XCOMHISTORY.GetGameStateForObjectID(AbilityState.OwnerStateObject.ObjectID));
-		if (SourceUnit == none)
-			return ELR_NoInterrupt;
-		
-		`LOG("Source Unit:" @ SourceUnit.GetFullName(),, 'VanishinWindReveal');
-		
-		AbilityRef = SourceUnit.FindAbility('VanishingWindReveal');
-		
-		`LOG("AbilityRef:" @ AbilityRef.ObjectID,, 'VanishinWindReveal');
-		
-		TriggerAbilityState = XComGameState_Ability(`XCOMHISTORY.GetGameStateForObjectID(AbilityRef.ObjectID));
-	}
-	
-	if (TriggerAbilityState == none)
-		return ELR_NoInterrupt;
-	
-	`LOG("Have the callback ability state",, 'VanishinWindReveal');
-	
-	AbilityTemplate = AbilityState.GetMyTemplate();
-	if (AbilityTemplate == none)
-		return ELR_NoInterrupt;
-	
-	`LOG("Have the ability template",, 'VanishinWindReveal');
 
-	
-	if (AbilityState.OwnerStateObject.ObjectID != TriggerAbilityState.OwnerStateObject.ObjectID)
-			return ELR_NoInterrupt;
-		
-	`LOG("Initial validation done:" @ AbilityState.GetMyTemplateName() @ "Ability retains concealment on use:" @ AbilityState.RetainConcealmentOnActivation(AbilityContext),, 'VanishinWindReveal');
-
-
-	if (!AbilityState.RetainConcealmentOnActivation(AbilityContext))
-	{
-		`LOG("Triggering reveal",, 'VanishinWindReveal');
-		TriggerAbilityState.AbilityTriggerAgainstSingleTarget(AbilityContext.InputContext.SourceObject, false);
-		return ELR_NoInterrupt;
-	}
-	else
-	{
-		`LOG("Not triggering reveal. Checking vision.",, 'VanishinWindReveal');
-	}
-	
 	History = `XCOMHISTORY;
-	OwnerUnit = XComGameState_Unit(History.GetGameStateForObjectID(TriggerAbilityState.OwnerStateObject.ObjectID));
-	if (OwnerUnit == none)
-		return ELR_NoInterrupt;
-	
-	
-	
-	OwnerUnitPosition = `XWORLD.GetPositionFromTileCoordinates(OwnerUnit.TileLocation);
-	class'X2TacticalVisibilityHelpers'.static.GetAllEnemiesForLocation(OwnerUnitPosition, OwnerUnit.ControllingPlayer.ObjectID, VisibilityInfos);
-	
-	`LOG("Have owner unit. Visible to enemy units:" @ VisibilityInfos.Length,, 'VanishinWindReveal');
-	
-	foreach VisibilityInfos(VisibilityInfo)
+	foreach History.IterateByClassType(class'XComGameState_Unit', OwnerUnit)
 	{
-		if (!VisibilityInfo.bVisibleBasic)
+		`LOG("Unit in history:" @ OwnerUnit.GetMyTemplateName() @ "on team:" @ OwnerUnit.GetTeam(),, 'VanishinWindReveal');
+		
+		if (OwnerUnit.IsDead() || OwnerUnit.GetMyTemplateName() != 'ChosenAssassinMP')
 			continue;
 		
-		if (VisibilityInfo.TargetCover == CT_None)
+		AbilityRef = OwnerUnit.FindAbility('VanishingWindReveal');
+		RevealAbilityState = XComGameState_Ability(History.GetGameStateForObjectID(AbilityRef.ObjectID));
+		if (RevealAbilityState == none)
+			continue;
+		
+		`LOG("Have Chosen Assassin and reveal ability state on team:" @ OwnerUnit.GetTeam(),, 'VanishinWindReveal');
+		
+		if (AbilityContext.InputContext.SourceObject.ObjectID == OwnerUnit.ObjectID)
 		{
-			UnitState = XComGameState_Unit(History.GetGameStateForObjectID(VisibilityInfo.SourceID));
-			`LOG("Flanked by enemy unit:" @ UnitState.GetFullName(),, 'VanishinWindReveal');
+			`LOG("Ability was activated by this Assassin",, 'VanishinWindReveal');
 			
-			TriggerAbilityState.AbilityTriggerAgainstSingleTarget(AbilityContext.InputContext.SourceObject, false);
-			return ELR_NoInterrupt;
+			if (AbilityState.RetainConcealmentOnActivation(AbilityContext))
+			{
+				`LOG("This ability does not break concealment",, 'VanishinWindReveal');
+			}
+			else
+			{
+				`LOG("This ability breaks concealment, triggering reveal",, 'VanishinWindReveal');
+				RevealAbilityState.AbilityTriggerAgainstSingleTarget(OwnerUnit.GetReference(), false);
+				continue; // Go to next potential Assassin
+			}
+		}
+		else
+		{
+			`LOG("Ability was activated by another unit",, 'VanishinWindReveal');
 		}
 		
-		UnitState = XComGameState_Unit(History.GetGameStateForObjectID(VisibilityInfo.SourceID));
-		if (UnitState == none)
-			continue;
+		bMissingUnitValue = OwnerUnit.GetUnitValue('ChosenAssassinCoordinatesX', UV);
+		OwnerUnitTileLocation.X = UV.fValue;
+		if (!bMissingUnitValue)
+			`LOG("Warning! Missing X unit value",, 'VanishinWindReveal');
 		
-		`LOG("Visible to enemy unit:" @ UnitState.GetFullName(),, 'VanishinWindReveal');
+		bMissingUnitValue = OwnerUnit.GetUnitValue('ChosenAssassinCoordinatesY', UV);
+		OwnerUnitTileLocation.Y = UV.fValue;
+		if (!bMissingUnitValue)
+			`LOG("Warning! Missing Y unit value",, 'VanishinWindReveal');
 		
-		if (!UnitState.HasSoldierAbility('ChosenAllSeeing', true))
-			continue;
+		bMissingUnitValue = OwnerUnit.GetUnitValue('ChosenAssassinCoordinatesZ', UV);
+		OwnerUnitTileLocation.Z = UV.fValue;
+		if (!bMissingUnitValue)
+			`LOG("Warning! Missing Z unit value",, 'VanishinWindReveal');
 		
-		`LOG("Unit has Chosen All Seeing, triggering reveal",, 'VanishinWindReveal');
+		OwnerUnitPosition = `XWORLD.GetPositionFromTileCoordinates(OwnerUnitTileLocation);
+		class'X2TacticalVisibilityHelpers'.static.GetAllEnemiesForLocation(OwnerUnitPosition, OwnerUnit.ControllingPlayer.ObjectID, VisibilityInfos);
+		
+		`LOG("This assassin is on tile:" @ OwnerUnitTileLocation.X @ OwnerUnitTileLocation.Y @ OwnerUnitTileLocation.Z @ "Visible to enemy units:" @ VisibilityInfos.Length,, 'VanishinWindReveal');
+		
+		foreach VisibilityInfos(VisibilityInfo)
+		{
+			if (!VisibilityInfo.bVisibleBasic)
+				continue; // Go to next visible enemy
 			
-		TriggerAbilityState.AbilityTriggerAgainstSingleTarget(AbilityContext.InputContext.SourceObject, false);
-		return ELR_NoInterrupt;
+			UnitState = XComGameState_Unit(History.GetGameStateForObjectID(VisibilityInfo.SourceID));
+			if (UnitState == none)
+				continue; // Go to next visible enemy
+			
+			`LOG("Visible to enemy unit:" @ UnitState.GetMyTemplateName(),, 'VanishinWindReveal');
+			
+			if (VisibilityInfo.TargetCover == CT_None)
+			{
+				`LOG("Flanked by this unit, triggering reveal",, 'VanishinWindReveal');
+				
+				RevealAbilityState.AbilityTriggerAgainstSingleTarget(OwnerUnit.GetReference(), false);
+				break; // Go to next Assassin
+			}
+			
+			if (UnitState.HasSoldierAbility('ChosenAllSeeing', true))
+			{
+				`LOG("Unit has Chosen All Seeing, triggering reveal",, 'VanishinWindReveal');
+					
+				RevealAbilityState.AbilityTriggerAgainstSingleTarget(OwnerUnit.GetReference(), false);
+				break; // Go to next Assassin
+			}
+		}
 	}
 
-	`LOG("Reached EOL, no reveal",, 'VanishinWindReveal');
+	`LOG("Reached EOL",, 'VanishinWindReveal');
 	
 	return ELR_NoInterrupt;
 }
 
-static private function PatchPartingSilk()
+
+static private function bool IsTargetUnitMoving(const int ObjectID, const array<PathingInputData> MovementPaths, out TTile FinalTile)
+{
+	local PathingInputData MovementPath;
+	local int i;
+
+	//`AMLOG("Running for objectID:" @ ObjectID @ "num movement paths:" @ MovementPaths.Length);
+	
+	foreach MovementPaths(MovementPath, i)
+	{
+		//`AMLOG("Path number i:" @ i @ MovementPath.MovingUnitRef.ObjectID @ MovementPath.MovementTiles.Length);
+		if (MovementPath.MovingUnitRef.ObjectID == ObjectID && MovementPath.MovementTiles.Length > 0)
+		{
+			//`AMLOG("Target is moving");
+			FinalTile = MovementPath.MovementTiles[MovementPath.MovementTiles.Length - 1];
+			return true;
+		}
+	}
+	//`AMLOG("Target is NOT moving");
+	return false;
+}
+
+static private function ChosenImmunitiesPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('ChosenImmunities', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+		
+		 for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
+        {
+            if (X2Effect_DamageImmunity(Template.AbilityTargetEffects[i]) != none)
+            {
+				X2Effect_DamageImmunity(Template.AbilityTargetEffects[i]).SetDisplayInfo(ePerkBuff_Passive, Template.LocFriendlyName, Template.GetMyLongDescription(), "img:///UILibrary_PerkIcons.UIPerk_mentalfortress", , , Template.AbilitySourceName);
+            }
+        }
+		
+
+		Template.IconImage = "img:///UILibrary_PerkIcons.UIPerk_mentalfortress";
+
+    }
+}
+
+static private function RevealPatch()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+	local X2AbilityTrigger_EventListener Trigger;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('VanishingWindReveal', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Trigger = new class'X2AbilityTrigger_EventListener';
+		Trigger.ListenerData.Deferral = ELD_OnStateSubmitted;
+		Trigger.ListenerData.EventFn = VanishingWindRevealOnAbilityActivation;
+		Trigger.ListenerData.EventID = 'AbilityActivated';
+		Trigger.ListenerData.Filter = eFilter_None;
+		Template.AbilityTriggers.AddItem(Trigger);
+
+		Trigger = new class'X2AbilityTrigger_EventListener';
+		Trigger.ListenerData.Deferral = ELD_OnStateSubmitted;
+		Trigger.ListenerData.EventID = 'VanishingWindRevealEvent';
+		Trigger.ListenerData.EventFn = class'XComGameState_Ability'.static.AbilityTriggerEventListener_Self;
+		Trigger.ListenerData.Filter = eFilter_Unit;
+		Template.AbilityTriggers.AddItem(Trigger);
+
+    }
+}
+
+
+static private function VanishingWindPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+	local X2AbilityCost_ActionPoints ActionPointCost;
+	local X2Condition_UnitEffects UnitEffectsCondition;
+	local X2AbilityCharges							Charges;
+	local X2AbilityCost_Charges						ChargeCost;
+	local X2AbilityTrigger_EventListener Trigger;
+	local X2Effect_VanishingWindRevealTimer RevealTimer;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('VanishingWind', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+         if (Template == none) continue;
+        
+        for (i = Template.AbilityShooterConditions.Length - 1; i >= 0; i--)
+        {
+            if (X2Condition_UnitEffects(Template.AbilityShooterConditions[i]) != none)
+            {
+                Template.AbilityShooterConditions.Remove(i, 1);
+            }
+        }
+		
+		
+		Template.AbilityShooterConditions.AddItem(new class'X2Condition_Stealth');
+
+		UnitEffectsCondition = new class'X2Condition_UnitEffects';
+		UnitEffectsCondition.AddExcludeEffect('VanishingWind', 'AA_UnitIsConcealed');
+		Template.AbilityShooterConditions.AddItem(UnitEffectsCondition);
+
+        ActionPointCost = new class'X2AbilityCost_ActionPoints';
+		ActionPointCost.iNumPoints = 1;
+	    ActionPointCost.bFreeCost = true;
+	    Template.AbilityCosts.AddItem(ActionPointCost);
+
+		Template.AdditionalAbilities.RemoveItem('VanishingWind_Scamper');
+
+		Charges = new class 'X2AbilityCharges';
+		Charges.InitialCharges = 3;
+		Template.AbilityCharges = Charges;
+
+		ChargeCost = new class'X2AbilityCost_Charges';
+		ChargeCost.NumCharges = 1;
+		Template.AbilityCosts.AddItem(ChargeCost);
+
+		Trigger = new class'X2AbilityTrigger_EventListener';
+		Trigger.ListenerData.EventID = 'AbilityActivated';
+		Trigger.ListenerData.Deferral = ELD_OnStateSubmitted;
+		Trigger.ListenerData.Filter = eFilter_Unit;
+		Trigger.ListenerData.EventFn = OnAssassinAbilityActivated; 
+		Trigger.ListenerData.Priority = 100;
+		Template.AbilityTriggers.AddItem(Trigger);
+
+		RevealTimer = new class'X2Effect_VanishingWindRevealTimer';
+		RevealTimer.BuildPersistentEffect(2, false, true, false, eGameRule_PlayerTurnBegin);
+		RevealTimer.DuplicateResponse = eDupe_Refresh;
+		RevealTimer.EffectName = 'VanishingWindRevealEffect';
+		Template.AddShooterEffect(RevealTimer);
+    }
+
+}
+
+
+
+static private function PartingSilkPatch()
 {
     local X2AbilityTemplateManager    AbilityTemplateManager;
     local X2AbilityTemplate            Template;
@@ -677,7 +791,7 @@ static private function PatchPartingSilk()
 }
 
 
-static private function PatchHarborWave()
+static private function HarborWavePatch()
 {
     local X2AbilityTemplateManager    AbilityTemplateManager;
     local X2AbilityTemplate            Template;
@@ -708,11 +822,113 @@ static private function PatchHarborWave()
         Template.AddTargetEffect(Damage);
         Template.AddMultiTargetEffect(Damage);
 		Template.AddShooterEffectExclusions();
+	
+
+        X2AbilityMultiTarget_Cone(Template.AbilityMultiTargetStyle).bLockShooterZ = false;
+       	
+	
     }
 }
 
+static private function ChosenShotgun_T4Patch()
+{
+    local X2ItemTemplateManager ItemTemplateManager;
+	local X2WeaponTemplate Template;
+	local array<X2DataTemplate>    DifficultyVariants;
+    local X2DataTemplate        DifficultyVariant;
 
-static private function PatchLethalDose()
+	ItemTemplateManager = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
+	ItemTemplateManager.FindDataTemplateAllDifficulties('ChosenShotgun_T4', DifficultyVariants);
+	 foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2WeaponTemplate(DifficultyVariant);
+        if (Template != none)
+        {
+		Template.strImage = "img:///UILibrary_XPACK_StrategyImages.Inv_Chosen_Shotgun";
+	    }
+	}
+}
+
+static private function BendingReedPatch2()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+	local X2Effect_PersistentStatChange MobilityIncrease;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('BendingReed', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+         if (Template == none) continue;
+
+		  for (i = Template.AbilityShooterEffects.Length - 1; i >= 0; i--)
+        {
+            if (X2Effect_PersistentStatChange(Template.AbilityShooterEffects[i]) != none)
+            {
+                Template.AbilityShooterEffects.Remove(i, 1);
+			}
+		}
+		MobilityIncrease = new class'X2Effect_PersistentStatChange';
+        MobilityIncrease.BuildPersistentEffect(1, false, true, true, eGameRule_PlayerTurnEnd);
+        MobilityIncrease.AddPersistentStatChange(eStat_Mobility, class'X2Ability_ChosenAssassin'.default.BENDINGREED_MOBILITY_INCREASE, MODOP_Multiplication);
+        Template.AddShooterEffect(MobilityIncrease);
+		}
+}
+
+static private function RapidFirePatch()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+	local X2AbilityCooldown Cooldown;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('RapidFire', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template != none)
+        {
+            Cooldown = new class'X2AbilityCooldown';
+            Cooldown.iNumTurns = 2;
+            Template.AbilityCooldown = Cooldown;
+        }
+    }
+}
+
+static private function ChosenKineticPlatingPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('ChosenKineticPlating', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+        SetHidden(Template);
+		Template.AdditionalAbilities.AddItem('ChosenKineticPlatingPassive');
+    }
+}
+
+// Chosen Hunter
+
+static private function LethalDosePatch()
 {
     local X2AbilityTemplateManager    AbilityTemplateManager;
     local X2AbilityTemplate            Template;
@@ -797,7 +1013,32 @@ static private function TrackingShotMarkPatch()
 	}
 }
 
+static private function MarkTargetShotPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+	local int i;
 
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('TrackingShotMark', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+         if (Template == none) continue;
+        
+        for (i = Template.AbilityShooterConditions.Length - 1; i >= 0; i--)
+        {
+            if (X2Condition_BattleState(Template.AbilityShooterConditions[i]) != none)
+            {
+                Template.AbilityShooterConditions.Remove(i, 1);
+            }
+        }
+    }
+}
 
 static private function TrackingShotPatch()
 {
@@ -828,6 +1069,40 @@ static private function TrackingShotPatch()
 }
 
 
+static private function TrackingShot2Patch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+	local X2AbilityCost_ActionPoints ActionPointCost;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('TrackingShot', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+         if (Template == none) continue;
+        
+        for (i = Template.AbilityCosts.Length - 1; i >= 0; i--)
+        {
+            if (X2AbilityCost_ActionPoints(Template.AbilityCosts[i]) != none)
+            {
+                Template.AbilityCosts.Remove(i, 1);
+            }
+        
+		}
+		 ActionPointCost = new class'X2AbilityCost_ActionPoints';
+	     ActionPointCost.iNumPoints = 2;
+		 ActionPointCost.bFreeCost = true;
+	     Template.AbilityCosts.AddItem(ActionPointCost);
+    }
+
+}
+
 static private function HunterRifleShotPatch()
 {
     local X2AbilityTemplateManager    AbilityTemplateManager;
@@ -848,7 +1123,7 @@ static private function HunterRifleShotPatch()
 }
 
 
-static private function  PatchHunterKillZone()
+static private function  HunterKillZonePatch()
 {
     local X2AbilityTemplate Template;
     local int AbilityCostIndex;
@@ -875,7 +1150,7 @@ static private function  PatchHunterKillZone()
 }
 
 
-static private function  PatchHunterSniperRifleT4()
+static private function  HunterSniperRifleT4Patch()
 {
     local X2ItemTemplateManager ItemTemplateManager;
 	local X2WeaponTemplate Template;
@@ -900,7 +1175,7 @@ static private function  PatchHunterSniperRifleT4()
 	}
 }
 
-static private function  PatchChosenSniperPistolt4()
+static private function  ChosenSniperPistolt4Patch()
 {
     local X2ItemTemplateManager ItemTemplateManager;
 	local X2WeaponTemplate Template;
@@ -920,8 +1195,76 @@ static private function  PatchChosenSniperPistolt4()
 	}
 }
 
+static private function HunterConcussionGrenadePatch()
+{
+    local X2ItemTemplateManager ItemTemplateManager;
+	local X2GrenadeTemplate Template;
+	local array<X2DataTemplate>    DifficultyVariants;
+    local X2DataTemplate        DifficultyVariant;
+	local X2Effect_ApplyWeaponDamage WeaponDamageEffect;
+	local int i;
 
-static private function HideLongWatchShot()
+
+
+	ItemTemplateManager = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
+	ItemTemplateManager.FindDataTemplateAllDifficulties('HunterConcussionGrenade', DifficultyVariants);
+
+	 foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2GrenadeTemplate(DifficultyVariant);
+
+		if (Template == none) continue;
+        
+        for (i = Template.ThrownGrenadeEffects.Length - 1; i >= 0; i--)
+        {
+            if (X2Effect_Knockback(Template.ThrownGrenadeEffects[i]) != none)
+            {
+                Template.ThrownGrenadeEffects.Remove(i, 1);
+            }
+        }
+
+        Template.bFriendlyFire = true;
+	    Template.bFriendlyFireWarning = true;
+
+		WeaponDamageEffect = new class'X2Effect_ApplyWeaponDamage';
+        WeaponDamageEffect.EffectDamageValue = class'X2Item_DefaultGrenades'.default.FRAGGRENADE_BASEDAMAGE;
+	    Template.ThrownGrenadeEffects.AddItem(WeaponDamageEffect);
+		Template.ThrownGrenadeEffects.AddItem(class'X2StatusEffects'.static.CreateDisorientedStatusEffect());
+		Template.ThrownGrenadeEffects.AddItem(class'X2StatusEffects'.static.CreateStunnedStatusEffect(1, 100));
+        
+	}
+
+}
+
+static private function ChosenLowProfileTriggerPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+	local int i;
+
+   AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('ChosenLowProfileTrigger', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+    Template = X2AbilityTemplate(DifficultyVariant);
+
+     if (Template == none) continue;
+        
+        for (i = Template.AbilityShooterEffects.Length - 1; i >= 0; i--)
+        {
+            if (X2Effect_RemoveEffects(Template.AbilityShooterEffects[i]) != none)
+            {
+                Template.AbilityShooterEffects.Remove(i, 1);
+            }
+        }
+	}
+}
+
+static private function ChosenLowProfilePatch()
 {
     local X2AbilityTemplateManager    AbilityTemplateManager;
     local X2AbilityTemplate            Template;
@@ -930,19 +1273,142 @@ static private function HideLongWatchShot()
 
     AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
 
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('LongWatchShot', DifficultyVariants);
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('ChosenLowProfile', DifficultyVariants);
 
     foreach DifficultyVariants(DifficultyVariant)
     {
         Template = X2AbilityTemplate(DifficultyVariant);
         if (Template == none) continue;
 
-        SetHidden(Template);
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
+    }
+}
+
+static private function ChosenAllSeeingPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('ChosenAllSeeing', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
     }
 }
 
 
-static private function PatchChosenRifle_MG()
+static function SteadyHandsPatch()
+{
+    local array<X2DataTemplate> DifficultyVariants;
+    local X2DataTemplate DifficultyVariant;
+    local X2Effect_PersistentStatChange StatChangeEffect;
+    local X2Effect_Persistent PersistentEffect;
+    local X2AbilityTemplate AbilityTemplate;
+    local X2AbilityTemplateManager AbilityMgr;
+    local X2Effect Effect;
+
+    AbilityMgr = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+    AbilityMgr.FindDataTemplateAllDifficulties('SteadyHands', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        AbilityTemplate = X2AbilityTemplate(DifficultyVariant);
+
+        if (AbilityTemplate == none)
+        {
+            continue;
+        }
+
+        foreach AbilityTemplate.AbilityShooterEffects(Effect)
+        {
+            PersistentEffect = X2Effect_Persistent(Effect);
+            if (PersistentEffect.EffectName != 'SteadyHands')
+            {
+                continue;
+            }
+
+            foreach PersistentEffect.ApplyOnTick(Effect)
+            {
+                StatChangeEffect = X2Effect_PersistentStatChange(Effect);
+                if (StatChangeEffect.EffectName != 'SteadyHandsStatBoost')
+                {
+                    continue;
+                }
+                StatChangeEffect.DuplicateResponse = eDupe_Ignore;
+                break;
+            }
+            break;
+        }
+    }
+}
+
+
+// Chosen Warlock
+
+static private function MindScorchPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+    local X2Effect_ApplyWeaponDamage Damage;
+	local X2Condition_UnitProperty UnitPropertyCondition;
+    local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('MindScorch', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+        
+        for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
+        {
+            if (X2Effect_Dazed(Template.AbilityTargetEffects[i]) != none)
+            {
+                Template.AbilityTargetEffects.Remove(i, 1);
+            }
+        }
+        for (i = Template.AbilityMultiTargetEffects.Length - 1; i >= 0; i--)
+        {
+            if (X2Effect_Dazed(Template.AbilityMultiTargetEffects[i]) != none)
+            {
+                Template.AbilityMultiTargetEffects.Remove(i, 1);
+            }
+        }
+        
+        Template.AddTargetEffect(class'X2StatusEffects'.static.CreateDisorientedStatusEffect());
+        Template.AddMultiTargetEffect(class'X2StatusEffects'.static.CreateDisorientedStatusEffect());
+        
+        Damage = new class'X2Effect_ApplyWeaponDamage';
+        Damage.bIgnoreBaseDamage = true;
+		Damage.bIgnoreArmor = true;
+        Damage.EffectDamageValue.Damage = 5;
+        Damage.EffectDamageValue.DamageType = 'Psi';
+        
+        Template.AddTargetEffect(Damage);
+        Template.AddMultiTargetEffect(Damage);
+
+		UnitPropertyCondition = new class'X2Condition_UnitProperty';
+		UnitPropertyCondition.ExcludeTurret = true;
+	    UnitPropertyCondition.ExcludeRobotic = true;
+	    Template.AbilityTargetConditions.AddItem(UnitPropertyCondition);
+    }
+}
+
+static private function ChosenRifle_MGPatch()
 {
     local X2ItemTemplateManager ItemTemplateManager;
 	local X2WeaponTemplate Template;
@@ -959,79 +1425,10 @@ static private function PatchChosenRifle_MG()
 		Template.Abilities.AddItem('StandardShotWarlock');
 		Template.Abilities.RemoveItem('StandardShot');
 		Template.strImage = "img:///UILibrary_XPACK_StrategyImages.Inv_Chosen_AssaultRifle";
-
 	    }
 	}
 
 }
-
-
-static private function PatchChosenShotgun_T4()
-{
-    local X2ItemTemplateManager ItemTemplateManager;
-	local X2WeaponTemplate Template;
-	local array<X2DataTemplate>    DifficultyVariants;
-    local X2DataTemplate        DifficultyVariant;
-
-	ItemTemplateManager = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
-	ItemTemplateManager.FindDataTemplateAllDifficulties('ChosenShotgun_T4', DifficultyVariants);
-	 foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2WeaponTemplate(DifficultyVariant);
-        if (Template != none)
-        {
-		Template.strImage = "img:///UILibrary_XPACK_StrategyImages.Inv_Chosen_Shotgun";
-	    }
-	}
-}
-
-
-static private function AdvPsiWitchM3Patch()
-{
-    local X2CharacterTemplateManager    CharacterTemplateManager;
-    local X2CharacterTemplate    Template;
-    local array<X2DataTemplate>    DifficultyVariants;
-    local X2DataTemplate        DifficultyVariant;
-
-    CharacterTemplateManager = class'X2CharacterTemplateManager'.static.GetCharacterTemplateManager();
-
-    CharacterTemplateManager.FindDataTemplateAllDifficulties('AdvPsiWitchM3', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2CharacterTemplate(DifficultyVariant);
-        if (Template != none)
-        {
-        Template.Abilities.AddItem('Insanity');
-		Template.ImmuneTypes.AddItem('Fire');
-	    Template.ImmuneTypes.AddItem('Poison');
-		Template.ImmuneTypes.AddItem('ParthenogenicPoison');
-
-        }
-    }
-}
-
-
-static private function PatchAdvCaptainM3_WPN()
-{
-    local X2ItemTemplateManager ItemTemplateManager;
-	local X2WeaponTemplate Template;
-	local array<X2DataTemplate>    DifficultyVariants;
-    local X2DataTemplate        DifficultyVariant;
-
-	ItemTemplateManager = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
-	ItemTemplateManager.FindDataTemplateAllDifficulties('AdvCaptainM3_WPN', DifficultyVariants);
-	 foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2WeaponTemplate(DifficultyVariant);
-        if (Template != none)
-        {
-		Template.Abilities.AddItem('HailOfBullets');
-		Template.RangeAccuracy = class'X2Item_DefaultWeapons'.default.MEDIUM_CONVENTIONAL_RANGE;
-	    }
-	}
-}
-
 
 static private function SpectralArmyM2Patch()
 {
@@ -1055,255 +1452,166 @@ static private function SpectralArmyM2Patch()
     }
 }
 
-
-static private function PatchEverVigilant()
+static private function SpecrtalArmyPatch2()
 {
     local X2AbilityTemplateManager    AbilityTemplateManager;
     local X2AbilityTemplate            Template;
     local array<X2DataTemplate>        DifficultyVariants;
     local X2DataTemplate            DifficultyVariant;
-    local int i;
+	local X2Effect_SpawnSpectralArmyNew SpawnArmyEffect;
+	local int i;
+
+   AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('SpectralArmyM2', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+    Template = X2AbilityTemplate(DifficultyVariant);
+    if (X2Effect_SpawnSpectralArmy(Template.AbilityTargetEffects[i]) != none)
+            {
+                Template.AbilityTargetEffects.Remove(i, 1);
+            }
+	    SpawnArmyEffect = new class'X2Effect_SpawnSpectralArmyNew';
+		SpawnArmyEffect.UnitToSpawnName = 'SpectralStunLancerM2';
+	    Template.AbilityTargetEffects.InsertItem(0, SpawnArmyEffect);
+
+	}
+}
+static private function CorressPatch2()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+	local X2Effect_SpawnSpectralZombiesNew SpawnZombieEffect;
+	local int i;
+
+   AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('CorressM2', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+    Template = X2AbilityTemplate(DifficultyVariant);
+    if (X2Effect_SpawnSpectralZombies(Template.AbilityTargetEffects[i]) != none)
+            {
+                Template.AbilityTargetEffects.Remove(i, 1);
+            }
+	    SpawnZombieEffect = new class'X2Effect_SpawnSpectralZombiesNew';
+		SpawnZombieEffect.UnitToSpawnName = 'SpectralZombieM2';
+	    Template.AddTargetEffect(SpawnZombieEffect);
+
+		Template.AdditionalAbilities.AddItem('ZombieTurnLife');
+	}
+}
+
+static private function ChosenRevengePatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
 
     AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
 
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('EverVigilant', DifficultyVariants);
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('ChosenRevenge', DifficultyVariants);
 
     foreach DifficultyVariants(DifficultyVariant)
     {
         Template = X2AbilityTemplate(DifficultyVariant);
         if (Template == none) continue;
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+    }
+}
 
-		for (i = Template.AbilityTargetConditions.Length - 1; i >= 0; i--)
-		if (X2Condition_UnitProperty(Template.AbilityTargetConditions[i]) != none) 
-		{
-		Template.AbilityTargetConditions.Remove(i, 1);  
+static private function HolyWarriorM3Patch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+	local X2Effect_PersistentStatChange HolyWarriorEffect;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('HolyWarriorM3', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+         if (Template == none) continue;
+        
+        for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
+        {
+            if (X2Effect_PersistentStatChange(Template.AbilityTargetEffects[i]) != none)
+            {
+                Template.AbilityTargetEffects.Remove(i, 1);
+            }
+        
 		}
-   }
-}
-
-
-static private function HolyWarriorPatch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('HollyWarrior', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template != none)
-        {
-            Template.bFrameEvenWhenUnitIsHidden = false;
-			Template.bShowActivation = false;
-        }
+		HolyWarriorEffect = new class'X2Effect_PersistentStatChange';
+		HolyWarriorEffect.EffectName = class'X2Ability_AdvPriest'.default.HolyWarriorEffectName;
+		HolyWarriorEffect.DuplicateResponse = eDupe_Ignore;
+		HolyWarriorEffect.BuildPersistentEffect(1, true, false, true);
+		HolyWarriorEffect.bRemoveWhenTargetDies = true;
+		HolyWarriorEffect.SetDisplayInfo(ePerkBuff_Bonus, Template.LocFriendlyName, Template.GetMyHelpText(), Template.IconImage);
+		HolyWarriorEffect.AddPersistentStatChange(eStat_Mobility, 2);
+		HolyWarriorEffect.AddPersistentStatChange(eStat_Will, 25);
+		HolyWarriorEffect.AddPersistentStatChange(eStat_PsiOffense, 25);
+		HolyWarriorEffect.AddPersistentStatChange(eStat_ShieldHP, 4);
+		Template.AbilityTargetEffects.InsertItem(0, HolyWarriorEffect);
     }
 
 }
 
-static private function BendingReedPatch()
+static private function SpectralZombieM2Patch()
 {
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
+    local X2CharacterTemplateManager    CharacterTemplateManager;
+    local X2CharacterTemplate    Template;
+    local array<X2DataTemplate>    DifficultyVariants;
+    local X2DataTemplate        DifficultyVariant;
 
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+    CharacterTemplateManager = class'X2CharacterTemplateManager'.static.GetCharacterTemplateManager();
 
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('BendingReed', DifficultyVariants);
+    CharacterTemplateManager.FindDataTemplateAllDifficulties('SpectralZombieM2', DifficultyVariants);
 
     foreach DifficultyVariants(DifficultyVariant)
     {
-        Template = X2AbilityTemplate(DifficultyVariant);
+        Template = X2CharacterTemplate(DifficultyVariant);
         if (Template != none)
         {
-            Template.bFrameEvenWhenUnitIsHidden = false;
+        Template.DefaultLoadout = 'SpectralZombieM2MP_Loadout';
         }
     }
-
 }
 
-static private function CorressPatch()
+static private function SpectralStunLancerPatch()
 {
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
+    local X2CharacterTemplateManager    CharacterTemplateManager;
+    local X2CharacterTemplate    Template;
+    local array<X2DataTemplate>    DifficultyVariants;
+    local X2DataTemplate        DifficultyVariant;
 
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+    CharacterTemplateManager = class'X2CharacterTemplateManager'.static.GetCharacterTemplateManager();
 
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('Corress', DifficultyVariants);
+    CharacterTemplateManager.FindDataTemplateAllDifficulties('SpectralStunLancerM2', DifficultyVariants);
 
     foreach DifficultyVariants(DifficultyVariant)
     {
-        Template = X2AbilityTemplate(DifficultyVariant);
+        Template = X2CharacterTemplate(DifficultyVariant);
         if (Template != none)
         {
-            Template.bFrameEvenWhenUnitIsHidden = false;
+        Template.DefaultLoadout = 'SpectralStunLancerM2MP_Loadout';
         }
     }
-
 }
 
-static private function HunterGrapplePatch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
 
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+// ADvent Psi Witch
 
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('HunterGrapple', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template != none)
-        {
-            Template.bFrameEvenWhenUnitIsHidden = false;
-        }
-    }
-
-}
-
-static private function EnergyShieldAbilityPatch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('EnergyShieldAbility', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template != none)
-        {
-            Template.bFrameEvenWhenUnitIsHidden = false;
-        }
-    }
-
-}
-
-static private function VoidRiftPatch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('VoidRift', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template != none)
-        {
-            Template.bFrameEvenWhenUnitIsHidden = false;
-        }
-    }
-
-}
-
-static private function VoidRiftInsanityPatch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('VoidRiftInsanity', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template != none)
-        {
-            Template.bFrameEvenWhenUnitIsHidden = false;
-        }
-    }
-
-}
-
-static private function InspirePatch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('Inspire', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template != none)
-        {
-            Template.bFrameEvenWhenUnitIsHidden = false;
-        }
-    }
-
-}
-
-static private function StasisPatch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('Stasis', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template != none)
-        {
-            Template.bFrameEvenWhenUnitIsHidden = false;
-        }
-    }
-
-}
-
-static private function ChryssalidBurrowPatch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('ChryssalidBurrow', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template != none)
-        {
-            Template.bFrameEvenWhenUnitIsHidden = false;
-        }
-    }
-
-}
-
-static private function PatchPsiDimensionalRiftStage1()
+static private function PsiDimensionalRiftStage1Patch()
 {
     local X2AbilityTemplateManager    AbilityTemplateManager;
     local X2AbilityTemplate            Template;
@@ -1326,45 +1634,31 @@ static private function PatchPsiDimensionalRiftStage1()
 
 }
 
-static private function PatchVanishingWing()
+static private function AdvPsiWitchM3_WPNPatch()
 {
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-	local X2AbilityCost_ActionPoints ActionPointCost;
-	local int i;
+    local X2ItemTemplateManager ItemTemplateManager;
+	local X2WeaponTemplate Template;
+	local array<X2DataTemplate>    DifficultyVariants;
+    local X2DataTemplate        DifficultyVariant;
 
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('VanishingWind', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
+	ItemTemplateManager = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
+	ItemTemplateManager.FindDataTemplateAllDifficulties('AdvPsiWitchM3_WPN', DifficultyVariants);
+	 foreach DifficultyVariants(DifficultyVariant)
     {
-        Template = X2AbilityTemplate(DifficultyVariant);
-         if (Template == none) continue;
-        
-        for (i = Template.AbilityShooterConditions.Length - 1; i >= 0; i--)
+        Template = X2WeaponTemplate(DifficultyVariant);
+        if (Template != none)
         {
-            if (X2Condition_UnitEffects(Template.AbilityShooterConditions[i]) != none)
-            {
-                Template.AbilityShooterConditions.Remove(i, 1);
-            }
-        }
-		
-
-        ActionPointCost = new class'X2AbilityCost_ActionPoints';
-		ActionPointCost.iNumPoints = 1;
-	    ActionPointCost.bFreeCost = true;
-	    Template.AbilityCosts.AddItem(ActionPointCost);
-
-		Template.AdditionalAbilities.RemoveItem('VanishingWind_Scamper');
-		
-    }
+		Template.RangeAccuracy = class'X2Item_DefaultWeapons'.default.MEDIUM_BEAM_RANGE;
+	    }
+	}
 
 }
 
-static private function PatchGatekeeperMP_WPN()
+
+// Gatekeeper
+
+
+static private function GatekeeperMP_WPNPatch()
 {
     local X2ItemTemplateManager ItemTemplateManager;
 	local X2WeaponTemplate Template;
@@ -1406,130 +1700,6 @@ static private function GatekeeperPatch()
     }
 }
 
-
-static private function PatchSpectreMP_WPN()
-{
-    local X2ItemTemplateManager ItemTemplateManager;
-	local X2WeaponTemplate Template;
-	local array<X2DataTemplate>    DifficultyVariants;
-    local X2DataTemplate        DifficultyVariant;
-
-	ItemTemplateManager = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
-	ItemTemplateManager.FindDataTemplateAllDifficulties('SpectreMP_WPN', DifficultyVariants);
-	 foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2WeaponTemplate(DifficultyVariant);
-        if (Template != none)
-        {
-		Template.RangeAccuracy = class'X2Item_DefaultWeapons'.default.MEDIUM_BEAM_RANGE;
-	    }
-	}
-
-}
-
-static private function PatchAdvPriestMP_WPN()
-{
-    local X2ItemTemplateManager ItemTemplateManager;
-	local X2WeaponTemplate Template;
-	local array<X2DataTemplate>    DifficultyVariants;
-    local X2DataTemplate        DifficultyVariant;
-
-	ItemTemplateManager = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
-	ItemTemplateManager.FindDataTemplateAllDifficulties('AdvPriestMP_WPN', DifficultyVariants);
-	 foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2WeaponTemplate(DifficultyVariant);
-        if (Template != none)
-        {
-		Template.RangeAccuracy = class'X2Item_DefaultWeapons'.default.MEDIUM_CONVENTIONAL_RANGE;
-	    }
-	}
-}
-
-
-static private function PatchAdvMEC_M2WPN()
-{
-    local X2ItemTemplateManager ItemTemplateManager;
-	local X2WeaponTemplate Template;
-	local array<X2DataTemplate>    DifficultyVariants;
-    local X2DataTemplate        DifficultyVariant;
-
-	ItemTemplateManager = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
-	ItemTemplateManager.FindDataTemplateAllDifficulties('AdvMEC_M2_WPN', DifficultyVariants);
-	 foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2WeaponTemplate(DifficultyVariant);
-        if (Template != none)
-        {
-		Template.RangeAccuracy = class'X2Item_DefaultWeapons'.default.MEDIUM_CONVENTIONAL_RANGE;
-	    }
-	}
-
-}
-
-static private function PatchAdvPsiWitchM3_WPN()
-{
-    local X2ItemTemplateManager ItemTemplateManager;
-	local X2WeaponTemplate Template;
-	local array<X2DataTemplate>    DifficultyVariants;
-    local X2DataTemplate        DifficultyVariant;
-
-	ItemTemplateManager = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
-	ItemTemplateManager.FindDataTemplateAllDifficulties('AdvPsiWitchM3_WPN', DifficultyVariants);
-	 foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2WeaponTemplate(DifficultyVariant);
-        if (Template != none)
-        {
-		Template.RangeAccuracy = class'X2Item_DefaultWeapons'.default.MEDIUM_BEAM_RANGE;
-	    }
-	}
-
-}
-
-
-static private function PatchHunterConcussionGrenade()
-{
-    local X2ItemTemplateManager ItemTemplateManager;
-	local X2GrenadeTemplate Template;
-	local array<X2DataTemplate>    DifficultyVariants;
-    local X2DataTemplate        DifficultyVariant;
-	local X2Effect_ApplyWeaponDamage WeaponDamageEffect;
-	local int i;
-
-
-
-	ItemTemplateManager = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
-	ItemTemplateManager.FindDataTemplateAllDifficulties('HunterConcussionGrenade', DifficultyVariants);
-
-	 foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2GrenadeTemplate(DifficultyVariant);
-
-		if (Template == none) continue;
-        
-        for (i = Template.ThrownGrenadeEffects.Length - 1; i >= 0; i--)
-        {
-            if (X2Effect_Knockback(Template.ThrownGrenadeEffects[i]) != none)
-            {
-                Template.ThrownGrenadeEffects.Remove(i, 1);
-            }
-        }
-
-        Template.bFriendlyFire = true;
-	    Template.bFriendlyFireWarning = true;
-
-		WeaponDamageEffect = new class'X2Effect_ApplyWeaponDamage';
-        WeaponDamageEffect.EffectDamageValue = class'X2Item_DefaultGrenades'.default.FRAGGRENADE_BASEDAMAGE;
-	    Template.ThrownGrenadeEffects.AddItem(WeaponDamageEffect);
-		Template.ThrownGrenadeEffects.AddItem(class'X2StatusEffects'.static.CreateDisorientedStatusEffect());
-		Template.ThrownGrenadeEffects.AddItem(class'X2StatusEffects'.static.CreateStunnedStatusEffect(1, 100));
-        
-	}
-
-}
-
-
 static private function AnimaGatePatch()
 {
     local X2AbilityTemplateManager    AbilityTemplateManager;
@@ -1562,87 +1732,7 @@ static private function AnimaGatePatch()
 }
 
 
-static private function PatchMarkTargetShot()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-	local int i;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('TrackingShotMark', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-         if (Template == none) continue;
-        
-        for (i = Template.AbilityShooterConditions.Length - 1; i >= 0; i--)
-        {
-            if (X2Condition_BattleState(Template.AbilityShooterConditions[i]) != none)
-            {
-                Template.AbilityShooterConditions.Remove(i, 1);
-            }
-        }
-    }
-
-}
-
-
-static private function HideChosenLowProfileTrigger()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('ChosenLowProfileTrigger', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template == none) continue;
-
-        SetHidden(Template);
-    }
-}
-
-
-static private function BendingReedPatch2()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-	local X2Effect_PersistentStatChange MobilityIncrease;
-	local int i;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('BendingReed', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-         if (Template == none) continue;
-
-		  for (i = Template.AbilityShooterEffects.Length - 1; i >= 0; i--)
-        {
-            if (X2Effect_PersistentStatChange(Template.AbilityShooterEffects[i]) != none)
-            {
-                Template.AbilityShooterEffects.Remove(i, 1);
-			}
-		}
-		MobilityIncrease = new class'X2Effect_PersistentStatChange';
-        MobilityIncrease.BuildPersistentEffect(1, false, true, true, eGameRule_PlayerTurnEnd);
-        MobilityIncrease.AddPersistentStatChange(eStat_Mobility, class'X2Ability_ChosenAssassin'.default.BENDINGREED_MOBILITY_INCREASE, MODOP_Multiplication);
-        Template.AddShooterEffect(MobilityIncrease);
-		}
-}
+// Sectopod 
 
 static private function WrathCannonStage1AbilityPatch()
 {
@@ -1694,6 +1784,477 @@ static private function WrathCannonStage2AbilityPatch()
 	}	
 }
 
+static private function SectopodMPPatch()
+{
+    local X2CharacterTemplateManager    CharacterTemplateManager;
+    local X2CharacterTemplate    Template;
+    local array<X2DataTemplate>    DifficultyVariants;
+    local X2DataTemplate        DifficultyVariant;
+
+    CharacterTemplateManager = class'X2CharacterTemplateManager'.static.GetCharacterTemplateManager();
+
+    CharacterTemplateManager.FindDataTemplateAllDifficulties('SectopodMP', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2CharacterTemplate(DifficultyVariant);
+        if (Template != none)
+        {
+        Template.ImmuneTypes.AddItem('Mental');
+        }
+    }
+}
+
+
+// Arhon King
+
+static private function IcarusDropGrabPatch()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('IcarusDropGrab', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+        
+        for (i = Template.AbilityTargetConditions.Length - 1; i >= 0; i--)
+        {
+            if (X2Condition_UnitProperty(Template.AbilityTargetConditions[i]) != none)
+            {
+                X2Condition_UnitProperty(Template.AbilityTargetConditions[i]).ExcludeAdvent=true;
+            }
+        }
+
+
+    }
+}
+
+
+// Berserker Queen
+
+
+static private function QuakePatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+	local X2Effect_ApplyWeaponDamage DamageEffect;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('Quake', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AbilityMultiTargetEffects.Length = 0;
+
+		DamageEffect = new class'X2Effect_ApplyWeaponDamage';
+		DamageEffect.EffectDamageValue = class'X2Ability_DLC_Day60BerserkerQueen'.default.QUAKE_DAMAGE;
+		Template.AddMultiTargetEffect(DamageEffect);
+		
+		Template.IconImage = "img:///UILibrary_DLC2Images.UIPerk_beserker_quake";
+    }
+}
+
+
+// Viper King
+
+
+static private function FrostbitePatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('Frostbite', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+		
+		Template.IconImage = "img:///UILibrary_DLC2Images.UIPerk_freezingbreath";
+    }
+}
+
+// Spark
+
+
+static private function OverdrivePatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('Overdrive', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
+    }
+}
+
+static private function RainmakerPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('Rainmaker', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
+    }
+}
+
+static private function BulwarkPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('Bulwark', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
+    }
+}
+
+static private function IntimidatePatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('Intimidate', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
+    }
+}
+
+static private function IntimidateTriggerPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('IntimidateTrigger', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
+    }
+}
+
+static private function RepairkPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('Repair', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
+    }
+}
+
+static private function AbsorptionFieldPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('AbsorptionField', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
+    }
+}
+
+static private function NovaInitPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('NovaInit', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
+    }
+}
+
+static private function ArsenalPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('Arsenal', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
+    }
+}
+static private function SacrificePatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('Sacrifice', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
+    }
+}
+static private function StrikePatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('Strike', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
+    }
+}
+static private function WreckingBallPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('WreckingBall', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
+    }
+}
+static private function BombardPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('Bombard', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
+    }
+}
+static private function NovaPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('Nova', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
+    }
+}
+
+static private function SparkFlamethrowerPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('SparkFlamethrower', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
+    }
+}
+
+static private function SparkRocketLauncherPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties(' SparkRocketLauncher', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
+    }
+}
+
+
+static private function SparkSoldierPatch()
+{
+    local X2CharacterTemplateManager    CharacterTemplateManager;
+    local X2CharacterTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    CharacterTemplateManager = class'X2CharacterTemplateManager'.static.GetCharacterTemplateManager();
+
+   CharacterTemplateManager.FindDataTemplateAllDifficulties('SparkSoldier', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2CharacterTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+		Template.strHackIconImage = "UILibrary_Common.TargetIcons.Hack_robot_icon";
+
+    }
+}
+
+
+
+
+
+// Viper 
+
 static private function EndBindPatch()
 {
     local X2AbilityTemplateManager    AbilityTemplateManager;
@@ -1718,311 +2279,6 @@ static private function EndBindPatch()
         Template.AbilityCosts.AddItem(ActionPointCost);
 		}
 	}
-}
-
-static private function CombatPresencePatch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-	local X2Condition_UnitImmunities UnitImmunityCondition;
-
-   AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('CombatPresence', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template != none)
-		{
-	    UnitImmunityCondition = new class'X2Condition_UnitImmunities';
-	    UnitImmunityCondition.AddExcludeDamageType('Mental');
-	    Template.AbilityTargetConditions.AddItem(UnitImmunityCondition);
-		}
-	}
-}
-
-static private function SpawnChryssalidPatch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-
-   AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('SpawnChryssalid', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template != none)
-        {
-	    Template.AbilityTargetConditions.Length = 0;
-		}
-	}
-}
-
-static private function SpawnChryssalidMPPatch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-
-   AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('SpawnChryssalidMP', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template != none)
-        {
-	    Template.AbilityTargetConditions.Length = 0;
-		}
-	}
-}
-
-static private function CorressPatch2()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-	local X2Effect_SpawnSpectralZombiesNew SpawnZombieEffect;
-	local int i;
-
-   AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('CorressM2', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-    Template = X2AbilityTemplate(DifficultyVariant);
-    if (X2Effect_SpawnSpectralZombies(Template.AbilityTargetEffects[i]) != none)
-            {
-                Template.AbilityTargetEffects.Remove(i, 1);
-            }
-	    SpawnZombieEffect = new class'X2Effect_SpawnSpectralZombiesNew';
-		SpawnZombieEffect.UnitToSpawnName = 'SpectralZombieM2';
-	    Template.AddTargetEffect(SpawnZombieEffect);
-
-		Template.AdditionalAbilities.AddItem('ZombieTurnLife');
-	}
-}
-
-static private function SpecrtalArmyPatch2()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-	local X2Effect_SpawnSpectralArmyNew SpawnArmyEffect;
-	local int i;
-
-   AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('SpectralArmyM2', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-    Template = X2AbilityTemplate(DifficultyVariant);
-    if (X2Effect_SpawnSpectralArmy(Template.AbilityTargetEffects[i]) != none)
-            {
-                Template.AbilityTargetEffects.Remove(i, 1);
-            }
-	    SpawnArmyEffect = new class'X2Effect_SpawnSpectralArmyNew';
-		SpawnArmyEffect.UnitToSpawnName = 'SpectralStunLancerM2';
-	    Template.AbilityTargetEffects.InsertItem(0, SpawnArmyEffect);
-
-	}
-}
-
-static private function PatchDarkEventReturn_Fire()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-	local int i;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('DarkEventAbility_ReturnFire', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template == none) continue;
-		for (i = Template.AbilityShooterConditions.Length - 1; i >= 0; i--)
-        {
-            if (X2Condition_GameplayTag(Template.AbilityShooterConditions[i]) != none)
-            {
-                Template.AbilityShooterConditions.Remove(i, 1);
-			}
-		}
-    }
-}
-
-static private function ChosenAllSeeingPatch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('ChosenAllSeeing', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template == none) continue;
-
-		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
-
-    }
-}
-
-static private function ChosenLowProfilePatch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('ChosenLowProfile', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template == none) continue;
-
-		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
-
-    }
-}
-
-
-static private function ChosenRevengePatch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('ChosenRevenge', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template == none) continue;
-		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
-    }
-}
-
-static private function SectopodMPPatch()
-{
-    local X2CharacterTemplateManager    CharacterTemplateManager;
-    local X2CharacterTemplate    Template;
-    local array<X2DataTemplate>    DifficultyVariants;
-    local X2DataTemplate        DifficultyVariant;
-
-    CharacterTemplateManager = class'X2CharacterTemplateManager'.static.GetCharacterTemplateManager();
-
-    CharacterTemplateManager.FindDataTemplateAllDifficulties('SectopodMP', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2CharacterTemplate(DifficultyVariant);
-        if (Template != none)
-        {
-        Template.ImmuneTypes.AddItem('Mental');
-        }
-    }
-}
-
-static private function PatchTrackingShot2()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-	local X2AbilityCost_ActionPoints ActionPointCost;
-	local int i;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('TrackingShot', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-         if (Template == none) continue;
-        
-        for (i = Template.AbilityCosts.Length - 1; i >= 0; i--)
-        {
-            if (X2AbilityCost_ActionPoints(Template.AbilityCosts[i]) != none)
-            {
-                Template.AbilityCosts.Remove(i, 1);
-            }
-        
-		}
-		 ActionPointCost = new class'X2AbilityCost_ActionPoints';
-	     ActionPointCost.iNumPoints = 2;
-		 ActionPointCost.bFreeCost = true;
-	     Template.AbilityCosts.AddItem(ActionPointCost);
-    }
-
-}
-
-static private function PatchHolyWarriorM3()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-	local X2Effect_PersistentStatChange HolyWarriorEffect;
-	local int i;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('HolyWarriorM3', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-         if (Template == none) continue;
-        
-        for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
-        {
-            if (X2Effect_PersistentStatChange(Template.AbilityTargetEffects[i]) != none)
-            {
-                Template.AbilityTargetEffects.Remove(i, 1);
-            }
-        
-		}
-		HolyWarriorEffect = new class'X2Effect_PersistentStatChange';
-		HolyWarriorEffect.EffectName = class'X2Ability_AdvPriest'.default.HolyWarriorEffectName;
-		HolyWarriorEffect.DuplicateResponse = eDupe_Ignore;
-		HolyWarriorEffect.BuildPersistentEffect(1, true, false, true);
-		HolyWarriorEffect.bRemoveWhenTargetDies = true;
-		HolyWarriorEffect.SetDisplayInfo(ePerkBuff_Bonus, Template.LocFriendlyName, Template.GetMyHelpText(), Template.IconImage);
-		HolyWarriorEffect.AddPersistentStatChange(eStat_Mobility, 2);
-		HolyWarriorEffect.AddPersistentStatChange(eStat_Will, 25);
-		HolyWarriorEffect.AddPersistentStatChange(eStat_PsiOffense, 25);
-		HolyWarriorEffect.AddPersistentStatChange(eStat_ShieldHP, 4);
-		Template.AbilityTargetEffects.InsertItem(0, HolyWarriorEffect);
-    }
-
 }
 
 static private function BindPatch()
@@ -2079,7 +2335,310 @@ static private function GetOverHerePatch()
 	}
 }
 
-static private function PatchAdvMEC_M2_Shoulder_WPN()
+static private function PoisonSpitPatch()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+	local X2AbilityCooldown Cooldown;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('PoisonSpit', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template != none)
+        {
+            Cooldown = new class'X2AbilityCooldown';
+            Cooldown.iNumTurns = 3;
+            Template.AbilityCooldown = Cooldown;
+        }
+    }
+}
+
+static private function PoisonSpitGlobPatch()
+{
+    local X2ItemTemplateManager ItemTemplateManager;
+	local X2WeaponTemplate Template;
+	local array<X2DataTemplate>    DifficultyVariants;
+    local X2DataTemplate        DifficultyVariant;
+
+
+	ItemTemplateManager = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
+	ItemTemplateManager.FindDataTemplateAllDifficulties('PoisonSpitGlob', DifficultyVariants);
+
+	 foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2WeaponTemplate(DifficultyVariant);
+
+		if (Template == none) continue;
+
+		Template.iRange = 14;
+        
+	}
+
+}
+
+static private function BindPatch2()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('Bind', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+        
+        for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
+        {
+            if (X2Effect_ApplyDirectionalWorldDamage(Template.AbilityTargetEffects[i]) != none)
+            {
+               Template.AbilityTargetEffects.Remove(i, 1);
+            }
+        }
+
+    }
+}
+
+
+// Chryssalid 
+
+static private function SpawnChryssalidPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+   AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('SpawnChryssalid', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template != none)
+        {
+	    Template.AbilityTargetConditions.Length = 0;
+		}
+	}
+}
+
+static private function SpawnChryssalidMPPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+   AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('SpawnChryssalidMP', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template != none)
+        {
+	    Template.AbilityTargetConditions.Length = 0;
+		}
+	}
+}
+
+static private function ChryssalidSlashMPPatch()
+{
+    local X2AbilityTemplateManager			AbilityTemplateManager;
+    local X2AbilityTemplate					Template;
+    local array<X2DataTemplate>				DifficultyVariants;
+    local X2DataTemplate					DifficultyVariant;
+	local X2Effect_ParthenogenicPoisonNew	ParthenogenicPoisonEffect;
+	local X2Condition_UnitProperty			UnitPropertyCondition;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('ChryssalidSlashMP', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+        
+		for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
+		{
+			if (X2Effect_ParthenogenicPoison(Template.AbilityTargetEffects[i]) != none)
+			{
+				Template.AbilityTargetEffects.Remove(i, 1);
+			}
+		}
+
+		ParthenogenicPoisonEffect = new class'X2Effect_ParthenogenicPoisonNew';
+		ParthenogenicPoisonEffect.UnitToSpawnName = 'ChryssalidCocoonMP';
+		ParthenogenicPoisonEffect.AltUnitToSpawnName = 'ChryssalidCocoonHumanMP';
+		ParthenogenicPoisonEffect.BuildPersistentEffect(class'X2Ability_Chryssalid'.default.POISON_DURATION, true, false, false, eGameRule_PlayerTurnEnd);
+		ParthenogenicPoisonEffect.SetDisplayInfo(ePerkBuff_Penalty, class'X2Ability_Chryssalid'.default.ParthenogenicPoisonFriendlyName, class'X2Ability_Chryssalid'.default.ParthenogenicPoisonFriendlyDesc, Template.IconImage, true);
+		ParthenogenicPoisonEffect.DuplicateResponse = eDupe_Ignore;
+		ParthenogenicPoisonEffect.bAddToSourceGroup = true;
+		ParthenogenicPoisonEffect.SetPoisonDamageDamage();
+
+		UnitPropertyCondition = new class'X2Condition_UnitProperty';
+		UnitPropertyCondition.ExcludeRobotic = true;
+		UnitPropertyCondition.ExcludeAlive = false;
+		UnitPropertyCondition.ExcludeDead = false;
+		UnitPropertyCondition.ExcludeFriendlyToSource = false;
+		ParthenogenicPoisonEffect.TargetConditions.AddItem(UnitPropertyCondition);
+
+		Template.AddTargetEffect(ParthenogenicPoisonEffect);
+ 
+	}
+}
+
+static private function SpawnChryssalidMPPatch2()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('SpawnChryssalidMP', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+        
+        for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
+        {
+            if (X2Effect_SpawnChryssalid(Template.AbilityTargetEffects[i]) != none)
+            {
+             X2Effect_SpawnChryssalid(Template.AbilityTargetEffects[i]).bAddToSourceGroup=true;
+            }
+        }
+    }
+}
+
+// Psi-ability
+
+static private function InspirePatch2()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+	local X2Condition_UnitImmunities UnitImmunityCondition;
+
+   AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('Inspire', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template != none)
+		{
+	    UnitImmunityCondition = new class'X2Condition_UnitImmunities';
+	    UnitImmunityCondition.AddExcludeDamageType('Mental');
+	    Template.AbilityTargetConditions.AddItem(UnitImmunityCondition);
+		}
+	}
+}
+
+
+
+
+static private function StasisMPPatch()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+	local X2Condition_UnitType UnitType;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('Stasis', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template != none)
+        {
+            UnitType = new class'X2Condition_UnitType';
+			UnitType.ExcludeTypes.AddItem('ChosenAssassinMP');
+			UnitType.ExcludeTypes.AddItem('ChosenWarlockMP');
+			UnitType.ExcludeTypes.AddItem('ChosenSniperMP');
+			UnitType.ExcludeTypes.AddItem('AdventPsiWitch');
+			Template.AbilityTargetConditions.AddItem(UnitType);
+        }
+    }
+}
+
+static private function StasisPriestMPPatch()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+	local X2Condition_UnitType UnitType;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('PriestStasis', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template != none)
+        {
+            UnitType = new class'X2Condition_UnitType';
+			UnitType.ExcludeTypes.AddItem('ChosenAssassinMP');
+			UnitType.ExcludeTypes.AddItem('ChosenWarlockMP');
+			UnitType.ExcludeTypes.AddItem('ChosenSniperMP');
+			UnitType.ExcludeTypes.AddItem('AdventPsiWitch');
+			Template.AbilityTargetConditions.AddItem(UnitType);
+        }
+    }
+}
+
+// Advent General
+
+static private function CombatPresencePatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+	local X2Condition_UnitImmunities UnitImmunityCondition;
+
+   AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('CombatPresence', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template != none)
+		{
+	    UnitImmunityCondition = new class'X2Condition_UnitImmunities';
+	    UnitImmunityCondition.AddExcludeDamageType('Mental');
+	    Template.AbilityTargetConditions.AddItem(UnitImmunityCondition);
+		}
+	}
+}
+
+static private function BattleScanerPatch()
 {
     local X2ItemTemplateManager ItemTemplateManager;
 	local X2WeaponTemplate Template;
@@ -2087,18 +2646,166 @@ static private function PatchAdvMEC_M2_Shoulder_WPN()
     local X2DataTemplate        DifficultyVariant;
 
 	ItemTemplateManager = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
-	ItemTemplateManager.FindDataTemplateAllDifficulties('AdvMEC_M2_Shoulder_WPN', DifficultyVariants);
+	ItemTemplateManager.FindDataTemplateAllDifficulties('BattleScanner', DifficultyVariants);
+
+	 foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2WeaponTemplate(DifficultyVariant);
+
+		 if (Template != none)
+        {
+			Template.iClipSize = 1;
+		}
+        
+	}
+
+}
+
+static private function DarkEventAbility_UndyingLoyaltyPatch()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('DarkEventAbility_UndyingLoyalty', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+        
+        for (i = Template.AbilityShooterConditions.Length - 1; i >= 0; i--)
+        {
+            if (X2Condition_GameplayTag(Template.AbilityShooterConditions[i]) != none)
+            {
+               Template.AbilityShooterConditions.Remove(i, 1);
+            }
+        }
+
+		for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
+        {
+            if (X2Effect_SpawnPsiZombie(Template.AbilityTargetEffects[i]) != none)
+            {
+             X2Effect_SpawnPsiZombie(Template.AbilityTargetEffects[i]).bAddToSourceGroup=true;
+            }
+		}
+		Template.IconImage = "img:///UILibrary_PerkIcons.UIPerk_sectoid_psireanimate";
+		SetHidden(Template);
+		Template.AdditionalAbilities.AddItem('DarkEventAbility_UndyingLoyaltyPassive');
+
+    }
+}
+
+static private function PsiZombiePatch()
+{
+    local X2CharacterTemplateManager    CharacterTemplateManager;
+    local X2CharacterTemplate    Template;
+    local array<X2DataTemplate>    DifficultyVariants;
+    local X2DataTemplate        DifficultyVariant;
+
+    CharacterTemplateManager = class'X2CharacterTemplateManager'.static.GetCharacterTemplateManager();
+
+    CharacterTemplateManager.FindDataTemplateAllDifficulties('PsiZombie', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2CharacterTemplate(DifficultyVariant);
+        if (Template != none)
+        {
+        Template.DefaultLoadout = 'SpectralZombieM2MP_Loadout';
+        }
+    }
+}
+
+static private function AdvCaptainM3_WPNPatch()
+{
+    local X2ItemTemplateManager ItemTemplateManager;
+	local X2WeaponTemplate Template;
+	local array<X2DataTemplate>    DifficultyVariants;
+    local X2DataTemplate        DifficultyVariant;
+
+	ItemTemplateManager = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
+	ItemTemplateManager.FindDataTemplateAllDifficulties('AdvCaptainM3_WPN', DifficultyVariants);
 	 foreach DifficultyVariants(DifficultyVariant)
     {
         Template = X2WeaponTemplate(DifficultyVariant);
         if (Template != none)
         {
-		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
-		Template.iClipSize = 1;
+		Template.Abilities.AddItem('HailOfBullets');
+		Template.RangeAccuracy = class'X2Item_DefaultWeapons'.default.MEDIUM_CONVENTIONAL_RANGE;
+	    }
+	}
+}
+
+//
+
+
+// Range Accuracy fix
+
+static private function SpectreMP_WPNPatch()
+{
+    local X2ItemTemplateManager ItemTemplateManager;
+	local X2WeaponTemplate Template;
+	local array<X2DataTemplate>    DifficultyVariants;
+    local X2DataTemplate        DifficultyVariant;
+
+	ItemTemplateManager = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
+	ItemTemplateManager.FindDataTemplateAllDifficulties('SpectreMP_WPN', DifficultyVariants);
+	 foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2WeaponTemplate(DifficultyVariant);
+        if (Template != none)
+        {
+		Template.RangeAccuracy = class'X2Item_DefaultWeapons'.default.MEDIUM_BEAM_RANGE;
 	    }
 	}
 
 }
+
+static private function AdvPriestMP_WPNPatch()
+{
+    local X2ItemTemplateManager ItemTemplateManager;
+	local X2WeaponTemplate Template;
+	local array<X2DataTemplate>    DifficultyVariants;
+    local X2DataTemplate        DifficultyVariant;
+
+	ItemTemplateManager = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
+	ItemTemplateManager.FindDataTemplateAllDifficulties('AdvPriestMP_WPN', DifficultyVariants);
+	 foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2WeaponTemplate(DifficultyVariant);
+        if (Template != none)
+        {
+		Template.RangeAccuracy = class'X2Item_DefaultWeapons'.default.MEDIUM_CONVENTIONAL_RANGE;
+	    }
+	}
+}
+
+
+static private function AdvMEC_M2WPNPatch()
+{
+    local X2ItemTemplateManager ItemTemplateManager;
+	local X2WeaponTemplate Template;
+	local array<X2DataTemplate>    DifficultyVariants;
+    local X2DataTemplate        DifficultyVariant;
+
+	ItemTemplateManager = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
+	ItemTemplateManager.FindDataTemplateAllDifficulties('AdvMEC_M2_WPN', DifficultyVariants);
+	 foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2WeaponTemplate(DifficultyVariant);
+        if (Template != none)
+        {
+		Template.RangeAccuracy = class'X2Item_DefaultWeapons'.default.MEDIUM_CONVENTIONAL_RANGE;
+	    }
+	}
+
+}
+
 static private function LostAttackPatch()
 {
     local X2AbilityTemplateManager    AbilityTemplateManager;
@@ -2119,6 +2826,62 @@ static private function LostAttackPatch()
     }
 }
 
+static private function SwitchToRobotPatch()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('SwitchToRobotMP', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+        
+        for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
+        {
+            if (X2Effect_SwitchToRobot(Template.AbilityTargetEffects[i]) != none)
+            {
+             X2Effect_SwitchToRobot(Template.AbilityTargetEffects[i]).bAddToSourceGroup=true;
+            }
+        }
+    }
+}
+
+static private function RevivalProtocolPatch()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('RevivalProtocol', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+        
+        for (i = Template.AbilityTargetConditions.Length - 1; i >= 0; i--)
+        {
+            if (X2Condition_RevivalProtocol(Template.AbilityTargetConditions[i]) != none)
+            {
+               Template.AbilityTargetConditions.Remove(i, 1);
+            }
+	   Template.AbilityTargetConditions.AddItem(new class'X2Condition_RevivalProtocolNew');
+        }
+    }
+}
+
+
 static private function ItemIcon()
 {
     local X2AbilityTemplateManager  AbilityMgr;
@@ -2129,8 +2892,6 @@ static private function ItemIcon()
 
     //Additional Passives
     AddVaultPassiveToUnitsThatCanJump();
-    AddPanicPassiveToRulers(AbilityMgr);
-    AddBioPCSPassiveToBioPCS(AbilityMgr);
 
 	//EnsurePassiveIconDisplay(X2AbilityTemplate, optional X2ItemTemplate, optional name, optional string, optional doner X2AbilityTemplate)
 
@@ -2295,760 +3056,4 @@ static private function AddVaultPassiveToUnitsThatCanJump()
 	}
 }
 
-static private function AddPanicPassiveToRulers(X2AbilityTemplateManager  AbilityMgr)
-{
-    local X2AbilityTemplate         Template;
-    
-    Template = AbilityMgr.FindAbilityTemplate('SerpentPanic');
-	if (Template != none)
-	{
-        Template.AdditionalAbilities.AddItem('SerpentPanicPassive');
-    }
 
-    Template = AbilityMgr.FindAbilityTemplate('RagePanic');
-	if (Template != none)
-	{
-        Template.AdditionalAbilities.AddItem('RagePanicPassive');
-    }
-
-    Template = AbilityMgr.FindAbilityTemplate('IcarusPanic');
-	if (Template != none)
-	{
-        Template.AdditionalAbilities.AddItem('IcarusPanicPassive');
-    }
-}
-
-static private function AddBioPCSPassiveToBioPCS(X2AbilityTemplateManager  AbilityMgr)
-{
-    local X2AbilityTemplate         Template;
-    
-    Template = AbilityMgr.FindAbilityTemplate('BioDamageControl');
-	if (Template != none)
-	{
-        Template.AdditionalAbilities.AddItem('BioDamageControlPassive');
-	}
-}
-
-static private function SpectralStunLancerPatch()
-{
-    local X2CharacterTemplateManager    CharacterTemplateManager;
-    local X2CharacterTemplate    Template;
-    local array<X2DataTemplate>    DifficultyVariants;
-    local X2DataTemplate        DifficultyVariant;
-
-    CharacterTemplateManager = class'X2CharacterTemplateManager'.static.GetCharacterTemplateManager();
-
-    CharacterTemplateManager.FindDataTemplateAllDifficulties('SpectralStunLancerM2', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2CharacterTemplate(DifficultyVariant);
-        if (Template != none)
-        {
-        Template.DefaultLoadout = 'SpectralStunLancerM2MP_Loadout';
-        }
-    }
-}
-
-
-static private function InspirePatch2()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-	local X2Condition_UnitImmunities UnitImmunityCondition;
-
-   AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('Inspire', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template != none)
-		{
-	    UnitImmunityCondition = new class'X2Condition_UnitImmunities';
-	    UnitImmunityCondition.AddExcludeDamageType('Mental');
-	    Template.AbilityTargetConditions.AddItem(UnitImmunityCondition);
-		}
-	}
-}
-
-static private function SpectralZombieM2Patch()
-{
-    local X2CharacterTemplateManager    CharacterTemplateManager;
-    local X2CharacterTemplate    Template;
-    local array<X2DataTemplate>    DifficultyVariants;
-    local X2DataTemplate        DifficultyVariant;
-
-    CharacterTemplateManager = class'X2CharacterTemplateManager'.static.GetCharacterTemplateManager();
-
-    CharacterTemplateManager.FindDataTemplateAllDifficulties('SpectralZombieM2', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2CharacterTemplate(DifficultyVariant);
-        if (Template != none)
-        {
-        Template.DefaultLoadout = 'SpectralZombieM2MP_Loadout';
-        }
-    }
-}
-
-static private function ChosenLowProfileTriggerPatch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-	local int i;
-
-   AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('ChosenLowProfileTrigger', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-    Template = X2AbilityTemplate(DifficultyVariant);
-
-     if (Template == none) continue;
-        
-        for (i = Template.AbilityShooterEffects.Length - 1; i >= 0; i--)
-        {
-            if (X2Effect_RemoveEffects(Template.AbilityShooterEffects[i]) != none)
-            {
-                Template.AbilityShooterEffects.Remove(i, 1);
-            }
-        }
-	}
-}
-
-static private function StasisMPPatch()
-{
-    local X2AbilityTemplateManager           AbilityTemplateManager;
-    local X2AbilityTemplate                       Template;
-    local array<X2DataTemplate>             DifficultyVariants;
-    local X2DataTemplate                         DifficultyVariant;
-	local X2Condition_UnitType UnitType;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('Stasis', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template != none)
-        {
-            UnitType = new class'X2Condition_UnitType';
-			UnitType.ExcludeTypes.AddItem('ChosenAssassinMP');
-			UnitType.ExcludeTypes.AddItem('ChosenWarlockMP');
-			UnitType.ExcludeTypes.AddItem('ChosenSniperMP');
-			UnitType.ExcludeTypes.AddItem('AdventPsiWitch');
-			Template.AbilityTargetConditions.AddItem(UnitType);
-        }
-    }
-}
-
-static private function StasisPriestMPPatch()
-{
-    local X2AbilityTemplateManager           AbilityTemplateManager;
-    local X2AbilityTemplate                       Template;
-    local array<X2DataTemplate>             DifficultyVariants;
-    local X2DataTemplate                         DifficultyVariant;
-	local X2Condition_UnitType UnitType;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('PriestStasis', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template != none)
-        {
-            UnitType = new class'X2Condition_UnitType';
-			UnitType.ExcludeTypes.AddItem('ChosenAssassinMP');
-			UnitType.ExcludeTypes.AddItem('ChosenWarlockMP');
-			UnitType.ExcludeTypes.AddItem('ChosenSniperMP');
-			UnitType.ExcludeTypes.AddItem('AdventPsiWitch');
-			Template.AbilityTargetConditions.AddItem(UnitType);
-        }
-    }
-}
-
-static private function SwitchToRobotPatch()
-{
-    local X2AbilityTemplateManager           AbilityTemplateManager;
-    local X2AbilityTemplate                       Template;
-    local array<X2DataTemplate>             DifficultyVariants;
-    local X2DataTemplate                         DifficultyVariant;
-	local int i;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('SwitchToRobotMP', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template == none) continue;
-        
-        for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
-        {
-            if (X2Effect_SwitchToRobot(Template.AbilityTargetEffects[i]) != none)
-            {
-             X2Effect_SwitchToRobot(Template.AbilityTargetEffects[i]).bAddToSourceGroup=true;
-            }
-        }
-    }
-}
-
-static private function ChryssalidSlashMPPatch()
-{
-    local X2AbilityTemplateManager			AbilityTemplateManager;
-    local X2AbilityTemplate					Template;
-    local array<X2DataTemplate>				DifficultyVariants;
-    local X2DataTemplate					DifficultyVariant;
-	local X2Effect_ParthenogenicPoisonNew	ParthenogenicPoisonEffect;
-	local X2Condition_UnitProperty			UnitPropertyCondition;
-	local int i;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('ChryssalidSlashMP', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template == none) continue;
-        
-		for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
-		{
-			if (X2Effect_ParthenogenicPoison(Template.AbilityTargetEffects[i]) != none)
-			{
-				Template.AbilityTargetEffects.Remove(i, 1);
-			}
-		}
-
-		ParthenogenicPoisonEffect = new class'X2Effect_ParthenogenicPoisonNew';
-		ParthenogenicPoisonEffect.UnitToSpawnName = 'ChryssalidCocoonMP';
-		ParthenogenicPoisonEffect.AltUnitToSpawnName = 'ChryssalidCocoonHumanMP';
-		ParthenogenicPoisonEffect.BuildPersistentEffect(class'X2Ability_Chryssalid'.default.POISON_DURATION, true, false, false, eGameRule_PlayerTurnEnd);
-		ParthenogenicPoisonEffect.SetDisplayInfo(ePerkBuff_Penalty, class'X2Ability_Chryssalid'.default.ParthenogenicPoisonFriendlyName, class'X2Ability_Chryssalid'.default.ParthenogenicPoisonFriendlyDesc, Template.IconImage, true);
-		ParthenogenicPoisonEffect.DuplicateResponse = eDupe_Ignore;
-		ParthenogenicPoisonEffect.bAddToSourceGroup = true;
-		ParthenogenicPoisonEffect.SetPoisonDamageDamage();
-
-		UnitPropertyCondition = new class'X2Condition_UnitProperty';
-		UnitPropertyCondition.ExcludeRobotic = true;
-		UnitPropertyCondition.ExcludeAlive = false;
-		UnitPropertyCondition.ExcludeDead = false;
-		UnitPropertyCondition.ExcludeFriendlyToSource = false;
-		ParthenogenicPoisonEffect.TargetConditions.AddItem(UnitPropertyCondition);
-
-		Template.AddTargetEffect(ParthenogenicPoisonEffect);
- 
-	}
-}
-
-static private function SpawnChryssalidMPPatch2()
-{
-    local X2AbilityTemplateManager           AbilityTemplateManager;
-    local X2AbilityTemplate                       Template;
-    local array<X2DataTemplate>             DifficultyVariants;
-    local X2DataTemplate                         DifficultyVariant;
-	local int i;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('SpawnChryssalidMP', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template == none) continue;
-        
-        for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
-        {
-            if (X2Effect_SpawnChryssalid(Template.AbilityTargetEffects[i]) != none)
-            {
-             X2Effect_SpawnChryssalid(Template.AbilityTargetEffects[i]).bAddToSourceGroup=true;
-            }
-        }
-    }
-}
-
-static private function RevivalProtocolPatch()
-{
-    local X2AbilityTemplateManager           AbilityTemplateManager;
-    local X2AbilityTemplate                       Template;
-    local array<X2DataTemplate>             DifficultyVariants;
-    local X2DataTemplate                         DifficultyVariant;
-	local int i;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('RevivalProtocol', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template == none) continue;
-        
-        for (i = Template.AbilityTargetConditions.Length - 1; i >= 0; i--)
-        {
-            if (X2Condition_RevivalProtocol(Template.AbilityTargetConditions[i]) != none)
-            {
-               Template.AbilityTargetConditions.Remove(i, 1);
-            }
-	   Template.AbilityTargetConditions.AddItem(new class'X2Condition_RevivalProtocolNew');
-        }
-    }
-}
-
-static private function PatchBattleScaner()
-{
-    local X2ItemTemplateManager ItemTemplateManager;
-	local X2WeaponTemplate Template;
-	local array<X2DataTemplate>    DifficultyVariants;
-    local X2DataTemplate        DifficultyVariant;
-
-	ItemTemplateManager = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
-	ItemTemplateManager.FindDataTemplateAllDifficulties('BattleScanner', DifficultyVariants);
-
-	 foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2WeaponTemplate(DifficultyVariant);
-
-		 if (Template != none)
-        {
-			Template.iClipSize = 1;
-		}
-        
-	}
-
-}
-
-static private function DarkEventAbility_UndyingLoyaltyPatch()
-{
-    local X2AbilityTemplateManager           AbilityTemplateManager;
-    local X2AbilityTemplate                       Template;
-    local array<X2DataTemplate>             DifficultyVariants;
-    local X2DataTemplate                         DifficultyVariant;
-	local int i;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('DarkEventAbility_UndyingLoyalty', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template == none) continue;
-        
-        for (i = Template.AbilityShooterConditions.Length - 1; i >= 0; i--)
-        {
-            if (X2Condition_GameplayTag(Template.AbilityShooterConditions[i]) != none)
-            {
-               Template.AbilityShooterConditions.Remove(i, 1);
-            }
-        }
-
-		for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
-        {
-            if (X2Effect_SpawnPsiZombie(Template.AbilityTargetEffects[i]) != none)
-            {
-             X2Effect_SpawnPsiZombie(Template.AbilityTargetEffects[i]).bAddToSourceGroup=true;
-            }
-		}
-		Template.IconImage = "img:///UILibrary_PerkIcons.UIPerk_sectoid_psireanimate";
-		SetHidden(Template);
-		Template.AdditionalAbilities.AddItem('DarkEventAbility_UndyingLoyaltyPassive');
-
-    }
-}
-
-static private function PsiZombiePatch()
-{
-    local X2CharacterTemplateManager    CharacterTemplateManager;
-    local X2CharacterTemplate    Template;
-    local array<X2DataTemplate>    DifficultyVariants;
-    local X2DataTemplate        DifficultyVariant;
-
-    CharacterTemplateManager = class'X2CharacterTemplateManager'.static.GetCharacterTemplateManager();
-
-    CharacterTemplateManager.FindDataTemplateAllDifficulties('PsiZombie', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2CharacterTemplate(DifficultyVariant);
-        if (Template != none)
-        {
-        Template.DefaultLoadout = 'SpectralZombieM2MP_Loadout';
-        }
-    }
-}
-
-
-static private function ChosenKineticPlatingPatch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('ChosenKineticPlating', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template == none) continue;
-
-        SetHidden(Template);
-		Template.AdditionalAbilities.AddItem('ChosenKineticPlatingPassive');
-    }
-}
-
-
-static private function PoisonSpitPatch()
-{
-    local X2AbilityTemplateManager           AbilityTemplateManager;
-    local X2AbilityTemplate                       Template;
-    local array<X2DataTemplate>             DifficultyVariants;
-    local X2DataTemplate                         DifficultyVariant;
-	local X2AbilityCooldown Cooldown;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('PoisonSpit', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template != none)
-        {
-            Cooldown = new class'X2AbilityCooldown';
-            Cooldown.iNumTurns = 3;
-            Template.AbilityCooldown = Cooldown;
-        }
-    }
-}
-
-static private function ChosenImmunitiesPatch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('ChosenImmunities', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template == none) continue;
-		
-		Template.IconImage = "img:///UILibrary_PerkIcons.UIPerk_mentalfortress";
-    }
-}
-
-static private function BindPatch2()
-{
-    local X2AbilityTemplateManager           AbilityTemplateManager;
-    local X2AbilityTemplate                       Template;
-    local array<X2DataTemplate>             DifficultyVariants;
-    local X2DataTemplate                         DifficultyVariant;
-	local int i;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('Bind', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template == none) continue;
-        
-        for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
-        {
-            if (X2Effect_ApplyDirectionalWorldDamage(Template.AbilityTargetEffects[i]) != none)
-            {
-               Template.AbilityTargetEffects.Remove(i, 1);
-            }
-        }
-
-    }
-}
-
-static private function FrostbitePatch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('Frostbite', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template == none) continue;
-		
-		Template.IconImage = "img:///UILibrary_DLC2Images.UIPerk_freezingbreath";
-    }
-}
-
-static private function PatchPoisonSpitGlob()
-{
-    local X2ItemTemplateManager ItemTemplateManager;
-	local X2WeaponTemplate Template;
-	local array<X2DataTemplate>    DifficultyVariants;
-    local X2DataTemplate        DifficultyVariant;
-
-
-	ItemTemplateManager = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
-	ItemTemplateManager.FindDataTemplateAllDifficulties('PoisonSpitGlob', DifficultyVariants);
-
-	 foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2WeaponTemplate(DifficultyVariant);
-
-		if (Template == none) continue;
-
-		Template.iRange = 16;
-        
-	}
-
-}
-
-static private function QuakePatch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-	local X2Effect_ApplyWeaponDamage DamageEffect;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('Quake', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template == none) continue;
-
-		Template.AbilityMultiTargetEffects.Length = 0;
-
-		DamageEffect = new class'X2Effect_ApplyWeaponDamage';
-		DamageEffect.EffectDamageValue = class'X2Ability_DLC_Day60BerserkerQueen'.default.QUAKE_DAMAGE;
-		Template.AddMultiTargetEffect(DamageEffect);
-		
-		Template.IconImage = "img:///UILibrary_DLC2Images.UIPerk_beserker_quake";
-    }
-}
-
-
-static private function IcarusDropGrabPatch()
-{
-    local X2AbilityTemplateManager           AbilityTemplateManager;
-    local X2AbilityTemplate                       Template;
-    local array<X2DataTemplate>             DifficultyVariants;
-    local X2DataTemplate                         DifficultyVariant;
-	local int i;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('IcarusDropGrab', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template == none) continue;
-        
-        for (i = Template.AbilityTargetConditions.Length - 1; i >= 0; i--)
-        {
-            if (X2Condition_UnitProperty(Template.AbilityTargetConditions[i]) != none)
-            {
-                X2Condition_UnitProperty(Template.AbilityTargetConditions[i]).ExcludeAdvent=true;
-            }
-        }
-
-
-    }
-}
-
-static private function OverdrivePatch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('Overdrive', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template == none) continue;
-
-		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
-
-    }
-}
-
-static private function RainmakerPatch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('Rainmaker', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template == none) continue;
-
-		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
-
-    }
-}
-
-static private function BulwarkPatch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('Bulwark', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template == none) continue;
-
-		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
-
-    }
-}
-
-static private function IntimidatePatch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('Intimidate', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template == none) continue;
-
-		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
-
-    }
-}
-
-static private function RepairkPatch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('Repair', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template == none) continue;
-
-		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
-
-    }
-}
-
-static private function AbsorptionFieldPatch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('AbsorptionField', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template == none) continue;
-
-		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
-
-    }
-}
-
-static private function NovaInitPatch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-
-    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('NovaInit', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2AbilityTemplate(DifficultyVariant);
-        if (Template == none) continue;
-
-		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
-
-    }
-}
-
-static private function SparkSoldierPatch()
-{
-    local X2CharacterTemplateManager    CharacterTemplateManager;
-    local X2CharacterTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-
-    CharacterTemplateManager = class'X2CharacterTemplateManager'.static.GetCharacterTemplateManager();
-
-   CharacterTemplateManager.FindDataTemplateAllDifficulties('SparkSoldier', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-        Template = X2CharacterTemplate(DifficultyVariant);
-        if (Template == none) continue;
-
-		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
-
-    }
-}

@@ -184,6 +184,34 @@ if (MPCharTemplate.DataName == 'ChosenWarlockMP' && GetNumCharsInSquad(MPCharTem
      {
   kListItem.SetDisabled(true);
      }
+	  if (MPCharTemplate.DataName == 'BerserkerQueenMP' && GetNumCharsInSquad(MPCharTemplate.DataName) > 0)
+     {
+  kListItem.SetDisabled(true);
+     }
+	  if (MPCharTemplate.DataName == 'AdvMedicMP' && GetNumCharsInSquad(MPCharTemplate.DataName) > 5)
+     {
+  kListItem.SetDisabled(true);
+     }
+	  if (MPCharTemplate.DataName == 'AHWElder' && GetNumCharsInSquad(MPCharTemplate.DataName) > 0)
+     {
+  kListItem.SetDisabled(true);
+     }
+	  if (MPCharTemplate.DataName == 'MutonElite_MP' && GetNumCharsInSquad(MPCharTemplate.DataName) > 1)
+     {
+  kListItem.SetDisabled(true);
+     }
+	  if (MPCharTemplate.DataName == 'Centurion' && GetNumCharsInSquad(MPCharTemplate.DataName) > 1)
+     {
+  kListItem.SetDisabled(true);
+     }
+	  if (MPCharTemplate.DataName == 'SectoidM2_MP' && GetNumCharsInSquad(MPCharTemplate.DataName) > 1)
+     {
+  kListItem.SetDisabled(true);
+     }
+	  if (MPCharTemplate.DataName == 'SparkSoldierMP' && GetNumCharsInSquad(MPCharTemplate.DataName) > 0)
+     {
+  kListItem.SetDisabled(true);
+     }
 }	 
 }
 private function int GetNumCharsInSquad(const name CheckName)

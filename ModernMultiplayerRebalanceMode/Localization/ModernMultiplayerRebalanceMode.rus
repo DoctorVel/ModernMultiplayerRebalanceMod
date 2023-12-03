@@ -1,10 +1,68 @@
-[X2Ability_ZombieTurnLife]
-DelayedDamageBuffName="Контроль зомби"
-DelayedDamageBuffText="Зомби, управляемые Чародеем, исчезают спустя 3 хода после появления."
-
 [MPSquadValidator]
 strUnitMissingCharTemplate = "У юнита нет X2CharacterTemplate:"
 strUnitNotAllowedInMP = "Юнит не разрешен в МП:"
 strMissingItemTemplate = "У предмета нет X2ItemTemplate:"
 strItemNotAllowedInMP = "Предмет не разрешен в МП:"
 strTooManyUnitsOfSameType = "Слишком много юнитов одного типа: %NumUnits% (макс. %MaxAllowed%)"
+
+; Abilities
+
+[X2Ability_ZombieTurnLife]
+DelayedDamageBuffName="Контроль зомби"
+DelayedDamageBuffText="Зомби, управляемые Чародеем, исчезают спустя 3 хода после появления.".
+
+[X2Effect_NewBlindEffect]
+BlindNewName="Слепота"
+BlindNewDesc="Боец ослеплен и имеет серьезные штрафы к радиусу видимости и мобильности.""
+BlindNewAddedFlyover="Слепота"
+BlindNewAddedString="<XGParam:StrValue0/!UnitName/> ослеплен."
+BlindNewRemovedFlyover="Слепота прошла"
+BlindNewRemovedString="<XGParam:StrValue0/!UnitName/>- слепота прошла."
+LocPromotionPopupText="<Bullet/> <XGParam:StrValue0/!UnitName/> ослеплен."
+
+[Groundling X2AbilityTemplate]
+LocFriendlyName="Адаптивная защита"
+LocFlyOverText="Адаптивная защита"
+LocLongDescription="Если противник атакует с доминирующей высоты, Король архонтов получает +10 к защите."
+LocHelpText="Получаете +10 к защите, если противник выше Короля архонтов."
+LocPromotionPopupText="<Bullet/> Получаете +10 к защите, если противник выше Короля архонтов.<br/>"
+
+[BD_ReadyForAnything_LWFlyover X2AbilityTemplate]
+LocFriendlyName="Полная боеготовность: наблюдение"
+LocFlyOverText="Полная боеготовность: наблюдение"
+LocHelpText="Активирует режим Наблюдения после выстрела из основного оружия."
+LocLongDescription="Активирует режим Наблюдения после выстрела из основного оружия."
+LocPromotionPopupText="<Bullet/> Активирует режим Наблюдения после выстрела из основного оружия."
+
+[BD_Executioner_LW X2AbilityTemplate]
+LocFriendlyName="Палач"
+LocFlyOverText="Палач"
+LocLongDescription="Если у цели 50% ОЗ и менее, вы получаете +10% к точности."
+LocHelpText="Если у цели 50% ОЗ и менее, вы получаете +10% к точности."
+LocPromotionPopupText="<Bullet/> Если у цели 50% ОЗ и менее, вы получаете +10% к точности.<br/>"
+
+[BD_WarCry_LW X2AbilityTemplate]
+LocFriendlyName="Зов крови"
+LocLongDescription="Мутон-гвардеец издает мощный рев, повышающий боевые характеристики ближайших мутонов и берсеркеров (+10 к точности, +3 к мобильности, +10 к силе воли). Количество ходов: 3. Не заканчивает ход."
+LocHelpText="Повышает боевые характеристики ближайших мутонов и берсеркеров (+10 к точности, +3 к мобильности, +10 к силе воли). Не заканчивает ход."
+LocFlyOverText="Зов крови"
+LocPromotionPopupText="<Bullet/> Мутоны и берсеркеры получают бонус к точности, мобильности и силе воли.<br/><Bullet/> Длительность 3 хода.<br/>"
+
+[BD_Personalshield_LW X2AbilityTemplate]
+LocFriendlyName="Силовой щит"
+LocFlyOverText="Силовой щит"
+LocHelpText="Активирует силовой щит, добавляющий 5 ед.здоровья и снижающий весь входящий урон на 1 ед. Число ходов: 3. Не заканчивает ход."
+LocLongDescription="Активирует силовой щит, добавляющий 5 ед.здоровья и снижающий весь входящий урон на 1 ед. Число ходов: 3. Не заканчивает ход."
+
+[BD_DroneRepair_LW X2AbilityTemplate]
+LocFriendlyName="Ремонт"
+LocLongDescription="Дрон восстанавливает механическому союзнику 3 ед. здоровья, а также снимает кислотный ожог."
+LocHelpText="Восстановить 3 ед. здоровья и снять кислотный ожог."
+LocFlyOverText="Ремонт"
+LocPromotionPopupText="<Bullet/> Починить механического юнита."
+
+[AHWElderImmunity X2AbilityTemplate]
+LocFriendlyName="Псионический щит"
+LocLongDescription="Старейшины способны создавать мощный псионический барьер, защищающий их от кислоты, огня и электрического воздействия. Длительность: 2 хода."
+LocHelpText="Создает псионический барьер, защищающий от кислоты, огня, яда криссалида и электрического воздействия. Длительность: 2 хода. Не заканчивает ход."
+LocFlyOverText="Псионический щит"

@@ -13,7 +13,7 @@ static function array<X2DataTemplate> CreateTemplates()
 	Templates.AddItem(CreateAHWElderImmunity());
 	Templates.AddItem(AHWElderReflect());
 	Templates.AddItem(AHWElderReflectShot());
-	Templates.AddItem(PurePassive('MentalFortress', "img:///UILibrary_PerkIcons.UIPerk_mentalfortress", false, 'eAbilitySource_Perk', true));
+	Templates.AddItem(PurePassive('ElderMentalFortress', "img:///UILibrary_Common.Alert_Combat_Lose", false, 'eAbilitySource_Perk', true));
 	
 	return Templates;
 }
@@ -28,7 +28,7 @@ static function X2AbilityTemplate AHWEtherealDivinity()
 
 	`CREATE_X2ABILITY_TEMPLATE(Template, 'AHWEtherealDivinity');
 
-	Template.IconImage = "img:///UILibrary_XPACK_Common.weak_bewildered";
+	Template.IconImage = "img:///UILibrary_Common.Head_Ethereal";
 	Template.Hostility = eHostility_Neutral;
 	Template.AbilitySourceName = 'eAbilitySource_Psionic';
 	Template.eAbilityIconBehaviorHUD = eAbilityIconBehavior_NeverShow;
@@ -47,7 +47,6 @@ static function X2AbilityTemplate AHWEtherealDivinity()
 	TargetEffect = new class'AHW_Effect_EtherealDivinity';
 	TargetEffect.Penalty = -30;
 	TargetEffect.BuildPersistentEffect(1, true, false, false);
-	TargetEffect.SetDisplayInfo(ePerkBuff_Passive, Template.LocFriendlyName, Template.GetMyLongDescription(), Template.IconImage);
 	Template.AddTargetEffect(TargetEffect);
 
 	RegenerationEffect = new class'X2Effect_Regeneration';
@@ -72,6 +71,7 @@ static function X2AbilityTemplate CreateAHWElderImmunity()
 	local X2AbilityCharges					Charges;
 	local X2AbilityCost_Charges				ChargeCost;
 	local X2Effect_DamageImmunity			DamageImmunity;
+	local X2AbilityCost_ActionPoints		ActionPointCost;
 
 	`CREATE_X2ABILITY_TEMPLATE(Template, 'AHWElderImmunity');
 	
@@ -92,11 +92,16 @@ static function X2AbilityTemplate CreateAHWElderImmunity()
 	ChargeCost.NumCharges = 1;
 	Template.AbilityCosts.AddItem(ChargeCost);
 
+	ActionPointCost = new class'X2AbilityCost_ActionPoints';
+	ActionPointCost.iNumPoints = 1;
+	ActionPointCost.bConsumeAllPoints = false;
+	Template.AbilityCosts.AddItem(ActionPointCost);
 
 
 	// Build the immunities
 	DamageImmunity = new class'X2Effect_DamageImmunity';
 	DamageImmunity.BuildPersistentEffect(2, false, true, false, eGameRule_PlayerTurnEnd);
+	DamageImmunity.SetDisplayInfo (ePerkBuff_Bonus, Template.LocFriendlyName, Template.GetMyHelpText(), Template.IconImage,,, Template.AbilitySourceName);
 	DamageImmunity.ImmuneTypes.AddItem(class'X2Item_DefaultDamageTypes'.default.ParthenogenicPoisonType);
 	DamageImmunity.ImmuneTypes.AddItem('Acid');
 	DamageImmunity.ImmuneTypes.AddItem('Frost');

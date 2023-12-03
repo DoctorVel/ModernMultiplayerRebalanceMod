@@ -1,0 +1,62 @@
+[MPSquadValidator]
+strUnitMissingCharTemplate = "Unit does not have an X2CharacterTemplate:"
+strUnitNotAllowedInMP = "Unit is not allowed in MP:"
+strMissingItemTemplate = "Item does not have an X2ItemTemplate:"
+strItemNotAllowedInMP = "Item is not allowed in MP:"
+strTooManyUnitsOfSameType = "Too many units of the same type: %NumUnits% (max %MaxAllowed%)"
+ 
+; Abilities
+
+[X2Ability_ZombieTurnLife]
+DelayedDamageBuffName="Zombie Control"
+DelayedDamageBuffText="Zombies controlled by the Sorcerer disappear 3 turns after spawning.".
+
+[X2Effect_NewBlindEffect]
+BlindNewName="Blindness"
+BlindNewDesc="Unit is blinded and has serious penalties for sight radius and mobility.""
+BlindNewAddedFlyover="Blindness"
+BlindNewAddedString="<XGParam:StrValue0/!UnitName/> blinded."
+BlindNewRemovedFlyover="Blindness has passed"
+BlindNewRemovedString="<XGParam:StrValue0/!UnitName/>- the blindness has passed."
+LocPromotionPopupText="<Bullet/> <XGParam:StrValue0/!UnitName/> blinded."
+
+[Groundling X2AbilityTemplate]
+LocFriendlyName="Adaptive protection"
+LocFlyOverText="Adaptive protection"
+LocLongDescription="If the enemy attacks from a dominant height, you will get +10 to defense."
+LocHelpText="You get +10 to defense if the opponent is higher than the Archon King."
+LocPromotionPopupText="<Bullet/> You get +10 to defense if the opponent is higher than the Archon King.<br/>"
+
+[BD_Executioner_LW X2AbilityTemplate]
+LocFriendlyName="Executioner"
+LocFlyOverText="Executioner"
+LocLongDescription="Confers +10 aim  against targets at half or less of their original hit points."
+LocHelpText="Confers +10 aim  against targets at half or less of their original hit points."
+LocPromotionPopupText="<Bullet/> Confers +10 aim  against targets at half or less of their original hit points.<br/>"
+
+[PersonalShield_Xcom X2AbilityTemplate]
+LocFriendlyName="Personal Shield"
+LocFlyOverText="Personal Shield Generator"
+LocHelpText="Grants 5 points of ablative armor and reduces all damage received by 1. Number of turns: 3. Does not end the turn."
+LocLongDescription="Grants 5 points of ablative armor and reduces all damage received by 1. Number of turns: 3. Does not end the turn."
+LocPromotionPopupText="<Bullet/> Grants 5 points of ablative armor and reduces all damage received by 1. Number of turns: 3. Does not end the turn.<br/>"
+
+[BD_WarCry_LW X2AbilityTemplate]
+LocFriendlyName="Call of Blood"
+LocLongDescription="Muton Elite emits a powerful roar, increasing the combat characteristics of Mutons and Berserkers (+10 accuracy, +3 mobility, +10 willpower). Number of turns: 3. Does not end the turn."
+LocHelpText="Increases the combat characteristics of the body of mutons and berserkers (+10 to accuracy, +3 to mobility, +10 to willpower). Does not end the turn."
+LocFlyOverText="Call of Blood"
+LocPromotionPopupText="<Bullet/> Mutons and Berserkers gain bonuses to accuracy, mobility and willpower.<br/><Bullet/> Duration 3 turns.<br/>"
+
+[BD_DroneRepair_LW X2AbilityTemplate]
+LocFriendlyName="Repair"
+LocLongDescription="The drone restores 3 health to a mechanical ally and also removes acid burn."
+LocHelpText="Restore 3 health and remove acid burn."
+LocFlyOverText="Repair"
+LocPromotionPopupText="<Bullet/> Repair a mechanical unit."
+
+[AHWElderImmunity X2AbilityTemplate]
+LocFriendlyName="Psionic Shield"
+LocLongDescription="Elders are able to create a powerful psionic barrier that protects them from acid, fire and electricity. Duration: 2 turns."
+LocHelpText="Creates a psionic barrier that protects against acid, fire, chryssalid poison, and electrical damage. Duration: 2 turns. Does not end turn."
+LocFlyOverText="Psionic Shield"

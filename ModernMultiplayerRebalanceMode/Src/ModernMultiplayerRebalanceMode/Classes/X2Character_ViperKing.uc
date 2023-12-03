@@ -21,6 +21,8 @@ static function array<X2DataTemplate> CreateTemplates()
 	Templates.AddItem(CreateTemplate_MutonElite_MP());
 	Templates.AddItem(CreateTemplate_AdvDroneMP());
 	Templates.AddItem(CreateTemplate_SectoidM2_MP());
+	Templates.AddItem(CreateTemplate_Centurion());
+	Templates.AddItem(CreateTemplate_AdvMedicMP());
 
 	return Templates;
 }
@@ -74,7 +76,6 @@ static function X2CharacterTemplate CreateTemplate_ViperKingMP()
 	CharTemplate.Abilities.AddItem('ShadowStep');
 	CharTemplate.Abilities.AddItem('StoneSkin');
 
-	CharTemplate.AddTemplateAvailablility(CharTemplate.BITFIELD_GAMEAREA_Multiplayer); // Allow in MP!
 	CharTemplate.MPPointValue = CharTemplate.XpKillscore * 10;
 
 	CharTemplate.strTargetIconImage = class'UIUtilities_Image'.const.TargetIcon_Alien;
@@ -132,7 +133,6 @@ static function X2CharacterTemplate CreateTemplate_AdvGeneralMP()
 	CharTemplate.Abilities.AddItem('Interactive_PlaceTurretObject');
 	CharTemplate.Abilities.AddItem('DarkEventAbility_UndyingLoyalty');
 
-	CharTemplate.AddTemplateAvailablility(CharTemplate.BITFIELD_GAMEAREA_Multiplayer); // Allow in MP!
 	CharTemplate.MPPointValue = CharTemplate.XpKillscore * 10;
 
 	CharTemplate.strHackIconImage = "UILibrary_Common.TargetIcons.Hack_captain_icon";
@@ -249,7 +249,7 @@ static function X2CharacterTemplate CreateTemplate_ViperNeonateMP()
 	CharTemplate.Abilities.AddItem('LightningReflexes');
 	CharTemplate.Abilities.AddItem('HoloTargeting');
 
-	CharTemplate.AddTemplateAvailablility(CharTemplate.BITFIELD_GAMEAREA_Multiplayer); // Allow in MP!
+
 	CharTemplate.MPPointValue = CharTemplate.XpKillscore * 10;
 
 	CharTemplate.strTargetIconImage = class'UIUtilities_Image'.const.TargetIcon_Alien;
@@ -265,7 +265,7 @@ static function X2CharacterTemplate CreateTemplate_ChosenAssassinMP()
 
 	`CREATE_X2CHARACTER_TEMPLATE(CharTemplate, 'ChosenAssassinMP');
 	CharTemplate.CharacterGroupName = 'ChosenAssassinMP';
-	CharTemplate.DefaultLoadout = 'ChosenAssassinM4_Loadout';
+	CharTemplate.DefaultLoadout = 'ChosenAssassinMP_Loadout';
 	CharTemplate.BehaviorClass = class'XGAIBehavior';
     CharTemplate.strPawnArchetypes.AddItem("GameUnit_ChosenAssassin.ARC_GameUnit_ChosenAssassin_M4");
 	CharTemplate.strMatineePackages.AddItem("CIN_XP_ChosenAssassin");
@@ -317,7 +317,6 @@ static function X2CharacterTemplate CreateTemplate_ChosenAssassinMP()
 
 	CharTemplate.ImmuneTypes.AddItem('Mental');
 
-	CharTemplate.AddTemplateAvailablility(CharTemplate.BITFIELD_GAMEAREA_Multiplayer); // Allow in MP!
 	CharTemplate.MPPointValue = CharTemplate.XpKillscore * 10;
 
 	CharTemplate.strHackIconImage = "UILibrary_Common.TargetIcons.Hack_captain_icon";
@@ -507,6 +506,7 @@ static function X2CharacterTemplate CreateTemplate_AdvPsiWitchMP()
 	CharTemplate.ImmuneTypes.AddItem('Fire');
 	CharTemplate.ImmuneTypes.AddItem('Poison');
 	CharTemplate.ImmuneTypes.AddItem('ParthenogenicPoison');
+	CharTemplate.Abilities.AddItem('Parry');
 
 	CharTemplate.MPPointValue = CharTemplate.XpKillscore * 10;
 
@@ -580,7 +580,7 @@ static function X2CharacterTemplate CreateTemplate_ChosenWarlockMP()
 
 	CharTemplate.ImmuneTypes.AddItem('Mental');
 
-	CharTemplate.AddTemplateAvailablility(CharTemplate.BITFIELD_GAMEAREA_Multiplayer); // Allow in MP!
+
 	CharTemplate.MPPointValue = CharTemplate.XpKillscore * 10;
 
 	CharTemplate.strHackIconImage = "UILibrary_Common.TargetIcons.Hack_captain_icon";
@@ -647,7 +647,6 @@ static function X2CharacterTemplate CreateTemplate_ChosenSniperMP()
 
 	CharTemplate.ImmuneTypes.AddItem('Mental');
 
-	CharTemplate.AddTemplateAvailablility(CharTemplate.BITFIELD_GAMEAREA_Multiplayer); // Allow in MP!
 	CharTemplate.MPPointValue = CharTemplate.XpKillscore * 10;
 
 	CharTemplate.strHackIconImage = "UILibrary_Common.TargetIcons.Hack_captain_icon";
@@ -706,7 +705,6 @@ static function X2CharacterTemplate CreateTemplate_ArchonKingMP()
 	CharTemplate.bCanBeCriticallyWounded = false;
 	CharTemplate.bIsAfraidOfFire = true;
 
-	CharTemplate.AddTemplateAvailablility(CharTemplate.BITFIELD_GAMEAREA_Multiplayer); // Allow in MP!
 	CharTemplate.MPPointValue = CharTemplate.XpKillscore * 10;
 
 	CharTemplate.strScamperBT = "ScamperRoot_NoCover";
@@ -832,9 +830,8 @@ static function X2CharacterTemplate CreateTemplate_BerserkerQueenMP()
 	CharTemplate.bAllowSpawnFromATT = false;
 	CharTemplate.bAllowRushCam = false;
 
-	CharTemplate.AddTemplateAvailablility(CharTemplate.BITFIELD_GAMEAREA_Multiplayer); // Allow in MP!
 	CharTemplate.MPPointValue = CharTemplate.XpKillscore * 10;
-	CharTemplate.strScamperBT = "ScamperRoot_MeleeNoCover";
+
 
 	CharTemplate.Abilities.AddItem('TriggerRageDamageListener');
 	CharTemplate.Abilities.AddItem('DevastatingPunchBQMP');
@@ -899,7 +896,7 @@ static function X2CharacterTemplate CreateTemplate_AHWElder()
 	CharTemplate.Abilities.AddItem('AHWEtherealDivinity');
 	CharTemplate.Abilities.AddItem('AHWElderReflect');
 	CharTemplate.Abilities.AddItem('AHWElderReflectShot');
-	CharTemplate.Abilities.AddItem('MentalFortress');
+	CharTemplate.Abilities.AddItem('ElderMentalFortress');
 	CharTemplate.ImmuneTypes.AddItem('Mental');
 	
 
@@ -1034,7 +1031,7 @@ static function X2CharacterTemplate CreateTemplate_SectoidM2_MP()
 	CharTemplate.CharacterGroupName = 'Sectoid';
 	CharTemplate.DefaultLoadout='SectoidM2_MP_Loadout';
 	CharTemplate.BehaviorClass=class'XGAIBehavior';
-	CharTemplate.strPawnArchetypes.AddItem("LWSectoidM2.Archetypes.ARC_GameUnit_SectoidM2"); 
+	CharTemplate.strPawnArchetypes.AddItem("GameUnit_SectoidAbductor.ARC_GameUnit_SectoidAbductor");
 
 	CharTemplate.strMatineePackages.AddItem("CIN_Sectoid");
 
@@ -1070,10 +1067,11 @@ static function X2CharacterTemplate CreateTemplate_SectoidM2_MP()
 
 	CharTemplate.Abilities.AddItem('VulnerabilityMelee');
 	CharTemplate.Abilities.AddItem('KillSiredZombies');
-
 	CharTemplate.Abilities.AddItem('BD_MassReanimation_LW');
 	CharTemplate.Abilities.AddItem('Mindspin');
-	CharTemplate.Abilities.AddItem('BD_MassMindSpin_LW');
+	CharTemplate.Abilities.AddItem('GreaterMindMerge');
+	CharTemplate.Abilities.AddItem('PsiPanic');
+	CharTemplate.Abilities.AddItem('MindControl');
 	
 	CharTemplate.MPPointValue = CharTemplate.XpKillscore * 10;
 
@@ -1081,6 +1079,132 @@ static function X2CharacterTemplate CreateTemplate_SectoidM2_MP()
 
 
 	CharTemplate.strTargetIconImage = class'UIUtilities_Image'.const.TargetIcon_Alien;
+
+	return CharTemplate;
+}
+
+static function X2CharacterTemplate CreateTemplate_Centurion()
+{
+	local X2CharacterTemplate CharTemplate;
+	local LootReference Loot;
+
+	`CREATE_X2CHARACTER_TEMPLATE(CharTemplate, 'Centurion');
+	CharTemplate.CharacterGroupName = 'Muton';
+	CharTemplate.DefaultLoadout='Centurion_Loadout';
+	CharTemplate.BehaviorClass=class'XGAIBehavior';
+	CharTemplate.strPawnArchetypes.AddItem("LWMutonM2.ARC_GameUnit_MutonM2"); 
+	Loot.ForceLevel=0;
+	Loot.LootTableName='Muton_BaseLoot'; 
+	CharTemplate.Loot.LootReferences.AddItem(Loot);
+
+	// Timed Loot
+	Loot.ForceLevel = 0;
+	Loot.LootTableName = 'Muton_TimedLoot'; 
+	CharTemplate.TimedLoot.LootReferences.AddItem(Loot);
+	
+	Loot.LootTableName = 'Muton_VultureLoot';
+	CharTemplate.VultureLoot.LootReferences.AddItem(Loot);
+
+	//CharTemplate.strMatineePackage = "CIN_Muton"; 
+	CharTemplate.strMatineePackages.AddItem("CIN_Muton"); //update with new cinematic?
+
+	CharTemplate.UnitSize = 1;
+	// Traversal Rules -- same as base Muton
+	CharTemplate.bCanUse_eTraversal_Normal = true;
+	CharTemplate.bCanUse_eTraversal_ClimbOver = true;
+	CharTemplate.bCanUse_eTraversal_ClimbOnto = true;
+	CharTemplate.bCanUse_eTraversal_ClimbLadder = true;
+	CharTemplate.bCanUse_eTraversal_DropDown = true;
+	CharTemplate.bCanUse_eTraversal_Grapple = false;
+	CharTemplate.bCanUse_eTraversal_Landing = true;
+	CharTemplate.bCanUse_eTraversal_BreakWindow = true;
+	CharTemplate.bCanUse_eTraversal_KickDoor = true;
+	CharTemplate.bCanUse_eTraversal_JumpUp = false;
+	CharTemplate.bCanUse_eTraversal_WallClimb = false;
+	CharTemplate.bCanUse_eTraversal_BreakWall = false;
+	CharTemplate.bAppearanceDefinesPawn = false;    
+	CharTemplate.bCanTakeCover = true;
+
+	CharTemplate.bIsAlien = true;
+	CharTemplate.bIsAdvent = false;
+	CharTemplate.bIsCivilian = false;
+	CharTemplate.bIsPsionic = false;
+	CharTemplate.bIsRobotic = false;
+	CharTemplate.bIsSoldier = false;
+	CharTemplate.bIsChosen = false;
+
+	CharTemplate.bCanBeTerrorist = false;
+	CharTemplate.bCanBeCriticallyWounded = false;
+	CharTemplate.bIsAfraidOfFire = true;
+
+	CharTemplate.bAllowSpawnFromATT = false;
+
+	CharTemplate.Abilities.AddItem('CounterattackPreparation');
+	CharTemplate.Abilities.AddItem('CounterattackDescription');
+	CharTemplate.Abilities.AddItem('WallPhasing');
+
+
+	CharTemplate.MPPointValue = CharTemplate.XpKillscore * 10;
+	CharTemplate.strBehaviorTree = "LWMutonM2::CharacterRoot";  // new config behavior tree parsing means we could use the group instead
+
+
+	CharTemplate.strTargetIconImage = class'UIUtilities_Image'.const.TargetIcon_Alien;
+
+	return CharTemplate;
+}
+
+static function X2CharacterTemplate CreateTemplate_AdvMedicMP()
+{
+	local X2CharacterTemplate CharTemplate;
+
+
+	`CREATE_X2CHARACTER_TEMPLATE(CharTemplate, 'AdvMedicMP');
+	CharTemplate.CharacterGroupName = 'AdventMedic';
+	
+	CharTemplate.DefaultLoadout='AdvMedicMP_Loadout';
+	CharTemplate.BehaviorClass=class'XGAIBehavior';
+	CharTemplate.strPawnArchetypes.AddItem("AdventMedic.ARC_GameUnit_AdvMedic_M");
+	CharTemplate.strPawnArchetypes.AddItem("AdventMedic.ARC_GameUnit_AdvMedic_F");
+	
+
+	CharTemplate.strMatineePackages.AddItem("CIN_Advent");
+	CharTemplate.RevealMatineePrefix = "CIN_Advent_Trooper";
+
+	CharTemplate.UnitSize = 1;
+
+	// Traversal Rules
+	CharTemplate.bCanUse_eTraversal_Normal = true;
+	CharTemplate.bCanUse_eTraversal_ClimbOver = true;
+	CharTemplate.bCanUse_eTraversal_ClimbOnto = true;
+	CharTemplate.bCanUse_eTraversal_ClimbLadder = true;
+	CharTemplate.bCanUse_eTraversal_DropDown = true;
+	CharTemplate.bCanUse_eTraversal_Grapple = false;
+	CharTemplate.bCanUse_eTraversal_Landing = true;
+	CharTemplate.bCanUse_eTraversal_BreakWindow = true;
+	CharTemplate.bCanUse_eTraversal_KickDoor = true;
+	CharTemplate.bCanUse_eTraversal_JumpUp = false;
+	CharTemplate.bCanUse_eTraversal_WallClimb = false;
+	CharTemplate.bCanUse_eTraversal_BreakWall = false;
+	CharTemplate.bAppearanceDefinesPawn = false;    
+	CharTemplate.bSetGenderAlways = true;
+	CharTemplate.bCanTakeCover = true;
+
+	CharTemplate.bIsAlien = false;
+	CharTemplate.bIsAdvent = true;
+	CharTemplate.bIsCivilian = false;
+	CharTemplate.bIsPsionic = false;
+	CharTemplate.bIsRobotic = false;
+	CharTemplate.bIsSoldier = false;
+
+	CharTemplate.bCanBeTerrorist = false;
+	CharTemplate.bCanBeCriticallyWounded = false;
+	CharTemplate.bIsAfraidOfFire = true;
+
+	CharTemplate.Abilities.AddItem('AdventMedicRestore');
+	
+
+	CharTemplate.strHackIconImage = "UILibrary_Common.TargetIcons.Hack_captain_icon";
+	CharTemplate.strTargetIconImage = class'UIUtilities_Image'.const.TargetIcon_Advent;
 
 	return CharTemplate;
 }

@@ -12,6 +12,9 @@
   <ItemGroup>
     <Folder Include="Config\" />
     <Folder Include="ContentForCook\Elder" />
+    <Folder Include="Content\New Units" />
+    <Folder Include="Content\MPCard" />
+    <Folder Include="Content\Ability" />
     <Folder Include="Localization\" />
     <Folder Include="Content" />
     <Folder Include="Src\" />
@@ -51,10 +54,7 @@
     <Content Include="Config\XComMPCharacterData.ini">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ContentForCook\%40VELSAdventMEC_M2_NewMPimage.upk">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="ContentForCook\BerserkerQueenMPCard.upk">
+    <Content Include="Config\XComSectoidCommander.ini">
       <SubType>Content</SubType>
     </Content>
     <Content Include="ContentForCook\Elder\CIN_AHWElder.umap">
@@ -81,37 +81,22 @@
     <Content Include="ContentForCook\Elder\WP_Ethereal_AHW.upk">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ContentForCook\EtherealMPCard.upk">
+    <Content Include="ContentForCook\LW_Perk_MutonElite.upk">
       <SubType>Content</SubType>
     </Content>
     <Content Include="ContentForCook\Mercury_Turret.upk">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ContentForCook\MPCardSparkMPbyVEL.upk">
+    <Content Include="ContentForCook\Perk_Psi_SectoidMindControl.upk">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ContentForCook\MPcard_ArchonKingMPbyVEL.upk">
+    <Content Include="ContentForCook\Perk_Psi_SectoidMindControlAnim.upk">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ContentForCook\VELMPcard_WarlockMP.upk">
+    <Content Include="ContentForCook\Sectoid_Commander_Mind_Control.upk">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ContentForCook\VELSAdvGeneralMPImage.upk">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="ContentForCook\VELSAssassinMPImage.upk">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="ContentForCook\VELSAvatarMPImage.upk">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="ContentForCook\VELSFeralMECMPImage.upk">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="ContentForCook\VELSSniperMPImage.upk">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="ContentForCook\VELSTheLostMPImage.upk">
+    <Content Include="ContentForCook\Sectoid_Commander_Psi_Panic.upk">
       <SubType>Content</SubType>
     </Content>
     <Content Include="ContentForCook\VELSViperKingMPMode.upk">
@@ -120,46 +105,124 @@
     <Content Include="ContentForCook\VELSViperNeonateMPImage.upk">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Content\CharTextures-a_WOTC_AlienPack_DLCTFC_XPACK_.tfc">
+    <Content Include="Content\Ability\LW_Perk_MutonM3.upk">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Content\CharTextures_WOTC_AlienPack_DLCTFC_XPACK_.tfc">
+    <Content Include="Content\Ability\LW_Perk_Psi_MassReanimation.upk">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Content\LWAdvDroneMatinee.upk">
+    <Content Include="Content\Ability\Perk_Psi_SectoidMindControlAnim.upk">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Content\LWDrone.upk">
+    <Content Include="Content\Ability\SectoidMindControl.upk">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Content\LWDroneWeapon.upk">
+    <Content Include="Content\Ability\Sectoid_Commander_G_Mind_Merge.upk">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Content\LWMutonM3.upk">
+    <Content Include="Content\Ability\Sectoid_Commander_Mind_Control.upk">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Content\LWMutonM3Rifle.upk">
+    <Content Include="Content\Ability\Sectoid_Commander_Mind_Fray.upk">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Content\LWSectoidM2.upk">
+    <Content Include="Content\Ability\Sectoid_Commander_Psi_Panic.upk">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Content\LW_CIN_Drone.umap">
+    <Content Include="Content\MPCard\MPCard_AdvDronMP.upk">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Content\LW_Perk_MutonM3.upk">
+    <Content Include="Content\MPCard\MPCard_AdventMedic.upk">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Content\LW_Perk_Psi_MassMindspin.upk">
+    <Content Include="Content\MPCard\MPCard_AdventPsiWitch.upk">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Content\LW_Perk_Psi_MassReanimation.upk">
+    <Content Include="Content\MPCard\MPCard_AdvGeneral.upk">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Content\UILibrary_BD_LWAlienPack.upk">
+    <Content Include="Content\MPCard\MPCard_AdvMEC_M2.upk">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Content\UI_Icons_Elder.upk">
+    <Content Include="Content\MPCard\MPCard_ArchonKing.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\MPCard\MPCard_BerserkerQueen.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\MPCard\MPCard_CenturionMP.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\MPCard\MPCard_ChosenAssassin.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\MPCard\MPCard_ChosenSniper.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\MPCard\MPCard_ChosenWarlock.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\MPCard\MPCard_Ethereal.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\MPCard\MPCard_FeralMEC.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\MPCard\MPCard_MutonEliteMP.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\MPCard\MPCard_SectoidCommander.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\MPCard\MPCard_Spark.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\MPCard\MPCard_TheLost.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\New Units\AdventMedic.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\New Units\CharTextures-a_WOTC_AlienPack_DLCTFC_XPACK_.tfc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\New Units\CharTextures_WOTC_AlienPack_DLCTFC_XPACK_.tfc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\New Units\GameUnit_SectoidAbductor.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\New Units\LWAdvDroneMatinee.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\New Units\LWDrone.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\New Units\LWDroneWeapon.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\New Units\LWMutonM2.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\New Units\LWMutonM3.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\New Units\LWMutonM3Rifle.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\New Units\LW_CIN_Drone.umap">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\New Units\SectoidAbductor_ANIM.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\New Units\UILibrary_BD_LWAlienPack.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\New Units\UI_Icons_Elder.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Localization\ModernMultiplayerRebalanceMode.int">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Localization\ModernMultiplayerRebalanceMode.rus">
@@ -217,7 +280,19 @@
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\UITacticalHUD_EnemyPreviewNew.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\WOTCAdventMedic_X2AIBTActions.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\WOTCAdventMedikits_Add.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\WOTCAdventRestore_Add.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_AdvDroneMP.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_AdventPsiWitch.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_ArchonKingMP.uc">
@@ -233,6 +308,9 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_PlaceTurret_Custom.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_SectoidCommanderAbilitySet.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_SectoidM2MP.uc">
@@ -259,10 +337,16 @@
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Condition_EverVigilant_Override.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Condition_GreaterMindMerge.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Condition_RevivalProtocolNew.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Condition_ViperTongueMP.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Condition_WOTCAdventRestore.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2DownloadableContentInfo_ModernMultiplayerRebalanceMode.uc">
@@ -271,10 +355,22 @@
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_ApplyViperTongueDamageMP.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_EtheralGhost.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_Executioner_AP.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_GreaterMindMerge.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_IRI_DelayedDamage.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_MindMergeShield.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_NewBlindEffect.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_ParthenogenicPoisonNew.uc">
@@ -298,6 +394,12 @@
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_SpawnTurretScaled_XCom.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_VanishingWindRevealTimer.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_VanishingWind_MP.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_WarCry.uc">
       <SubType>Content</SubType>
     </Content>
@@ -310,7 +412,7 @@
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Item_ViperKingWPN_MP.uc">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\XComGameState_AdventChosen_Overide.uc">
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2StatusEffect_MindFray.uc">
       <SubType>Content</SubType>
     </Content>
   </ItemGroup>

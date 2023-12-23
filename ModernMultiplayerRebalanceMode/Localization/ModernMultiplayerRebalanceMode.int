@@ -60,3 +60,6 @@ LocFriendlyName="Psionic Shield"
 LocLongDescription="Elders are able to create a powerful psionic barrier that protects them from acid, fire and electricity. Duration: 2 turns."
 LocHelpText="Creates a psionic barrier that protects against acid, fire, chryssalid poison, and electrical damage. Duration: 2 turns. Does not end turn."
 LocFlyOverText="Psionic Shield"
+
+[X2Ability_PatchedMoveEnd]
+Missed = :failed. Unit burn.

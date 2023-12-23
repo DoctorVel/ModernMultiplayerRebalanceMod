@@ -51,6 +51,9 @@
     <Content Include="Config\XComGameData_WeaponData.ini">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Config\XComMovePatch.ini">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Config\XComMPCharacterData.ini">
       <SubType>Content</SubType>
     </Content>
@@ -250,6 +253,9 @@
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\MPSquadValidator.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_MPStun.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\UIMPShell_CharacterTemplateSelector_Overrides.uc">
       <SubType>Content</SubType>
     </Content>
@@ -301,10 +307,16 @@
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_BerserkerQueenMPPunch.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_ChosenAssassinMP.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_FeralMEC.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_MutonElite.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_PatchedMoveEnd.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_PlaceTurret_Custom.uc">
@@ -326,6 +338,9 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_ZombieTurnLife.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Action_FireNonAnim.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Action_ViewShake.uc">
@@ -367,10 +382,19 @@
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_IRI_DelayedDamage.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_KineticPlatingNew.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_MindControlNew.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_MindMergeShield.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_NewBlindEffect.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_NewHunkerDown.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_ParthenogenicPoisonNew.uc">
@@ -413,6 +437,9 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2StatusEffect_MindFray.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2StatusEffect_MKNew.uc">
       <SubType>Content</SubType>
     </Content>
   </ItemGroup>

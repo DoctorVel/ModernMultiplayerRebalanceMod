@@ -6,6 +6,7 @@ static function array<X2DataTemplate> CreateTemplates()
 
 	Templates.AddItem(AddExecutionerAbility());
 	Templates.AddItem(CreateGroundling());
+	Templates.AddItem(PurePassive('BlessingoftheElders', "img:///UILibrary_PerkIcons.UIPerk_neuraldamping", false, 'eAbilitySource_Perk', true));
 
 	return Templates;
 }

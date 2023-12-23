@@ -8,18 +8,25 @@ var private localized string strTooManyUnitsOfSameType;
 
 static final function bool ValidateSquad(const XComGameState CheckSquad, out string strDisabledReason)
 {
-	local XComGameState_Unit UnitState;
-	local array<name> UnitTypes;
-	
-	foreach CheckSquad.IterateByClassType(class'XComGameState_Unit', UnitState)
-	{
-		if (!ValidateUnit(UnitState, CheckSquad, strDisabledReason))
-		{
-			return false;
-		}
-		
-		UnitTypes.AddItem(UnitState.GetMyTemplateName());
-	}
+    local XComGameState_Unit UnitState;
+    local array<name> UnitTypes;
+    
+    foreach CheckSquad.IterateByClassType(class'XComGameState_Unit', UnitState)
+    {
+        if (!ValidateUnit(UnitState, CheckSquad, strDisabledReason))
+        {
+            return false;
+        }
+        
+        if (UnitState.IsSoldier())
+        {
+            UnitTypes.AddItem(UnitState.GetSoldierClassTemplateName());
+        }
+        else
+        {
+            UnitTypes.AddItem(UnitState.GetMyTemplateName());
+        }
+    }
 	
 	// Сюда добавляй макс. число разрешенных юнитов определенного типа
 	if (!CountUnitsOfType(UnitTypes, 'AdvTrooperMP', 6, strDisabledReason)) return false;
@@ -122,6 +129,8 @@ static final function bool ValidateUnit(const XComGameState_Unit UnitState, cons
 	
 	// У пришельцев и адвенты предметы не проверяем
 	`LOG("Item not valid:" @ UnitState.GetMyTemplate(),, 'Fear_MP');
+	if (CharTemplate.bIsAlien || CharTemplate.bIsAdvent)
+	return true;
 	return AreUnitItemsValid(UnitState, CheckGameState, strDisabledReason);
 }
 
@@ -142,7 +151,7 @@ static final function bool IsValidUnitType(const name UnitType)
 		case 'AdvMEC_M2_MP':
 		case 'AdvGeneralMP':
 		case 'AdvDroneMP':
-		case 'AdvPsiWitchMP':
+		case 'AdvPsiWitch_MP':
 		case 'TheLostDasherMP':
 
 		case 'FacelessMP':
@@ -172,7 +181,7 @@ static final function bool IsValidUnitType(const name UnitType)
 		case 'TemplarSoldier':
 		case 'SkirmisherSoldier':
 		case 'ReaperSoldier':
-		case 'SparkSoldier':
+		case 'SparkSoldierMP':
 		case 'Soldier':
 			return true;
 		default:
@@ -190,7 +199,7 @@ static final function bool AreUnitItemsValid(const XComGameState_Unit UnitState,
 	local X2ItemTemplate			ItemTemplate;
 	
 	// Проверяем только предметы в слоте для доп. снаряжения
-	UnitState.GetAllItemsInSlot(eInvSlot_Utility, CheckGameState);
+	InventoryItems = UnitState.GetAllItemsInSlot(eInvSlot_Utility, CheckGameState);
 	foreach InventoryItems(InventoryItem)
 	{
 		ItemTemplate = InventoryItem.GetMyTemplate();
@@ -216,6 +225,9 @@ static final function bool AreUnitItemsValid(const XComGameState_Unit UnitState,
 			case 'HazmatVest':
 			case 'NanoMedikit':
 			case 'TalonRounds':
+			case 'XPad':
+			case 'Medikit':
+
 			`LOG("Item  valid:" @ InventoryItem.GetMyTemplateName(),, 'Fear_MP');
 				return true;
 			default:

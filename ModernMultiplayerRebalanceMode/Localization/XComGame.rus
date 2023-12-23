@@ -72,10 +72,10 @@ DisplayDescription="Высокопоставленный чин Адвента, 
 ; Advent Psi Witch
 
 
-[AdvPsiWitchMP X2CharacterTemplate]
+[AdvPsiWitch_MP X2CharacterTemplate]
 strCharacterName="Аватар"
 
-[AdvPsiWitchMP X2MPCharacterTemplate]
+[AdvPsiWitch_MP X2MPCharacterTemplate]
 DisplayName="Аватар"
 DisplayDescription="Величайшее достижение Эфириалов на Земле, обладающее поистине невероятной псионической мощью. Сочетает в себе сильные стороны человека и Старейшины. Обладает целым рядом достоинств, однако некоторые из них могут быть обращены в слабости, будьте осторожны. Ни одно живое существо не способно сопротивляться их псионическим способностям."
 
@@ -469,6 +469,10 @@ LocFriendlyName="Каменная кожа"
 LocLongDescription="Чешуя Короля вайперов настолько прочная, что способна защитить его от выстрелов. Снижает входящий урон на 1."
 LocHelpText="Снижает входящий урон на 1."
 
+[BlessingoftheElders X2AbilityTemplate]
+LocFriendlyName="Благословление Старейшин"
+LocLongDescription="Контролировать разум этого существа более 2-х ходов невозможно."
+LocHelpText="Контролировать разум этого существа более 2-х ходов невозможно."
 
 ; Berserker Queen
 
@@ -617,6 +621,13 @@ LocFriendlyName="Кинетическая защита"
 LocLongDescription="Тот, кто противится воле Старейшин, не имеет право на ошибку. Боец получает щиты от промахов по нему (+3 за каждый промах)."
 LocHelpText="Боец получает щиты от промахов по нему (+3 за каждый промах)."
 LocFlyOverText="Кинетическая защита"
+
+[ChosenBlastPadding X2AbilityTemplate]
+LocFriendlyName="Амортизирующая подкладка"
+LocLongDescription="Ваша экипировка содержит дополнительные слои подкладки и пластины, которые  снижают урон от взрывов на 50%."
+LocHelpText="Снижает урон от взрывов на 50%."
+LocFlyOverText="Амортизирующая подкладка"
+LocPromotionPopupText="<Bullet/>Снижает урон от взрывов на 50%.<br/>"
 
 
 ; Chosen Hunter

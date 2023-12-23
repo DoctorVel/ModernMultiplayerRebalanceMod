@@ -80,7 +80,6 @@ static event OnPostTemplatesCreated()
 	SectopodMPPatch();
 	TrackingShot2Patch();
 	HolyWarriorM3Patch();
-	BindPatch();
 	GetOverHerePatch();
 	LostAttackPatch();
 	ItemIcon();
@@ -101,7 +100,6 @@ static event OnPostTemplatesCreated()
 	PoisonSpitPatch();
 	ChosenImmunitiesPatch();
 	PoisonSpitGlobPatch();
-	BindPatch2();
 	FrostbitePatch();
 	QuakePatch();
 	IcarusDropGrabPatch();
@@ -123,6 +121,21 @@ static event OnPostTemplatesCreated()
 	SparkFlamethrowerPatch();
 	IntimidateTriggerPatch();
 	SparkRocketLauncherPatch();
+	PsiMindControlPatch();
+	Sword_MGPatch();
+	WristBlade_MGPatch();
+	StunLuncPatch();
+	PillarPatch();
+	StunStrikePatch();
+	VoidConduitPatch();
+	HunkerDownPatch();
+	BindPatch2();
+	BindPatch();
+	SwordSlicePatch();
+	ShadowbindMPPatch();
+	VoltPatch();
+	AnimaInversionMPPatch();
+	AnimaConsumeMPPatch();
 } 
 
 
@@ -911,6 +924,8 @@ static private function ChosenKineticPlatingPatch()
     local X2AbilityTemplate            Template;
     local array<X2DataTemplate>        DifficultyVariants;
     local X2DataTemplate            DifficultyVariant;
+	local X2Effect_KineticPlatingNew PlatingEffect;
+	local int i;
 
     AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
 
@@ -921,7 +936,20 @@ static private function ChosenKineticPlatingPatch()
         Template = X2AbilityTemplate(DifficultyVariant);
         if (Template == none) continue;
 
-        SetHidden(Template);
+		  for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
+        {
+            if (X2Effect_KineticPlating(Template.AbilityTargetEffects[i]) != none)
+            {
+                Template.AbilityTargetEffects.Remove(i, 1);
+			}
+		}
+		PlatingEffect = new class'X2Effect_KineticPlatingNew';
+		PlatingEffect.AddPersistentStatChange(eStat_ShieldHP, class'X2Ability_Chosen'.default.KINETIC_PLATING_MAX);
+		PlatingEffect.ShieldPerMiss = class'X2Ability_Chosen'.default.KINETIC_PLATING_PER_MISS;
+		PlatingEffect.BuildPersistentEffect(1, true, false, false);
+		Template.AddTargetEffect(PlatingEffect); 
+		
+		SetHidden(Template);
 		Template.AdditionalAbilities.AddItem('ChosenKineticPlatingPassive');
     }
 }
@@ -1468,10 +1496,13 @@ static private function SpecrtalArmyPatch2()
     foreach DifficultyVariants(DifficultyVariant)
     {
     Template = X2AbilityTemplate(DifficultyVariant);
+	for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
+        {
     if (X2Effect_SpawnSpectralArmy(Template.AbilityTargetEffects[i]) != none)
             {
                 Template.AbilityTargetEffects.Remove(i, 1);
             }
+		}
 	    SpawnArmyEffect = new class'X2Effect_SpawnSpectralArmyNew';
 		SpawnArmyEffect.UnitToSpawnName = 'SpectralStunLancerM2';
 	    Template.AbilityTargetEffects.InsertItem(0, SpawnArmyEffect);
@@ -1494,10 +1525,13 @@ static private function CorressPatch2()
     foreach DifficultyVariants(DifficultyVariant)
     {
     Template = X2AbilityTemplate(DifficultyVariant);
+	for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
+        {
     if (X2Effect_SpawnSpectralZombies(Template.AbilityTargetEffects[i]) != none)
             {
                 Template.AbilityTargetEffects.Remove(i, 1);
             }
+		}
 	    SpawnZombieEffect = new class'X2Effect_SpawnSpectralZombiesNew';
 		SpawnZombieEffect.UnitToSpawnName = 'SpectralZombieM2';
 	    Template.AddTargetEffect(SpawnZombieEffect);
@@ -1731,6 +1765,67 @@ static private function AnimaGatePatch()
 
 }
 
+static private function AnimaInversionMPPatch()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+    local X2Condition_UnitType UnitTypeCondition;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('AnimaInversionMP', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+    for (i = Template.AbilityMultiTargetEffects.Length - 1; i >= 0; i--)
+        {
+            if (X2Effect_SpawnPsiZombie(Template.AbilityMultiTargetEffects[i]) != none)
+            {
+			UnitTypeCondition = new class'X2Condition_UnitType';
+			UnitTypeCondition.ExcludeTypes.AddItem('SpectralStunLancer');
+            X2Effect_SpawnPsiZombie(Template.AbilityMultiTargetEffects[i]).TargetConditions.AddItem(UnitTypeCondition);
+            }
+        }
+
+    }
+}
+
+static private function AnimaConsumeMPPatch()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+    local X2Condition_UnitType UnitTypeCondition;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('AnimaConsumeMP', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+    for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
+        {
+            if (X2Effect_SpawnPsiZombie(Template.AbilityTargetEffects[i]) != none)
+            {
+			UnitTypeCondition = new class'X2Condition_UnitType';
+			UnitTypeCondition.ExcludeTypes.AddItem('SpectralStunLancer');
+            X2Effect_SpawnPsiZombie(Template.AbilityTargetEffects[i]).TargetConditions.AddItem(UnitTypeCondition);
+            }
+        }
+
+    }
+}
 
 // Sectopod 
 
@@ -2281,34 +2376,6 @@ static private function EndBindPatch()
 	}
 }
 
-static private function BindPatch()
-{
-    local X2AbilityTemplateManager    AbilityTemplateManager;
-    local X2AbilityTemplate            Template;
-    local array<X2DataTemplate>        DifficultyVariants;
-    local X2DataTemplate            DifficultyVariant;
-	local X2Effect_ApplyViperTongueDamageMP PhysicalDamageEffect;
-	local int i;
-
-   AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
-
-    AbilityTemplateManager.FindDataTemplateAllDifficulties('Bind', DifficultyVariants);
-
-    foreach DifficultyVariants(DifficultyVariant)
-    {
-    Template = X2AbilityTemplate(DifficultyVariant);
-
-    if (X2Effect_ApplyWeaponDamage(Template.AbilityTargetEffects[i]) != none)
-            {
-                Template.AbilityTargetEffects.Remove(i, 1);
-            }
-	PhysicalDamageEffect = new class'X2Effect_ApplyViperTongueDamageMP';
-	PhysicalDamageEffect.EffectDamageValue = class'X2Item_DefaultWeapons'.default.Viper_Bind_BaseDamage;
-	PhysicalDamageEffect.DamageTypes.AddItem('ViperCrush');
-	PhysicalDamageEffect.EffectDamageValue.DamageType = 'Melee';
-	Template.AddTargetEffect(PhysicalDamageEffect);
-	}
-}
 
 static private function GetOverHerePatch()
 {
@@ -2326,10 +2393,13 @@ static private function GetOverHerePatch()
     foreach DifficultyVariants(DifficultyVariant)
     {
     Template = X2AbilityTemplate(DifficultyVariant);
+	for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
+        {
     if (X2Condition_UnitProperty(Template.AbilityTargetConditions[i]) != none)
             {
                 Template.AbilityTargetConditions.Remove(i, 1);
             }
+	}
 	    UnitPropertyCondition = new class'X2Condition_ViperTongueMP';
 		Template.AbilityTargetConditions.AddItem(UnitPropertyCondition);
 	}
@@ -2410,6 +2480,38 @@ static private function BindPatch2()
     }
 }
 
+static private function BindPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+	local X2Effect_ApplyViperTongueDamageMP PhysicalDamageEffect;
+	local int i;
+
+   AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('Bind', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+    Template = X2AbilityTemplate(DifficultyVariant);
+
+	for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
+        {
+    if (X2Effect_ApplyWeaponDamage(Template.AbilityTargetEffects[i]) != none)
+            {
+                Template.AbilityTargetEffects.Remove(i, 1);
+            }
+		}
+	PhysicalDamageEffect = new class'X2Effect_ApplyViperTongueDamageMP';
+	PhysicalDamageEffect.EffectDamageValue = class'X2Item_DefaultWeapons'.default.Viper_Bind_BaseDamage;
+	PhysicalDamageEffect.DamageTypes.AddItem('ViperCrush');
+	PhysicalDamageEffect.EffectDamageValue.DamageType = 'Melee';
+	Template.AddTargetEffect(PhysicalDamageEffect);
+	
+	}
+}
 
 // Chryssalid 
 
@@ -2612,6 +2714,35 @@ static private function StasisPriestMPPatch()
     }
 }
 
+static private function PsiMindControlPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+	local X2Effect_MindControlNew MindControlEffect;
+	local int i;
+
+   AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('PsiMindControl', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+    Template = X2AbilityTemplate(DifficultyVariant);
+	for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
+        {
+    if (X2Effect_MindControl(Template.AbilityTargetEffects[i]) != none)
+            {
+                Template.AbilityTargetEffects.Remove(i, 1);
+            }
+		}
+	MindControlEffect = class'X2StatusEffect_MKNew'.static.CreateMindControlStatusEffectNew(class'X2Ability_PsiWitch'.default.MIND_CONTROL_PLAYER_TURNS_DURATION);
+	MindControlEffect.MinStatContestResult = 1;
+	Template.AbilityTargetEffects.InsertItem(0, MindControlEffect);
+	}
+}
+
 // Advent General
 
 static private function CombatPresencePatch()
@@ -2741,7 +2872,204 @@ static private function AdvCaptainM3_WPNPatch()
 	}
 }
 
-//
+// Templar
+
+static private function PillarPatch()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+	local X2AbilityCost_Focus FocusCost;
+	local X2AbilityCooldown Cooldown;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('Pillar', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+        
+		for (i = Template.AbilityCosts.Length - 1; i >= 0; i--)
+        {
+            if (X2AbilityCost_Focus(Template.AbilityCosts[i]) != none)
+            {
+               Template.AbilityCosts.Remove(i, 1);
+            }
+        } 
+		FocusCost = new class'X2AbilityCost_Focus';
+		FocusCost.bFreeCost = true;
+		Template.AbilityCosts.AddItem(FocusCost);
+
+		Cooldown = new class'X2AbilityCooldown';
+		Cooldown.iNumTurns = 2;
+		Template.AbilityCooldown = Cooldown;
+    }
+}
+
+static private function StunStrikePatch()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+	local X2AbilityCost_Focus FocusCost;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('StunStrike', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		 for (i = Template.AbilityCosts.Length - 1; i >= 0; i--)
+        {
+            if (X2AbilityCost_Focus(Template.AbilityCosts[i]) != none)
+            {
+               Template.AbilityCosts.Remove(i, 1);
+            }
+        }
+		FocusCost = new class'X2AbilityCost_Focus';
+		FocusCost.bFreeCost = true;
+		Template.AbilityCosts.AddItem(FocusCost);
+	}
+}
+
+static private function VoidConduitPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+	local X2AbilityCost_ActionPoints ActionPointCost;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('VoidConduit', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+         if (Template == none) continue;
+        
+        for (i = Template.AbilityCosts.Length - 1; i >= 0; i--)
+        {
+            if (X2AbilityCost_ActionPoints(Template.AbilityCosts[i]) != none)
+            {
+                Template.AbilityCosts.Remove(i, 1);
+            }
+		}
+		 ActionPointCost = new class'X2AbilityCost_ActionPoints';
+		ActionPointCost.iNumPoints = 1;
+		ActionPointCost.bConsumeAllPoints = false;
+		Template.AbilityCosts.AddItem(ActionPointCost);
+		Template.AbilityCosts.AddItem(new class'X2AbilityCost_Focus');
+    }
+
+}
+
+static private function VoltPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+	local X2AbilityCooldown			Cooldown;
+	local X2AbilityCost_Focus FocusCost;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('Volt', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+         if (Template == none) continue;
+        
+      for (i = Template.AbilityCosts.Length - 1; i >= 0; i--)
+        {
+            if (X2AbilityCost_Focus(Template.AbilityCosts[i]) != none)
+            {
+               Template.AbilityCosts.Remove(i, 1);
+            }
+        }
+        
+		FocusCost = new class'X2AbilityCost_Focus';
+		FocusCost.bFreeCost = true;
+		Template.AbilityCosts.AddItem(FocusCost);
+
+		Cooldown = new class'X2AbilityCooldown';
+		Cooldown.iNumTurns = 3;
+		Template.AbilityCooldown = Cooldown;
+    }
+}
+static private function HunkerDownPatch()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+	local X2Effect_NewHunkerDown PersistentStatChangeEffect;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('HunkerDown', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+        
+        for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
+        {
+            if (X2Effect_PersistentStatChange(Template.AbilityTargetEffects[i]) != none)
+            {
+               Template.AbilityTargetEffects.Remove(i, 1);
+            }
+        }
+		PersistentStatChangeEffect = new class'X2Effect_NewHunkerDown';
+		PersistentStatChangeEffect.EffectName = 'HunkerDown';
+		PersistentStatChangeEffect.BuildPersistentEffect(1 /* Turns */,,,,eGameRule_PlayerTurnBegin);
+		PersistentStatChangeEffect.SetDisplayInfo(ePerkBuff_Bonus, Template.LocFriendlyName, Template.GetMyHelpText(), Template.IconImage);
+		PersistentStatChangeEffect.DuplicateResponse = eDupe_Refresh;
+		Template.AddTargetEffect(PersistentStatChangeEffect);
+    }
+}
+
+// Spectre
+
+static private function ShadowbindMPPatch()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+	local X2Condition_UnitType UnitTypeCondition;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('ShadowbindMP', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+        
+    UnitTypeCondition = new class'X2Condition_UnitType';
+	UnitTypeCondition.ExcludeTypes.AddItem('SpectralStunLancer');
+	Template.AbilityTargetConditions.AddItem(UnitTypeCondition);
+
+    }
+}
 
 
 // Range Accuracy fix
@@ -2881,6 +3209,87 @@ static private function RevivalProtocolPatch()
     }
 }
 
+static private function SwordSlicePatch()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+	local X2Effect_ImmediateAbilityActivation ImpairingAbilityEffect;
+
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('SwordSlice', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+        
+        ImpairingAbilityEffect = new class 'X2Effect_ImmediateAbilityActivation';
+        ImpairingAbilityEffect.BuildPersistentEffect(1, false, true, , eGameRule_PlayerTurnBegin);
+        ImpairingAbilityEffect.EffectName = 'ImmediateStunImpair';
+        ImpairingAbilityEffect.AbilityName = 'MP_StunImpairingAbility';
+        ImpairingAbilityEffect.bRemoveWhenTargetDies = true;
+        ImpairingAbilityEffect.VisualizationFn = class'X2Ability_StunLancer'.static.ImpairingAbilityEffectTriggeredVisualization;
+        Template.AddTargetEffect(ImpairingAbilityEffect);
+
+        Template.AdditionalAbilities.AddItem('MP_StunImpairingAbility');
+	   
+        
+    }
+}
+
+static private function Sword_MGPatch()
+{
+    local X2ItemTemplateManager ItemTemplateManager;
+	local X2WeaponTemplate Template;
+	local array<X2DataTemplate>    DifficultyVariants;
+    local X2DataTemplate        DifficultyVariant;
+	local X2Effect_ImmediateAbilityActivation ImpairingAbilityEffect;
+
+	ItemTemplateManager = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
+	ItemTemplateManager.FindDataTemplateAllDifficulties('Sword_MG', DifficultyVariants);
+	 foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2WeaponTemplate(DifficultyVariant);
+        if (Template != none)
+        {
+		Template.BonusWeaponEffects.length = 0;
+	    }
+	}
+}
+
+static private function WristBlade_MGPatch()
+{
+    local X2ItemTemplateManager ItemTemplateManager;
+	local X2WeaponTemplate Template;
+	local array<X2DataTemplate>    DifficultyVariants;
+    local X2DataTemplate        DifficultyVariant;
+	local X2Effect_ImmediateAbilityActivation ImpairingAbilityEffect;
+
+	ItemTemplateManager = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
+	ItemTemplateManager.FindDataTemplateAllDifficulties('WristBlade_MG', DifficultyVariants);
+	 foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2WeaponTemplate(DifficultyVariant);
+        if (Template != none)
+        {
+		Template.BonusWeaponEffects.length = 0;
+		
+		ImpairingAbilityEffect = new class 'X2Effect_ImmediateAbilityActivation';
+		ImpairingAbilityEffect.BuildPersistentEffect(1, false, true, , eGameRule_PlayerTurnBegin);
+		ImpairingAbilityEffect.EffectName = 'ImmediateStunImpair';
+		ImpairingAbilityEffect.AbilityName = 'MP_StunImpairingAbility';
+		ImpairingAbilityEffect.bRemoveWhenTargetDies = true;
+		ImpairingAbilityEffect.VisualizationFn = class'X2Ability_StunLancer'.static.ImpairingAbilityEffectTriggeredVisualization;
+		Template.BonusWeaponEffects.AddItem(ImpairingAbilityEffect);
+
+		Template.Abilities.AddItem('MP_StunImpairingAbility');
+	    }
+	}
+}
 
 static private function ItemIcon()
 {
@@ -3056,4 +3465,14 @@ static private function AddVaultPassiveToUnitsThatCanJump()
 	}
 }
 
+// Stun Lancer
+static private function StunLuncPatch() 
+{
+	local name AName;
+	`log("Patching MoveEndAbility",, 'PatchMoveEnd');
 
+	foreach class'X2Ability_PatchedMoveEnd'.default.AbilityToFix(AName)
+	{
+		class'X2Ability_PatchedMoveEnd'.static.PatchMoveEndAbility(AName);
+	}
+}

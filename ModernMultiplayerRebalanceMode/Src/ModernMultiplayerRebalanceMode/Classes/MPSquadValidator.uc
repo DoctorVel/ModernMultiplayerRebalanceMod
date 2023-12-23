@@ -229,7 +229,7 @@ static final function bool AreUnitItemsValid(const XComGameState_Unit UnitState,
 			case 'Medikit':
 
 			`LOG("Item  valid:" @ InventoryItem.GetMyTemplateName(),, 'Fear_MP');
-				return true;
+				break;
 			default:
 				`LOG("Item not valid:" @ InventoryItem.GetMyTemplateName(),, 'Fear_MP');
 				strDisabledReason = default.strItemNotAllowedInMP @ ItemTemplate.GetItemFriendlyNameNoStats();

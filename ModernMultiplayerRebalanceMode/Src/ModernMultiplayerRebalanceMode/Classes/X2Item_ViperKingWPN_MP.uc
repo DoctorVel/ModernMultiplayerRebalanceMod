@@ -22,6 +22,7 @@ var config int LWDRONE_DRONEREPAIRWEAPON_ISOUNDRANGE;
 var config int LWDRONE_DRONEREPAIRWEAPON_IENVIRONMENTDAMAGE;
 var config int LWDRONE_DRONEREPAIRWEAPON_RANGE;
 var config int LWDRONE_IDEALRANGE;
+var config WeaponDamageValue MUTONELITE_GRENADE_BASEDAMAGE;
 
 var config WeaponDamageValue MutonM2_LW_WPN_BASEDAMAGE;
 var config int MutonM2_LW_IDEALRANGE;
@@ -36,13 +37,14 @@ static function array<X2DataTemplate> CreateTemplates()
 	Weapons.AddItem(CreateTemplate_FeralMEC_MP_WPN());
 	Weapons.AddItem(CreateTemplate_AdvMEC_M2_MP_Shoulder_WPN());
 	Weapons.AddItem(CreateTemplate_ArchonKingMP_WPN());
-	Weapons.AddItem(CreateTemplate_MutonM3_LW_WPN());
+	Weapons.AddItem(CreateTemplate_MutonEliteWPN());
 	Weapons.AddItem(CreateTemplate_MutonM2_LW_MeleeAttack());
 	Weapons.AddItem(CreateTemplate_SectoidM2_WPN());
 	Weapons.AddItem(CreateTemplate_LWDrone_WPN());
 	Weapons.AddItem(CreateTemplate_BD_DroneRepair_LW_WPN());
 	Weapons.AddItem(CreateMountainMistGrenadeMP());
 	Weapons.AddItem(CreateTemplate_MutonM2_LW_WPN());
+	Weapons.AddItem(CreateMutonEliteGrenade());
 
 	return Weapons;
 }
@@ -301,11 +303,11 @@ static function X2DataTemplate CreateTemplate_AHWEthereal_PsiWep()
 	return Template;
 }
 
-static function X2DataTemplate CreateTemplate_MutonM3_LW_WPN()
+static function X2DataTemplate CreateTemplate_MutonEliteWPN()
 {
 	local X2WeaponTemplate Template;
 
-	`CREATE_X2TEMPLATE(class'X2WeaponTemplate', Template, 'MutonM3_LW_WPN');
+	`CREATE_X2TEMPLATE(class'X2WeaponTemplate', Template, 'MutonElite_WPN');
 	
 	Template.WeaponPanelImage = "_BeamCannon";
 	Template.ItemCat = 'weapon';
@@ -572,3 +574,37 @@ static function X2DataTemplate CreateTemplate_MutonM2_LW_WPN()
 	return Template;
 }
 
+static function X2DataTemplate CreateMutonEliteGrenade()
+{
+	local X2GrenadeTemplate Template;
+	local X2Effect_ApplyWeaponDamage WeaponDamageEffect;
+
+	`CREATE_X2TEMPLATE(class'X2GrenadeTemplate', Template, 'MutonEliteGrenade');
+
+	Template.strImage = "img:///UILibrary_StrategyImages.InventoryIcons.Inv_AlienGrenade";
+	Template.EquipSound = "StrategyUI_Grenade_Equip";
+	Template.BaseDamage = default.MUTONELITE_GRENADE_BASEDAMAGE;
+	Template.iEnvironmentDamage = class'X2Item_DefaultGrenades'.default.ALIENGRENADE_IENVIRONMENTDAMAGE;
+	Template.iRange = 16;
+	Template.iRadius = 4;
+	Template.iClipSize = 1;
+	Template.iSoundRange = class'X2Item_DefaultGrenades'.default.GRENADE_SOUND_RANGE;
+	Template.DamageTypeTemplateName = 'Explosion';
+	
+	Template.Abilities.AddItem('ThrowGrenade');
+	Template.Abilities.AddItem('GrenadeFuse');
+
+	WeaponDamageEffect = new class'X2Effect_ApplyWeaponDamage';
+	WeaponDamageEffect.bExplosiveDamage = true;
+	Template.ThrownGrenadeEffects.AddItem(WeaponDamageEffect);
+	Template.LaunchedGrenadeEffects.AddItem(WeaponDamageEffect);
+	
+	Template.GameArchetype = "WP_Grenade_Alien.WP_Grenade_Alien";
+
+	Template.iPhysicsImpulse = 10;
+
+	Template.CanBeBuilt = false;
+	Template.TradingPostValue = 50;
+
+	return Template;
+}

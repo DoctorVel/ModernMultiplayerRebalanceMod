@@ -84,6 +84,10 @@ simulated function PopulateData() {
      {
   kListItem.SetDisabled(true);
   }
+   if (MPCharTemplate.DataName == 'AdvPsiWitchM3' && GetNumCharsInSquad(MPCharTemplate.DataName) > 0)
+     {
+  kListItem.SetDisabled(true);
+  }
   if (MPCharTemplate.DataName == 'Codex' && GetNumCharsInSquad(MPCharTemplate.DataName) > 1)
      {
   kListItem.SetDisabled(true);

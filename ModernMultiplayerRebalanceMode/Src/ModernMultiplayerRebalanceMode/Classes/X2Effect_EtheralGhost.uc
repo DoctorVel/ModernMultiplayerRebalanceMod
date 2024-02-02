@@ -20,5 +20,4 @@ defaultproperties
 	VFXSocket = "CIN_Root"
 	VFXSocketsArrayName = "BoneSocketActor" 
 	
-	EffectRemovedVisualizationFn = EtheralGhostRemoved_BuildVisualization
 }

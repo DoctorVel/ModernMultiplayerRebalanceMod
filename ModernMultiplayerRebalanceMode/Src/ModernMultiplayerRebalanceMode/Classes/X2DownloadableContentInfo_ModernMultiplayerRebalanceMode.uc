@@ -136,6 +136,10 @@ static event OnPostTemplatesCreated()
 	VoltPatch();
 	AnimaInversionMPPatch();
 	AnimaConsumeMPPatch();
+	PistolReturnFirePatch();
+	RebuildPerkContentCache();
+	OverwatchShotPatch();
+
 } 
 
 
@@ -939,13 +943,13 @@ static private function ChosenKineticPlatingPatch()
 		  for (i = Template.AbilityTargetEffects.Length - 1; i >= 0; i--)
         {
             if (X2Effect_KineticPlating(Template.AbilityTargetEffects[i]) != none)
-            {
-                Template.AbilityTargetEffects.Remove(i, 1);
+           {
+               Template.AbilityTargetEffects.Remove(i, 1);
 			}
 		}
 		PlatingEffect = new class'X2Effect_KineticPlatingNew';
-		PlatingEffect.AddPersistentStatChange(eStat_ShieldHP, class'X2Ability_Chosen'.default.KINETIC_PLATING_MAX);
-		PlatingEffect.ShieldPerMiss = class'X2Ability_Chosen'.default.KINETIC_PLATING_PER_MISS;
+		//PlatingEffect.AddPersistentStatChange(eStat_ShieldHP, class'X2Ability_Chosen'.default.KINETIC_PLATING_MAX);
+		//PlatingEffect.ShieldPerMiss = class'X2Ability_Chosen'.default.KINETIC_PLATING_PER_MISS;
 		PlatingEffect.BuildPersistentEffect(1, true, false, false);
 		Template.AddTargetEffect(PlatingEffect); 
 		
@@ -1546,6 +1550,7 @@ static private function ChosenRevengePatch()
     local X2AbilityTemplate            Template;
     local array<X2DataTemplate>        DifficultyVariants;
     local X2DataTemplate            DifficultyVariant;
+	local X2Condition_Visibility TargetVisibilityCondition;
 
     AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
 
@@ -1556,6 +1561,14 @@ static private function ChosenRevengePatch()
         Template = X2AbilityTemplate(DifficultyVariant);
         if (Template == none) continue;
 		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
+		TargetVisibilityCondition = new class'X2Condition_Visibility';
+		TargetVisibilityCondition.bRequireGameplayVisible = true;
+		TargetVisibilityCondition.bRequireBasicVisibility = true;
+		TargetVisibilityCondition.bDisablePeeksOnMovement = false;
+		Template.AbilityTargetConditions.AddItem(TargetVisibilityCondition);
+
+
     }
 }
 
@@ -3476,3 +3489,87 @@ static private function StunLuncPatch()
 		class'X2Ability_PatchedMoveEnd'.static.PatchMoveEndAbility(AName);
 	}
 }
+
+// Return Fire
+
+static private function PistolReturnFirePatch()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+	local X2Condition_Visibility            TargetVisibilityCondition;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('PistolReturnFire', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+        
+        for (i = Template.AbilityTargetConditions.Length - 1; i >= 0; i--)
+        {
+            if (X2Condition_Visibility(Template.AbilityTargetConditions[i]) != none)
+            {
+               Template.AbilityTargetConditions.Remove(i, 1);
+            }
+		TargetVisibilityCondition = new class'X2Condition_Visibility';
+		TargetVisibilityCondition.bRequireGameplayVisible = true;
+		TargetVisibilityCondition.bRequireBasicVisibility = true;
+		TargetVisibilityCondition.bDisablePeeksOnMovement = false;
+		Template.AbilityTargetConditions.AddItem(TargetVisibilityCondition);
+        }
+    }
+}
+
+static private function RebuildPerkContentCache() 
+{
+    local XComContentManager Content;
+
+    Content = `CONTENT;
+    Content.BuildPerkPackageCache();
+    Content.CachePerkContent('MutonElite_PersonalShield');
+	Content.CachePerkContent('SectoidStasis');
+	Content.CachePerkContent('MassReanimation_LW');
+	Content.CachePerkContent('SectoidMindControl');
+	Content.CachePerkContent('DroneAidProtocol');
+	Content.CachePerkContent('PsionicShield');
+	Content.CachePerkContent('AHWElderLifeStyle');
+}
+
+static private function OverwatchShotPatch()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+	local X2Condition_Visibility            TargetVisibilityCondition;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('OverwatchShot', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+        
+        for (i = Template.AbilityTargetConditions.Length - 1; i >= 0; i--)
+        {
+            if (X2Condition_Visibility(Template.AbilityTargetConditions[i]) != none)
+            {
+               Template.AbilityTargetConditions.Remove(i, 1);
+            }
+		TargetVisibilityCondition = new class'X2Condition_Visibility';
+		TargetVisibilityCondition.bRequireGameplayVisible = true;
+		TargetVisibilityCondition.bRequireBasicVisibility = true;
+		TargetVisibilityCondition.bDisablePeeksOnMovement = false;
+		Template.AbilityTargetConditions.AddItem(TargetVisibilityCondition);
+        }
+    }
+}
+

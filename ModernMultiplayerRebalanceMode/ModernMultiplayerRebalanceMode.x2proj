@@ -108,13 +108,40 @@
     <Content Include="ContentForCook\VELSViperNeonateMPImage.upk">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Content\Ability\AdvDroneMP_ANIM.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\Ability\DroneMP_ANIM.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\Ability\Ethereal_MassPsiReanimation.upk">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Content\Ability\LW_Perk_MutonM3.upk">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Content\Ability\LW_Perk_Psi_MassReanimation.upk">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Content\Ability\Muton_ANIM_WarCry.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\Ability\Perk_CenturionShield.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\Ability\Perk_Drone_Aid_Protocol.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\Ability\Perk_Psi_Ethereal_Soul_Steal.upk">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Content\Ability\Perk_Psi_SectoidMindControlAnim.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\Ability\SectoidCommander_PsiStasis.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\Ability\SectoidM2_ANIM_Ability.upk">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Content\Ability\SectoidMindControl.upk">
@@ -130,6 +157,12 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="Content\Ability\Sectoid_Commander_Psi_Panic.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\Ability\Sectoid_PsionicShield.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\Ability\ViperHunkerDown_ANIM.upk">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Content\MPCard\MPCard_AdvDronMP.upk">
@@ -213,6 +246,9 @@
     <Content Include="Content\New Units\LWMutonM3Rifle.upk">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Content\New Units\LWSectoidM2.upk">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Content\New Units\LW_CIN_Drone.umap">
       <SubType>Content</SubType>
     </Content>
@@ -251,6 +287,9 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\MPSquadValidator.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_Centurion.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_MPStun.uc">
@@ -358,6 +397,9 @@
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Condition_RevivalProtocolNew.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Condition_UnitTypeNew.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Condition_ViperTongueMP.uc">
       <SubType>Content</SubType>
     </Content>
@@ -368,6 +410,9 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_ApplyViperTongueDamageMP.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_EnergyShiledDamageReduce.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_EtheralGhost.uc">
@@ -400,6 +445,12 @@
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_ParthenogenicPoisonNew.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_PsionicShield.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_PsionicShieldReduce.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_ReadyForAnything.uc">
       <SubType>Content</SubType>
     </Content>
@@ -425,6 +476,9 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_WarCry.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2EventListener_KineticPlating.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2EventListener_RemovePersistentEffects.uc">

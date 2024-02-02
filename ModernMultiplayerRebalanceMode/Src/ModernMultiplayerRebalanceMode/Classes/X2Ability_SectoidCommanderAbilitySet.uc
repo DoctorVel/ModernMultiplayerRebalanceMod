@@ -186,7 +186,7 @@ static function X2DataTemplate MindControl()
 	Template.TargetMissSpeech = 'SoldierResistsMindControl';
 	Template.bShowActivation = true;
 
-	Template.CustomFireAnim = 'HL_SectoidCommanderAbilityA';
+	Template.CustomFireAnim = 'HL_Psi_ProjectileMedium';
 	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
 	Template.BuildVisualizationFn = TypicalAbility_BuildVisualization;
 	Template.CinescriptCameraType = "Sectoid_Mindspin";

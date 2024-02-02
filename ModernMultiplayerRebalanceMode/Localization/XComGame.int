@@ -147,7 +147,7 @@ DisplayDescription="An elite caste in the Muton tribe, where only the most worth
 [MutonM2_LW_MeleeAttack X2WeaponTemplate]
 FriendlyName="Bayonet"
 
-[MutonM3_LW_Wpn X2WeaponTemplate]
+[MutonElite_WPN X2WeaponTemplate]
 FriendlyName="Elite Muton Beam Weapon"
 AbilityDescName="Elite Muton Beam Weapon"
 
@@ -432,13 +432,25 @@ LocHelpText="Increased fire damage."
 ; Sectoid Commander
 
 
-[BD_MassReanimation_LW X2AbilityTemplate]
+[MassReanimation_LW X2AbilityTemplate]
 LocFriendlyName="Psi-reanimation"
 LocFlyOverText="Psi-reanimation"
 LocHelpText="Reanimates all slain humanoids in a specific area."
 LocLongDescription="Reanimates all slain humanoids in a specific area."
 LocPromotionPopupText="<Bullet/> Reanimates all killed humanoids in a specific area."
 
+[SectoidStasis X2AbilityTemplate]
+LocFriendlyName="Stasis"
+LocLongDescription="Completely stuns the target for 1 turn, but renders them immune to any damage or attack."
+LocHelpText="Completely stuns the target for 1 turn, but renders them immune to any damage or attack."
+LocFlyOverText="Stasis"
+LocPromotionPopupText="<Bullet/> Stasis has a <Ability:SelfCooldown/> turn cooldown.<br/><Bullet/> As Stasis completely removes an enemy unit from combat for a turn, it can be used defensively to protect vulnerable soldiers, or it can be used offensively to set up a coordinated attack.<br/>"
+
+[SectoidMindControl X2AbilityTemplate]
+LocFriendlyName="Mind Control"
+LocLongDescription="The Sectoid Commander can seize active control of their target's mind, forcing them to turn on their companions. Lasts 2 turns"
+LocHelpText="Seize active control of the target's mind. Lasts 2 turns"
+LocFlyOverText="Mind Control"
 
 ; Muton Elite
 
@@ -460,11 +472,27 @@ LocHelpText="Attack the target with melee combat. When hit, you will receive a p
 LocFlyOverText="Bayonet Lunge"
 LocPromotionPopupText="<Bullet/> Attack the target in close combat with a bayonet while charging.<br/>"
 
-[BD_Personalshield_LW X2AbilityTemplate]
+[MutonElite_PersonalShield X2AbilityTemplate]
 LocFriendlyName="Force Shield"
 LocFlyOverText="Force Shield"
 LocHelpText="Activates a force shield that adds 5 health and reduces all incoming damage by 1. Number of turns: 3. Does not end turn."
 LocLongDescription="Activates a force shield that adds 5 health and reduces all incoming damage by 1. Number of turns: 3. Does not end turn."
+
+[MutonGrenade X2GrenadeTemplate]
+FriendlyName="Alien Grenade"
+FriendlyNamePlural="Alien Grenades"
+BriefSummary="Each Muton carries a single high damage plasma grenade."
+TacticalText="<Bullet/> A single, high damage grenade."
+ThrownAbilityName="Throw Alien Grenade"
+ThrownAbilityHelpText="Throw an Alien Grenade at target area."
+LaunchedAbilityName="Launch Alien Grenade"
+LaunchedAbilityHelpText="Launch an Alien Grenade at target area. Shreds armor."
+
+[LongRangeThrow X2AbilityTemplate]
+LocFriendlyName="Bombard"
+LocFlyOverText="Bombard"
+LocHelpText="Guard Mutons are capable of throwing grenades at a much greater distance than normal individuals."
+LocLongDescription="Throws a grenade 6 rtiles further than mutons."
 
 
 ;Berserker Queen

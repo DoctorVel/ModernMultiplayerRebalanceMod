@@ -19,7 +19,8 @@ static function array<X2DataTemplate> CreateTemplates()
 
 	Templates.AddItem(CreateMutonM2_LWAbility_BayonetCharge());
 	Templates.AddItem(CreateMutonM2_LWAbility_WarCry());	
-	Templates.AddItem(CreatePersonalShieldAbility());
+	Templates.AddItem(CreateMutonElite_PersonalShieldAbility());
+	Templates.AddItem(PurePassive('LongRangeThrow', "img:///UILibrary_XPACK_Common.PerkIcons.UIPerk_bombard", false, 'eAbilitySource_Perk', true));
 
 	return Templates;
 }
@@ -81,7 +82,7 @@ static function X2AbilityTemplate CreateMutonM2_LWAbility_WarCry()
 
 	StatEffect.BuildPersistentEffect(default.WARCRY_DURATION, false, true, false, eGameRule_PlayerTurnEnd);
 	//StatEffect.SetDisplayInfo (ePerkBuff_Bonus, Template.LocFriendlyName, Template.GetMyHelpText(), Template.IconImage,,, Template.AbilitySourceName); // adjust
-	StatEffect.SetDisplayInfo (ePerkBuff_Bonus, Template.LocFriendlyName, class'X2Effect_WarCry'.default.strWarCryFriendlyDesc, Template.IconImage,,, Template.AbilitySourceName);
+	StatEffect.SetDisplayInfo (ePerkBuff_Bonus, Template.LocFriendlyName, Template.GetMyHelpText(), Template.IconImage,,, Template.AbilitySourceName);
 
 	StatEffect.DuplicateResponse = eDupe_Refresh;
 
@@ -246,7 +247,7 @@ simulated function XComGameState BayonetCharge_BuildGameState(XComGameStateConte
 	return NewGameState;
 }
 
-static function X2DataTemplate CreatePersonalShieldAbility()
+static function X2DataTemplate CreateMutonElite_PersonalShieldAbility()
 {
 	local X2AbilityTemplate							Template;
 	local X2AbilityCharges							Charges;
@@ -254,9 +255,10 @@ static function X2DataTemplate CreatePersonalShieldAbility()
 	local X2AbilityCost_ActionPoints				ActionPointCost;
 	local array<name>								SkipExclusions;
 	local X2Effect_EnergyShield						PersonalShieldEffect;
-	local X2Effect_ConditionalDamageModifier		DamageEffect;
+	local X2Condition_UnitEffects ExcludeEffectsCondition;
+	local X2Effect_EnergyShiledDamageReduce		DamageEffect;
 
-	`CREATE_X2ABILITY_TEMPLATE (Template, 'BD_Personalshield_LW');
+	`CREATE_X2ABILITY_TEMPLATE (Template, 'MutonElite_PersonalShield');
 
 	Template.IconImage = "img:///UILibrary_BD_LWAlienPack.LW_AbilityPersonalShields"; // from old EW icon for Bioelectric skin
 	Template.AbilitySourceName = 'eAbilitySource_Perk';
@@ -290,6 +292,10 @@ static function X2DataTemplate CreatePersonalShieldAbility()
 	ChargeCost.NumCharges = 1;
 	Template.AbilityCosts.AddItem(ChargeCost);
 
+	ExcludeEffectsCondition = new class'X2Condition_UnitEffects';;
+	ExcludeEffectsCondition.AddExcludeEffect(class'X2Effect_EnergyShield'.default.EffectName, 'AA_DuplicateEffectIgnored');
+	Template.AbilityTargetConditions.AddItem(ExcludeEffectsCondition);
+
 	PersonalShieldEffect = new class'X2Effect_EnergyShield';
 	PersonalShieldEffect.BuildPersistentEffect(default.PERSONAL_SHIELD_DURATION, false, true, false, eGameRule_PlayerTurnEnd);
 	PersonalShieldEffect.SetDisplayInfo (ePerkBuff_Bonus, Template.LocFriendlyName, Template.GetMyHelpText(), Template.IconImage,,, Template.AbilitySourceName);
@@ -297,7 +303,7 @@ static function X2DataTemplate CreatePersonalShieldAbility()
 	PersonalShieldEffect.EffectName='PersonalShield';
 	Template.AddTargetEffect(PersonalShieldEffect);
 
-	DamageEffect = new class'X2Effect_ConditionalDamageModifier';
+	DamageEffect = new class'X2Effect_EnergyShiledDamageReduce';
 	DamageEffect.bModifyIncomingDamage = true;
 	DamageEffect.DamageBonus = -1;
 	DamageEffect.BuildPersistentEffect(3, false, true, false, eGameRule_PlayerTurnEnd);

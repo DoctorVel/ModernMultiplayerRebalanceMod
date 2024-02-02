@@ -6,6 +6,7 @@ static function array<X2DataTemplate> CreateTemplates()
 
 	Templates.AddItem(CreateMassReanimateAbility());
 	Templates.AddItem(CreateSectoidMindControl());
+	Templates.AddItem(CreateSectoidStasis());
 
 	return Templates;
 }
@@ -21,23 +22,35 @@ static function X2DataTemplate CreateMassReanimateAbility()
 	local X2Condition_UnitValue				UnitValue;
 	local X2Effect_SpawnPsiZombie			SpawnZombieEffect;
 
-	`CREATE_X2ABILITY_TEMPLATE(Template, 'BD_MassReanimation_LW');
+	`CREATE_X2ABILITY_TEMPLATE(Template, 'MassReanimation_LW');
 	Template.eAbilityIconBehaviorHUD = eAbilityIconBehavior_AlwaysShow;
-	Template.IconImage = "img:///UILibrary_BD_LWAlienPack.LW_AbilityMassreanimate";
+	Template.IconImage = "img:///UILibrary_PerkIcons.UIPerk_sectoid_psiexplosion";
 	Template.AbilitySourceName = 'eAbilitySource_Psionic';
 	Template.Hostility = eHostility_Neutral;
 
 	//should no longer be needed with custom anim
 	//Template.bShowActivation = true;
-	//Template.bSkipFireAction = true;
+	//Template.bSkipFireAction = true
 
+
+	Template.AbilityTriggers.AddItem(default.PlayerInputTrigger);
+
+	
 	//attempted new targeting method
 	CursorTarget = new class'X2AbilityTarget_Cursor';
 	CursorTarget.bRestrictToSquadsightRange = true;
-	CursorTarget.FixedAbilityRange = 27;
+	CursorTarget.FixedAbilityRange = 20;
 	Template.AbilityTargetStyle = CursorTarget;
-
 	//Template.AbilityTargetStyle = default.SelfTarget;
+	RadiusMultiTarget = new class'X2AbilityMultiTarget_Radius';
+	RadiusMultiTarget.fTargetRadius = 10.5;
+	RadiusMultiTarget.bIgnoreBlockingCover = true;
+	RadiusMultiTarget.bAllowDeadMultiTargetUnits = true;
+	RadiusMultiTarget.bExcludeSelfAsTargetIfWithinRadius = true;
+	Template.AbilityMultiTargetStyle = RadiusMultiTarget;
+
+	Template.TargetingMethod = class'X2TargetingMethod_MassPsiReanimation';
+
 
 	Template.AbilityToHitCalc = default.Deadeye;
 	Template.AbilityTriggers.AddItem(default.PlayerInputTrigger);
@@ -55,14 +68,7 @@ static function X2DataTemplate CreateMassReanimateAbility()
 	Cooldown.NumGlobalTurns = 4;
 	Template.AbilityCooldown = Cooldown;
 
-	RadiusMultiTarget = new class'X2AbilityMultiTarget_Radius';
-	RadiusMultiTarget.fTargetRadius = 27;
-	RadiusMultiTarget.bIgnoreBlockingCover = true;
-	RadiusMultiTarget.bAllowDeadMultiTargetUnits = true;
-	RadiusMultiTarget.bExcludeSelfAsTargetIfWithinRadius = true;
-	Template.AbilityMultiTargetStyle = RadiusMultiTarget;
 
-	Template.TargetingMethod = class'X2TargetingMethod_MassPsiReanimation';
 
 	SpawnZombieEffect = new class'X2Effect_SpawnPsiZombie';
 	SpawnZombieEffect.AnimationName = 'HL_GetUp_Multi';
@@ -92,13 +98,13 @@ static function X2DataTemplate CreateMassReanimateAbility()
 	Template.AddMultiTargetEffect(SpawnZombieEffect);
 
 	//Template.bSkipPerkActivationActions = true;
-	Template.CustomFireAnim = 'HL_Psi_MassReanimate';
+	//Template.bSkipPerkActivationActions = true;
+	Template.CustomFireAnim = 'HL_MassPsiReanimate';
 	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
 	Template.BuildInterruptGameStateFn = TypicalAbility_BuildInterruptGameState;
 	Template.BuildVisualizationFn = AnimaInversion_BuildVisualization_SC;
-	Template.CinescriptCameraType = "Sectoid_PsiReanimation";
-
-	Template.LostSpawnIncreasePerUse = class'X2AbilityTemplateManager'.default.StandardShotLostSpawnIncreasePerUse;
+	//Template.BuildVisualizationFn = AnimaInversion_BuildVisualization;
+	Template.CinescriptCameraType = "HL_MassPsiReanimate";
 
 	return Template;
 }
@@ -129,11 +135,11 @@ simulated function AnimaInversion_BuildVisualization_SC(XComGameState VisualizeG
 	GatekeeperTrack.StateObject_NewState = VisualizeGameState.GetGameStateForObjectID(InteractingUnitRef.ObjectID);
 	GatekeeperTrack.VisualizeActor = History.GetVisualizer(InteractingUnitRef.ObjectID);
 
-	class'X2Action_AbilityPerkStart'.static.AddToVisualizationTree(GatekeeperTrack, Context, false, GatekeeperTrack.LastActionAdded);
-	class'X2Action_ExitCover'.static.AddToVisualizationTree(GatekeeperTrack, Context, false, GatekeeperTrack.LastActionAdded);
-	class'X2Action_Fire'.static.AddToVisualizationTree(GatekeeperTrack, Context, false, GatekeeperTrack.LastActionAdded);
-	class'X2Action_EnterCover'.static.AddToVisualizationTree(GatekeeperTrack, Context, false, GatekeeperTrack.LastActionAdded);
-	class'X2Action_AbilityPerkEnd'.static.AddToVisualizationTree(GatekeeperTrack, Context, false, GatekeeperTrack.LastActionAdded);
+	class'X2Action_AbilityPerkStart'.static.AddToVisualizationTree(GatekeeperTrack, Context);
+	class'X2Action_ExitCover'.static.AddToVisualizationTree(GatekeeperTrack, Context);
+	class'X2Action_Fire'.static.AddToVisualizationTree(GatekeeperTrack, Context);
+	class'X2Action_EnterCover'.static.AddToVisualizationTree(GatekeeperTrack, Context);
+	class'X2Action_AbilityPerkEnd'.static.AddToVisualizationTree(GatekeeperTrack, Context);
 
 	// Configure the visualization track for the multi targets
 	//******************************************************************************************
@@ -145,7 +151,7 @@ simulated function AnimaInversion_BuildVisualization_SC(XComGameState VisualizeG
 		BuildTrack.StateObject_NewState = VisualizeGameState.GetGameStateForObjectID(InteractingUnitRef.ObjectID);
 		BuildTrack.VisualizeActor = History.GetVisualizer(InteractingUnitRef.ObjectID);
 
-		//class'X2Action_WaitForAbilityEffect'.static.AddToVisualizationTree(BuildTrack, Context, false, BuildTrack.LastActionAdded);
+		//class'X2Action_WaitForAbilityEffect'.static.AddToVisualizationTree(BuildTrack, Context);
 
 		for( j = 0; j < Context.ResultContext.MultiTargetEffectResults[i].Effects.Length; ++j )
 		{
@@ -183,8 +189,12 @@ simulated function AnimaInversion_BuildVisualization_SC(XComGameState VisualizeG
 			ZombieTrack.VisualizeActor = History.GetVisualizer(SpawnedUnit.ObjectID);
 
 			SpawnPsiZombieEffect.AddSpawnVisualizationsToTracks(Context, SpawnedUnit, ZombieTrack, DeadUnit, BuildTrack);
+
 		}
+
 	}
+
+	TypicalAbility_AddEffectRedirects(VisualizeGameState, GatekeeperTrack);
 }
 
 static function X2DataTemplate CreateSectoidMindControl()
@@ -217,7 +227,7 @@ static function X2DataTemplate CreateSectoidMindControl()
 	Template.AbilityCooldown = Cooldown;
 
 	StatCheck = new class'X2AbilityToHitCalc_StatCheck_UnitVsUnit';
-	StatCheck.BaseValue = 75;
+	StatCheck.BaseValue = 85;
 	Template.AbilityToHitCalc = StatCheck;
 
 	Template.AbilityShooterConditions.AddItem(default.LivingShooterProperty);
@@ -262,10 +272,10 @@ static function X2DataTemplate CreateSectoidMindControl()
 	// Unlike in other cases, in TypicalAbility_BuildVisualization, the MissSpeech is used on the Target!
 	Template.TargetMissSpeech = 'SoldierResistsMindControl';
 
-	Template.CustomFireAnim = 'HL_Psi_ProjectileMedium';
+	Template.CustomFireAnim = 'HL_SectoidMindControl';
 	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
 	Template.BuildVisualizationFn = TypicalAbility_BuildVisualization;
-	Template.CinescriptCameraType = "Sectoid_Mindspin";
+	Template.CinescriptCameraType = "HL_SectoidMindControl";
 
 	Template.SuperConcealmentLoss = class'X2AbilityTemplateManager'.default.SuperConcealmentStandardShotLoss;
 	Template.ChosenActivationIncreasePerUse = class'X2AbilityTemplateManager'.default.StandardShotChosenActivationIncreasePerUse;
@@ -275,4 +285,93 @@ static function X2DataTemplate CreateSectoidMindControl()
 //END AUTOGENERATED CODE: Template Overrides 'PsiOperativeMindControl'
 
 	return Template;
+}
+
+static function X2DataTemplate CreateSectoidStasis( Name TemplateName='SectoidStasis' )
+{
+	local X2AbilityTemplate                 Template;
+	local X2AbilityCost_ActionPoints        ActionPointCost;
+	local X2Effect_Stasis                   StasisEffect;
+	local X2AbilityCooldown                 Cooldown;
+	local X2Effect_RemoveEffects            RemoveEffects;
+
+	`CREATE_X2ABILITY_TEMPLATE(Template, TemplateName);
+
+	Template.Hostility = eHostility_Offensive;
+	Template.IconImage = "img:///UILibrary_PerkIcons.UIPerk_stasis";
+	Template.eAbilityIconBehaviorHUD = eAbilityIconBehavior_AlwaysShow;
+	Template.AbilitySourceName = 'eAbilitySource_Psionic';
+
+	ActionPointCost = new class'X2AbilityCost_ActionPoints';
+	ActionPointCost.iNumPoints = 1;
+	ActionPointCost.bConsumeAllPoints = true;
+	Template.AbilityCosts.AddItem(ActionPointCost);
+	Template.ShotHUDPriority = class'UIUtilities_Tactical'.const.CLASS_SQUADDIE_PRIORITY;
+
+	Cooldown = new class'X2AbilityCooldown';
+	Cooldown.iNumTurns = 3;
+	Template.AbilityCooldown = Cooldown;
+
+	Template.AbilityToHitCalc = default.DeadEye;
+
+	Template.AbilityShooterConditions.AddItem(default.LivingShooterProperty);
+	Template.AddShooterEffectExclusions();
+
+	Template.AbilityTargetConditions.AddItem(new class'X2Condition_StasisTarget');
+	Template.AbilityTargetConditions.AddItem(default.GameplayVisibilityCondition);
+
+	RemoveEffects = new class'X2Effect_RemoveEffects';
+	RemoveEffects.EffectNamesToRemove.AddItem(class'X2Ability_Viper'.default.BindSustainedEffectName);
+	Template.AddTargetEffect(RemoveEffects);
+
+	StasisEffect = new class'X2Effect_Stasis';
+	StasisEffect.BuildPersistentEffect(1, false, false, false, eGameRule_PlayerTurnBegin);
+	StasisEffect.bUseSourcePlayerState = true;
+	StasisEffect.bRemoveWhenTargetDies = true;          //  probably shouldn't be possible for them to die while in stasis, but just in case
+	StasisEffect.SetDisplayInfo(ePerkBuff_Penalty, Template.LocFriendlyName, Template.GetMyHelpText(), Template.IconImage);
+	Template.AddTargetEffect(StasisEffect);
+
+	Template.AbilityTargetStyle = default.SingleTargetWithSelf;
+	Template.AbilityTriggers.AddItem(default.PlayerInputTrigger);
+		
+	Template.bShowActivation = true;
+	Template.CustomFireAnim = 'HL_Stasis';
+
+	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
+	Template.BuildVisualizationFn = Stasis_BuildVisualization;
+	Template.CinescriptCameraType = "HL_Stasis";
+	Template.ActivationSpeech = 'NullShield';
+
+	Template.SuperConcealmentLoss = class'X2AbilityTemplateManager'.default.SuperConcealmentStandardShotLoss;
+	Template.ChosenActivationIncreasePerUse = class'X2AbilityTemplateManager'.default.StandardShotChosenActivationIncreasePerUse;
+	Template.LostSpawnIncreasePerUse = class'X2AbilityTemplateManager'.default.StandardShotLostSpawnIncreasePerUse;
+//BEGIN AUTOGENERATED CODE: Template Overrides 'Stasis'
+	Template.bFrameEvenWhenUnitIsHidden = true;
+	Template.AbilityConfirmSound = "TacticalUI_ActivateAbility";
+//END AUTOGENERATED CODE: Template Overrides 'Stasis'
+
+	return Template;
+}
+
+function Stasis_BuildVisualization(XComGameState VisualizeGameState)
+{
+	local XComGameStateHistory History;
+	local XComGameState_Effect RemovedEffect;
+	local VisualizationActionMetadata ActionMetadata, EmptyTrack;
+
+	TypicalAbility_BuildVisualization(VisualizeGameState);
+	History = `XCOMHISTORY;
+
+	foreach VisualizeGameState.IterateByClassType(class'XComGameState_Effect', RemovedEffect)
+	{
+		if (RemovedEffect.bRemoved)
+		{
+			ActionMetadata = EmptyTrack;
+			ActionMetadata.VisualizeActor = History.GetVisualizer(RemovedEffect.ApplyEffectParameters.SourceStateObjectRef.ObjectID);
+			ActionMetadata.StateObject_OldState = History.GetGameStateForObjectID(RemovedEffect.ApplyEffectParameters.SourceStateObjectRef.ObjectID, , VisualizeGameState.HistoryIndex -1);
+			ActionMetadata.StateObject_NewState = History.GetGameStateForObjectID(RemovedEffect.ApplyEffectParameters.SourceStateObjectRef.ObjectID);
+
+			RemovedEffect.GetX2Effect().AddX2ActionsForVisualization_RemovedSource(VisualizeGameState, ActionMetadata, 'AA_Success', RemovedEffect);
+		}
+	}
 }

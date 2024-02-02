@@ -82,7 +82,7 @@ static final function bool ValidateSquad(const XComGameState CheckSquad, out str
 	if (!CountUnitsOfType(UnitTypes, 'Reaper', 2, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'Skirmisher', 2, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'Templar', 2, strDisabledReason)) return false;
-	if (!CountUnitsOfType(UnitTypes, 'SparkSoldierMP', 2, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'SparkSoldier', 2, strDisabledReason)) return false;
 
 	
 	return true;
@@ -152,6 +152,7 @@ static final function bool IsValidUnitType(const name UnitType)
 		case 'AdvGeneralMP':
 		case 'AdvDroneMP':
 		case 'AdvPsiWitch_MP':
+		case 'AdvPsiWitchM3':
 		case 'TheLostDasherMP':
 
 		case 'FacelessMP':
@@ -181,7 +182,7 @@ static final function bool IsValidUnitType(const name UnitType)
 		case 'TemplarSoldier':
 		case 'SkirmisherSoldier':
 		case 'ReaperSoldier':
-		case 'SparkSoldierMP':
+		case 'SparkSoldier':
 		case 'Soldier':
 			return true;
 		default:

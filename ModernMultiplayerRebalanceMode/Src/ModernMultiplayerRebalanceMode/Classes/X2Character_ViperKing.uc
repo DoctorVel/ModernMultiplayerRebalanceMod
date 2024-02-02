@@ -40,6 +40,7 @@ static function X2CharacterTemplate CreateTemplate_ViperKingMP()
 	CharTemplate.strMatineePackages.AddItem("CIN_Viper");
 	CharTemplate.strMatineePackages.AddItem("CIN_AdventMEC");
 	CharTemplate.strTargetingMatineePrefix = "CIN_AdventMEC_FF_StartPos";
+	CharTemplate.AdditionalAnimSets.AddItem(AnimSet(`CONTENT.RequestGameArchetype("ViperHunkerDown_ANIM.ViperHunkerDown")));
 
 	CharTemplate.UnitSize = 1;
 	// Traversal Rules
@@ -78,6 +79,7 @@ static function X2CharacterTemplate CreateTemplate_ViperKingMP()
 	CharTemplate.Abilities.AddItem('ShadowStep');
 	CharTemplate.Abilities.AddItem('StoneSkin');
 	CharTemplate.Abilities.AddItem('BlessingoftheElders');
+	CharTemplate.Abilities.AddItem('HunkerDown');
 
 	CharTemplate.MPPointValue = CharTemplate.XpKillscore * 10;
 
@@ -512,6 +514,7 @@ static function X2CharacterTemplate CreateTemplate_AdvPsiWitch_MP()
 	CharTemplate.ImmuneTypes.AddItem('ParthenogenicPoison');
 	CharTemplate.Abilities.AddItem('Parry');
 
+
 	CharTemplate.MPPointValue = CharTemplate.XpKillscore * 10;
 
 	CharTemplate.strHackIconImage = "UILibrary_Common.TargetIcons.Hack_captain_icon";
@@ -862,6 +865,9 @@ static function X2CharacterTemplate CreateTemplate_AHWElder()
 	CharTemplate.BehaviorClass=class'XGAIBehavior';
 	CharTemplate.strBehaviorTree = "AHWElder::CharacterRoot";
 	CharTemplate.strPawnArchetypes.AddItem("GameUnit_Ethereal.ARC_GameUnit_Elder");
+	CharTemplate.AdditionalAnimSets.AddItem(AnimSet(`CONTENT.RequestGameArchetype("Ethereal_MassPsiReanimation.AS_EtherealReanimation")));
+	CharTemplate.AdditionalAnimSets.AddItem(AnimSet(`CONTENT.RequestGameArchetype("Ethereal_MassPsiReanimation.AS_Fire")));
+	CharTemplate.AdditionalAnimSets.AddItem(AnimSet(`CONTENT.RequestGameArchetype("Ethereal_MassPsiReanimation.AS_LifeStile")));
 
 	CharTemplate.strMatineePackages.AddItem("CIN_AHWElder");
 
@@ -903,6 +909,8 @@ static function X2CharacterTemplate CreateTemplate_AHWElder()
 	CharTemplate.Abilities.AddItem('AHWElderReflect');
 	CharTemplate.Abilities.AddItem('AHWElderReflectShot');
 	CharTemplate.Abilities.AddItem('ElderMentalFortress');
+	CharTemplate.Abilities.AddItem('MassReanimation_LW');
+	CharTemplate.Abilities.AddItem('AHWElderLifeStyle');
 	CharTemplate.ImmuneTypes.AddItem('Mental');
 	
 
@@ -958,8 +966,12 @@ static function X2CharacterTemplate CreateTemplate_MutonElite_MP()
 	CharTemplate.Abilities.AddItem('CounterattackPreparation');
 	CharTemplate.Abilities.AddItem('CounterattackDescription');
 	CharTemplate.Abilities.AddItem('BD_WarCry_LW');
+	CharTemplate.Abilities.AddItem('LongRangeThrow');
 
-	CharTemplate.Abilities.AddItem('BD_Personalshield_LW');
+	CharTemplate.Abilities.AddItem('MutonElite_PersonalShield');
+
+	CharTemplate.AdditionalAnimSets.AddItem(AnimSet(`CONTENT.RequestGameArchetype("Muton_ANIM_WarCry.Anims.AS_WarCry")));
+
 
 
 	CharTemplate.MPPointValue = CharTemplate.XpKillscore * 10;
@@ -1018,6 +1030,9 @@ static function X2CharacterTemplate CreateTemplate_AdvDroneMP()
 	CharTemplate.bWeakAgainstTechLikeRobot = true;
 
 	CharTemplate.Abilities.AddItem('RobotImmunities');
+	CharTemplate.Abilities.AddItem('DroneAidProtocol');
+	
+	CharTemplate.AdditionalAnimSets.AddItem(AnimSet(`CONTENT.RequestGameArchetype("AdvDroneMP_ANIM.AS_DroneAidProtocol")));
 
 	CharTemplate.MPPointValue = CharTemplate.XpKillscore * 10;
 	CharTemplate.strBehaviorTree = "LWDrone::CharacterRoot"; // new config behavior tree parsing means we could use the group instead
@@ -1073,12 +1088,17 @@ static function X2CharacterTemplate CreateTemplate_SectoidM2_MP()
 
 	CharTemplate.Abilities.AddItem('VulnerabilityMelee');
 	CharTemplate.Abilities.AddItem('KillSiredZombies');
-	CharTemplate.Abilities.AddItem('BD_MassReanimation_LW');
+	CharTemplate.Abilities.AddItem('MassReanimation_LW');
 	CharTemplate.Abilities.AddItem('Mindspin');
-	CharTemplate.Abilities.AddItem('GreaterMindMerge');
-	CharTemplate.Abilities.AddItem('PsiPanic');
-	CharTemplate.Abilities.AddItem('MindControl');
-	
+	CharTemplate.Abilities.AddItem('SectoidStasis');
+	CharTemplate.Abilities.AddItem('PsionicShield');
+
+
+	CharTemplate.AdditionalAnimSets.AddItem(AnimSet(`CONTENT.RequestGameArchetype("SectoidM2_ANIM_Ability.AS_SectoidStasis")));
+	CharTemplate.AdditionalAnimSets.AddItem(AnimSet(`CONTENT.RequestGameArchetype("LWSectoidM2.Anims.AS_SectoidM2")));
+	CharTemplate.AdditionalAnimSets.AddItem(AnimSet(`CONTENT.RequestGameArchetype("SectoidM2_ANIM_Ability.AS_SectoidMindControl")));
+	CharTemplate.AdditionalAnimSets.AddItem(AnimSet(`CONTENT.RequestGameArchetype("SectoidM2_ANIM_Ability.AS_SectoidMassReanination")));
+	CharTemplate.AdditionalAnimSets.AddItem(AnimSet(`CONTENT.RequestGameArchetype("Sectoid_PsionicShield.AS_PsionicShield")));
 	CharTemplate.MPPointValue = CharTemplate.XpKillscore * 10;
 
 	CharTemplate.strBehaviorTree = "LWSectoidM2::CharacterRoot"; // new config behavior tree parsing means we could use the group instead

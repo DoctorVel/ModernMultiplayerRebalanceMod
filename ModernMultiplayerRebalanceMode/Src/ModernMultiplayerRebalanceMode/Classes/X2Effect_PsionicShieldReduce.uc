@@ -6,6 +6,8 @@ function int GetDefendingDamageModifier(XComGameState_Effect EffectState, XComGa
 {
 	local int DamageMod;
 
+	if (X2Effect_HolyWarriorDeath(WeaponDamageEffect) != none) 
+		return 0;
 	
 	DamageMod = (-int(float(CurrentDamage) * 0.5));
 

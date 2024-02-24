@@ -32,8 +32,8 @@ static function X2DataTemplate CreateAdventMedikitMP()
 	Template.iRange = default.ADV_MEDIKIT_RANGE;
 	Template.bMergeAmmo = true;
 
-	Template.Abilities.AddItem('NanoMedikitHeal');
-	Template.Abilities.AddItem('NanoMedikitBonus');
+	Template.Abilities.AddItem('MedikitHeal');
+	Template.Abilities.AddItem('MedikitBonus');
 
 	Template.GameArchetype = "AdventMedic.ARC_AdventMedikit";
 

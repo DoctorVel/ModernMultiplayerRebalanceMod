@@ -27,6 +27,9 @@ var config WeaponDamageValue MUTONELITE_GRENADE_BASEDAMAGE;
 var config WeaponDamageValue MutonM2_LW_WPN_BASEDAMAGE;
 var config int MutonM2_LW_IDEALRANGE;
 
+var config WeaponDamageValue ADVSNIPERMP_WPN_BASEDAMAGE;
+var config array <WeaponDamageValue>  POISON_SHOT;
+
 static function array<X2DataTemplate> CreateTemplates()
 {
 	local array<X2DataTemplate> Weapons;
@@ -45,6 +48,7 @@ static function array<X2DataTemplate> CreateTemplates()
 	Weapons.AddItem(CreateMountainMistGrenadeMP());
 	Weapons.AddItem(CreateTemplate_MutonM2_LW_WPN());
 	Weapons.AddItem(CreateMutonEliteGrenade());
+	Weapons.AddItem(CreateTemplate_AdventSniperM3_WPN());
 
 	return Weapons;
 }
@@ -224,7 +228,7 @@ static function X2DataTemplate CreateTemplate_AHWEthereal_PsiCannon()
 	Template.ItemCat = 'weapon';
 	Template.WeaponCat = 'rifle';
 	Template.WeaponTech = 'beam';
-	Template.strImage = "img:///FX_Holograms.Mugshot_Central_01";
+	Template.strImage = "img:///gfxXComIcons.promote_psi";
 
 	Template.RangeAccuracy = class'X2Item_DefaultWeapons'.default.MEDIUM_BEAM_RANGE;
 	Template.BaseDamage = default.AHW_ETHEREAL_WPN_BASEDAMAGE;
@@ -235,7 +239,7 @@ static function X2DataTemplate CreateTemplate_AHWEthereal_PsiCannon()
 	Template.iIdealRange = class'X2Item_DefaultWeapons'.default.ADVPSIWITCHM3_IDEALRANGE;
 	
 	Template.InventorySlot = eInvSlot_PrimaryWeapon;
-	Template.Abilities.AddItem('StandardShot');
+	Template.Abilities.AddItem('StandardShotEthereal');
 
 	Template.InfiniteAmmo = true;
 	
@@ -261,7 +265,7 @@ static function X2DataTemplate CreateTemplate_AHWEthereal_PsiWep()
 	Template.ItemCat = 'weapon';
 	Template.WeaponCat = 'sword';
 	Template.WeaponTech = 'alien';
-	Template.strImage = "img:///UILibrary_StrategyImages.X2InventoryIcons.Inv_Psi_Amp";
+	Template.strImage = "img:///gfxXComIcons.promote_psi";
 	Template.InventorySlot = eInvSlot_SecondaryWeapon;
 	// This all the resources; sounds, animations, models, physics, the works.
 
@@ -284,12 +288,14 @@ static function X2DataTemplate CreateTemplate_AHWEthereal_PsiWep()
 
 	Template.CanBeBuilt = false;
 
-	Template.Abilities.AddItem('PsiMindControl');
+	Template.Abilities.AddItem('EtherealMindControl');
 	Template.Abilities.AddItem('PsiDimensionalRiftStage1');
 	Template.Abilities.AddItem('PsiDimensionalRiftStage2');
 	Template.Abilities.AddItem('NullLance');
+	Template.Abilities.AddItem('EtherealLifeSteal');
 	Template.Abilities.AddItem('AHWElderImmunity');
-
+	Template.Abilities.AddItem('PsiMindControl');
+	Template.Abilities.AddItem('PsiOperativeMindControl');
 	//Template.ExtraDamage = class'X2Item_DefaultWeapons'.default.PSIAMPT3_ABILITYDAMAGE;
 	Template.ExtraDamage = default.Ethereal_AbilityDamage;
 
@@ -297,7 +303,6 @@ static function X2DataTemplate CreateTemplate_AHWEthereal_PsiWep()
 
 	Template.SetAnimationNameForAbility('NullLance', 'HL_Psi_NullLanceA');	
 	Template.SetAnimationNameForAbility('PsiDimensionalRiftStage1', 'HL_Psi_VoidRift');	
-	Template.SetAnimationNameForAbility('PsiMindControl', 'HL_Psi_MindControlA');
 	Template.SetAnimationNameForAbility('AHWElderImmunity', 'HL_Psi_DrainA');	
 
 	return Template;
@@ -605,6 +610,48 @@ static function X2DataTemplate CreateMutonEliteGrenade()
 
 	Template.CanBeBuilt = false;
 	Template.TradingPostValue = 50;
+
+	return Template;
+}
+
+static function X2DataTemplate CreateTemplate_AdventSniperM3_WPN()
+{
+	local X2WeaponTemplate Template;
+
+	`CREATE_X2TEMPLATE(class'X2WeaponTemplate', Template, 'AdventSniperMP_WPN');
+	Template.WeaponPanelImage = "_ConventionalRifle";
+	Template.ItemCat = 'weapon';
+	Template.WeaponCat = 'rifle';
+	Template.WeaponTech = 'magnetic';
+	Template.strImage = "img:///UILibrary_Common.UI_BeamSniper.BeamSniper_Base";
+//	Texture2D'UILibrary_StrategyImages.X2InventoryIcons.Inv_Beam_Sniper_Rifle'
+
+	Template.RangeAccuracy = class'X2Item_DefaultWeapons'.default.LONG_BEAM_RANGE;
+	Template.BaseDamage = default.ADVSNIPERMP_WPN_BASEDAMAGE;
+	Template.iClipSize = class'X2Item_DefaultWeapons'.default.ASSAULTRIFLE_MAGNETIC_ICLIPSIZE;
+	Template.iSoundRange = class'X2Item_DefaultWeapons'.default.ASSAULTRIFLE_MAGNETIC_ISOUNDRANGE;
+	Template.iEnvironmentDamage = class'X2Item_DefaultWeapons'.default.ASSAULTRIFLE_MAGNETIC_IENVIRONMENTDAMAGE;
+
+	Template.InventorySlot = eInvSlot_PrimaryWeapon;
+	Template.Abilities.AddItem('StandardShot');
+	Template.Abilities.AddItem('Overwatch');
+	Template.Abilities.AddItem('OverwatchShot');
+	Template.Abilities.AddItem('Reload');
+	Template.Abilities.AddItem('HotLoadAmmo');
+	Template.Abilities.AddItem('HeadShot');
+	Template.Abilities.AddItem('PoisonShot');
+
+	Template.ExtraDamage = default.POISON_SHOT;
+
+
+	Template.GameArchetype = "Advent_Sniper_Rifle_WPN.WP_AdventSniperRifle_BM";
+
+	Template.iPhysicsImpulse = 5;
+
+	Template.CanBeBuilt = false;
+	Template.TradingPostValue = 30;
+
+	Template.DamageTypeTemplateName = 'Projectile_BeamAlien';
 
 	return Template;
 }

@@ -22,9 +22,9 @@ static function X2DataTemplate PsionicShield()
 	local X2Effect_PsionicShieldReduce DamageEffect;
 
 	`CREATE_X2ABILITY_TEMPLATE(Template, 'PsionicShield');
-	Template.IconImage = "img:///UILibrary_XPACK_Common.PerkIcons.UIPerk_holywarrior";
+	Template.IconImage = "img:///Sectoidl_MindMerge.Sectoidl_MindMerge";
 	Template.Hostility = eHostility_Offensive;
-	Template.AbilitySourceName = 'eAbilitySource_Standard';
+	Template.AbilitySourceName = 'eAbilitySource_Psionic';
 	Template.eAbilityIconBehaviorHUD = eAbilityIconBehavior_AlwaysShow;
 
 	Template.AdditionalAbilities.AddItem('HolyWarriorDeath');
@@ -50,7 +50,8 @@ static function X2DataTemplate PsionicShield()
 	ApplyingEffectsCondition.AddExcludeEffect(class'X2Ability_AdvPriest'.default.HolyWarriorEffectName, 'AA_AbilityUnavailable');
 	ApplyingEffectsCondition.AddExcludeEffect(class'X2Effect_EnergyShield'.default.EffectName, 'AA_AbilityUnavailable');
 	ApplyingEffectsCondition.AddExcludeEffect(class'X2Effect_MindControl'.default.EffectName, 'AA_UnitIsMindControlling');
-	Template.AbilityShooterConditions.AddItem(ApplyingEffectsCondition);
+	ApplyingEffectsCondition.AddExcludeEffect('PsionicShield', 'AA_DuplicateEffectIgnored');
+	Template.AbilityTargetConditions.AddItem(ApplyingEffectsCondition);
 
 	// Target Conditions
 	//
@@ -69,24 +70,31 @@ static function X2DataTemplate PsionicShield()
 	Template.AbilityTargetConditions.AddItem(UnitPropertyCondition);
 
 	ExcludeEffectsCondition = new class'X2Condition_UnitEffects';
-	ExcludeEffectsCondition.AddExcludeEffect(class'X2Ability_AdvPriest'.default.HolyWarriorEffectName, 'AA_DuplicateEffectIgnored');
+	ExcludeEffectsCondition.AddExcludeEffect(class'X2Ability_AdvPriest'.default.HolyWarriorEffectName, 'AA_AbilityUnavailable');
 	ExcludeEffectsCondition.AddExcludeEffect(class'X2Effect_EnergyShield'.default.EffectName, 'AA_DuplicateEffectIgnored');
+	ExcludeEffectsCondition.AddExcludeEffect('PsionicShield', 'AA_DuplicateEffectIgnored');
 	Template.AbilityTargetConditions.AddItem(ExcludeEffectsCondition);
 	
 	PsionicShieldEffect = new class'X2Effect_EnergyShield';
 	PsionicShieldEffect.BuildPersistentEffect(1, true, false, true);
 	PsionicShieldEffect.SetDisplayInfo (ePerkBuff_Bonus, Template.LocFriendlyName, Template.GetMyHelpText(), Template.IconImage,,, Template.AbilitySourceName);
+	PsionicShieldEffect.DuplicateResponse = eDupe_Ignore;
 	PsionicShieldEffect.AddPersistentStatChange(eStat_ShieldHP, 6);
 	PsionicShieldEffect.AddPersistentStatChange(eStat_Will, 20);
 	PsionicShieldEffect.AddPersistentStatChange(eStat_Mobility, 2);
 	PsionicShieldEffect.EffectName='PsionicShield';
 	PsionicShieldEffect.bRemoveWhenTargetDies = true;
+	PsionicShieldEffect.bRemoveWhenSourceDies = true;
 	Template.AddTargetEffect(PsionicShieldEffect);
+
+	Template.AddShooterEffectExclusions();
 
 	DamageEffect = new class'X2Effect_PsionicShieldReduce';
 	DamageEffect.BuildPersistentEffect(1, true, false, true);
-	DamageEffect.SetDisplayInfo(ePerkBuff_Bonus, Template.LocFriendlyName, Template.GetMyHelpText(), "img:///UILibrary_PerkIcons.UIPerk_ironskin", true);
+	DamageEffect.SetDisplayInfo(ePerkBuff_Bonus, Template.LocFriendlyName, Template.GetMyHelpText(), "img:///Sectoidl_MindMerge.Sectoidl_MindMerge", true);
 	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
+	DamageEffect.bRemoveWhenTargetDies = true;
+	DamageEffect.bRemoveWhenSourceDies = true;
     Template.bShowActivation = false;
     Template.bSkipFireAction = false;
 	Template.AddTargetEffect(DamageEffect);

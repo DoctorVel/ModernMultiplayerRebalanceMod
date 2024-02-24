@@ -23,7 +23,7 @@ static function array<X2DataTemplate> CreateTemplates()
 	Templates.AddItem(CreateTemplate_SectoidM2_MP());
 	Templates.AddItem(CreateTemplate_Centurion());
 	Templates.AddItem(CreateTemplate_AdvMedicMP());
-	Templates.AddItem(CreateTemplate_SparkSoldierMP());
+	Templates.AddItem(CreateTemplate_AdventSniperM3());
 
 	return Templates;
 }
@@ -504,8 +504,7 @@ static function X2CharacterTemplate CreateTemplate_AdvPsiWitch_MP()
 	CharTemplate.bIsAfraidOfFire = true;
 
 	CharTemplate.Abilities.AddItem('AvatarInitialization');
-	CharTemplate.Abilities.AddItem('TriggerDamagedTeleportListener');
-	CharTemplate.Abilities.AddItem('AvatarDamagedTeleport');
+
 
 	CharTemplate.ImmuneTypes.AddItem('Mental');
 	CharTemplate.Abilities.AddItem('Insanity');
@@ -583,10 +582,17 @@ static function X2CharacterTemplate CreateTemplate_ChosenWarlockMP()
 	CharTemplate.Abilities.AddItem('ChosenBrutal');
 	CharTemplate.Abilities.AddItem('ChosenRevenge');
 	CharTemplate.Abilities.AddItem('ChosenGroundling');
-	CharTemplate.Abilities.AddItem('KillZombie');
+	CharTemplate.Abilities.AddItem('KillSiredZombies');
+	CharTemplate.Abilities.AddItem('PsiReanimation');
+	CharTemplate.Abilities.AddItem('KillZombies');
+	CharTemplate.Abilities.AddItem('EtherealPossess');
+	
 
 	CharTemplate.ImmuneTypes.AddItem('Mental');
 
+	CharTemplate.AdditionalAnimSets.AddItem(AnimSet(`CONTENT.RequestGameArchetype("Warlock_KillZombies_ANIM.AS_KillZombies")));
+	CharTemplate.AdditionalAnimSets.AddItem(AnimSet(`CONTENT.RequestGameArchetype("Warlock_EtherealPossess_ANIM.AS_EtherealPossess")));
+	
 
 	CharTemplate.MPPointValue = CharTemplate.XpKillscore * 10;
 
@@ -866,8 +872,9 @@ static function X2CharacterTemplate CreateTemplate_AHWElder()
 	CharTemplate.strBehaviorTree = "AHWElder::CharacterRoot";
 	CharTemplate.strPawnArchetypes.AddItem("GameUnit_Ethereal.ARC_GameUnit_Elder");
 	CharTemplate.AdditionalAnimSets.AddItem(AnimSet(`CONTENT.RequestGameArchetype("Ethereal_MassPsiReanimation.AS_EtherealReanimation")));
-	CharTemplate.AdditionalAnimSets.AddItem(AnimSet(`CONTENT.RequestGameArchetype("Ethereal_MassPsiReanimation.AS_Fire")));
+	//CharTemplate.AdditionalAnimSets.AddItem(AnimSet(`CONTENT.RequestGameArchetype("Ethereal_MassPsiReanimation.AS_Fire")));
 	CharTemplate.AdditionalAnimSets.AddItem(AnimSet(`CONTENT.RequestGameArchetype("Ethereal_MassPsiReanimation.AS_LifeStile")));
+	CharTemplate.AdditionalAnimSets.AddItem(AnimSet(`CONTENT.RequestGameArchetype("Ethereal_MassPsiReanimation.AS_EtherealMindControl")));
 
 	CharTemplate.strMatineePackages.AddItem("CIN_AHWElder");
 
@@ -910,7 +917,6 @@ static function X2CharacterTemplate CreateTemplate_AHWElder()
 	CharTemplate.Abilities.AddItem('AHWElderReflectShot');
 	CharTemplate.Abilities.AddItem('ElderMentalFortress');
 	CharTemplate.Abilities.AddItem('MassReanimation_LW');
-	CharTemplate.Abilities.AddItem('AHWElderLifeStyle');
 	CharTemplate.ImmuneTypes.AddItem('Mental');
 	
 
@@ -1091,7 +1097,6 @@ static function X2CharacterTemplate CreateTemplate_SectoidM2_MP()
 	CharTemplate.Abilities.AddItem('MassReanimation_LW');
 	CharTemplate.Abilities.AddItem('Mindspin');
 	CharTemplate.Abilities.AddItem('SectoidStasis');
-	CharTemplate.Abilities.AddItem('PsionicShield');
 
 
 	CharTemplate.AdditionalAnimSets.AddItem(AnimSet(`CONTENT.RequestGameArchetype("SectoidM2_ANIM_Ability.AS_SectoidStasis")));
@@ -1236,104 +1241,63 @@ static function X2CharacterTemplate CreateTemplate_AdvMedicMP()
 
 }
 
-static function X2CharacterTemplate CreateTemplate_SparkSoldierMP()
+static function X2CharacterTemplate CreateTemplate_AdventSniperM3()
 {
 	local X2CharacterTemplate CharTemplate;
+	local LootReference Loot;
 
-	`CREATE_X2CHARACTER_TEMPLATE(CharTemplate, 'SparkSoldierMP');
-	CharTemplate.strPawnArchetypes.AddItem("DLC_90_ProxyUnits.Units.ARC_GameUnit_FeralMEC");
+	`CREATE_X2CHARACTER_TEMPLATE(CharTemplate, 'AdventSniperMP');
+	CharTemplate.CharacterGroupName = 'AdventSniper';
+	CharTemplate.DefaultLoadout='AdventSniperMP_Loadout';
+	CharTemplate.BehaviorClass=class'XGAIBehavior';
+	CharTemplate.strPawnArchetypes.AddItem("ARC_Advent_Sniper.ARC_GameUnit_AdvSniperM3_M");
+	CharTemplate.strPawnArchetypes.AddItem("ARC_Advent_Sniper.ARC_GameUnit_AdvSniperM3_F");
+
+	CharTemplate.strMatineePackages.AddItem("CIN_Advent");
+	CharTemplate.RevealMatineePrefix = "CIN_Advent_Captain";
+
+
 	CharTemplate.UnitSize = 1;
-	CharTemplate.UnitHeight = 3;
-	CharTemplate.BehaviorClass = class'XGAIBehavior';
+
+	// Traversal Rules
 	CharTemplate.bCanUse_eTraversal_Normal = true;
 	CharTemplate.bCanUse_eTraversal_ClimbOver = true;
 	CharTemplate.bCanUse_eTraversal_ClimbOnto = true;
-	CharTemplate.bCanUse_eTraversal_ClimbLadder = false;
+	CharTemplate.bCanUse_eTraversal_ClimbLadder = true;
 	CharTemplate.bCanUse_eTraversal_DropDown = true;
 	CharTemplate.bCanUse_eTraversal_Grapple = false;
 	CharTemplate.bCanUse_eTraversal_Landing = true;
 	CharTemplate.bCanUse_eTraversal_BreakWindow = true;
 	CharTemplate.bCanUse_eTraversal_KickDoor = true;
-	CharTemplate.bCanUse_eTraversal_JumpUp = true;
-	CharTemplate.bCanUse_eTraversal_WallClimb = false;
+	CharTemplate.bCanUse_eTraversal_JumpUp = false;
+	CharTemplate.bCanUse_eTraversal_WallClimb = true;
 	CharTemplate.bCanUse_eTraversal_BreakWall = false;
-	CharTemplate.bCanBeCriticallyWounded = false;
-	CharTemplate.bCanBeTerrorist = false;
-	CharTemplate.bDiesWhenCaptured = true;
-	CharTemplate.bAppearanceDefinesPawn = true;
-	CharTemplate.bIsAfraidOfFire = true;
+	CharTemplate.bAppearanceDefinesPawn = false;    
+	CharTemplate.bSetGenderAlways = true;
+	CharTemplate.bCanTakeCover = true;
+
 	CharTemplate.bIsAlien = false;
+	CharTemplate.bIsAdvent = true;
 	CharTemplate.bIsCivilian = false;
 	CharTemplate.bIsPsionic = false;
-	CharTemplate.bIsRobotic = true;
-	CharTemplate.bIsSoldier = true;
-	CharTemplate.bCanTakeCover = false;
-	CharTemplate.bCanBeCarried = false;
-	CharTemplate.bCanBeRevived = false;
-	CharTemplate.bUsePoolSoldiers = true;
-	CharTemplate.bIsTooBigForArmory = true;
-	CharTemplate.bStaffingAllowed = true;
-	CharTemplate.bAppearInBase = false; // Do not appear as filler crew or in any regular staff slots throughout the base
-	CharTemplate.bWearArmorInBase = true;
-	CharTemplate.AppearInStaffSlots.AddItem('SparkStaffSlot'); // But are allowed to appear in the spark repair slot
-	CharTemplate.bIgnoreEndTacticalHealthMod = true;
-	CharTemplate.bAllowRushCam = false;
+	CharTemplate.bIsRobotic = false;
+	CharTemplate.bIsSoldier = false;
 
-	CharTemplate.strMatineePackages.AddItem("CIN_Spark");
-	CharTemplate.strMatineePackages.AddItem("CIN_AdventMEC");
-	CharTemplate.strTargetingMatineePrefix = "CIN_AdventMEC_FF_StartPos";
-	CharTemplate.strIntroMatineeSlotPrefix = "Spark";
-	CharTemplate.strLoadingMatineeSlotPrefix = "SparkSoldier";
-	
-	CharTemplate.DefaultSoldierClass = 'SparkMP';
-	CharTemplate.DefaultLoadout = 'MP_Spark';
-	CharTemplate.RequiredLoadout = 'MP_Spark';
+	CharTemplate.bCanBeTerrorist = false;
+	CharTemplate.bCanBeCriticallyWounded = false;
+	CharTemplate.bIsAfraidOfFire = true;
 
-	CharTemplate.strTargetIconImage = class'UIUtilities_Image'.const.TargetIcon_XCom;
+	CharTemplate.Abilities.AddItem('Grapple');
+	CharTemplate.Abilities.AddItem('BD_Executioner_LW');
+	CharTemplate.Abilities.AddItem('BD_DamnGoodGround_LW');
+	CharTemplate.Abilities.AddItem('PistolStandardShot');
 
-	CharTemplate.CustomizationManagerClass = class'XComCharacterCustomization_Spark';
-	CharTemplate.UICustomizationMenuClass = class'UICustomize_SparkMenu';
-	CharTemplate.UICustomizationInfoClass = class'UICustomize_SparkInfo';
-	CharTemplate.UICustomizationPropsClass = class'UICustomize_SparkProps';
-	CharTemplate.UICustomizationHeadClass = class'UICustomize_SparkHead';
-	CharTemplate.UICustomizationBodyClass = class'UICustomize_SparkBody';
-	CharTemplate.UICustomizationWeaponClass = class'UICustomize_SparkWeapon';
+	CharTemplate.strBehaviorTree = "AdventSniperRoot";
 
-	CharTemplate.ImmuneTypes.AddItem(class'X2Item_DefaultDamageTypes'.default.KnockbackDamageType);
 
-	CharTemplate.CharacterGeneratorClass = class'XGCharacterGenerator_SPARK';
-	
-	// Ensure only Spark heads are available for customization
-	CharTemplate.bHasCharacterExclusiveAppearance = true;
-	
-	CharTemplate.PhotoboothPersonality = 'Personality_Normal';
-
-	CharTemplate.GetPawnNameFn = GetSparkPawnName;
+	CharTemplate.strHackIconImage = "UILibrary_Common.TargetIcons.Hack_captain_icon";
+	CharTemplate.strTargetIconImage = class'UIUtilities_Image'.const.TargetIcon_Advent;
 
 	return CharTemplate;
 }
 
-function name GetSparkPawnName(optional EGender Gender)
-{
-	return 'XCom_Soldier_Spark';
-}
-
-static function name GetDefaultSparkVoiceByLanguage(optional string strLanguage = "")
-{
-	if (len(strLanguage) == 0)
-		strLanguage = GetLanguage();
-
-	switch (strLanguage)
-	{
-	case "DEU":
-		return 'SparkCalmVoice1_German';
-	case "ESN":
-		return 'SparkCalmVoice1_Spanish';
-	case "FRA":
-		return 'SparkCalmVoice1_French';
-	case "ITA":
-		return 'SparkCalmVoice1_Italian';
-	}
-
-	return 'SparkCalmVoice1_English';
-}

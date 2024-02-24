@@ -117,6 +117,12 @@
     <Content Include="Content\Ability\Ethereal_MassPsiReanimation.upk">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Content\Ability\Ethereal_PsiDrain.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\Ability\Ethereal_PsiLance.upk">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Content\Ability\LW_Perk_MutonM3.upk">
       <SubType>Content</SubType>
     </Content>
@@ -132,6 +138,15 @@
     <Content Include="Content\Ability\Perk_Drone_Aid_Protocol.upk">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Content\Ability\Perk_EtherealMindControl.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\Ability\Perk_EtherealPossess.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\Ability\Perk_KillZombies.upk">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Content\Ability\Perk_Psi_Ethereal_Soul_Steal.upk">
       <SubType>Content</SubType>
     </Content>
@@ -139,6 +154,9 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="Content\Ability\SectoidCommander_PsiStasis.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\Ability\Sectoidl_MindMerge.upk">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Content\Ability\SectoidM2_ANIM_Ability.upk">
@@ -163,6 +181,12 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="Content\Ability\ViperHunkerDown_ANIM.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\Ability\Warlock_EtherealPossess_ANIM.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\Ability\Warlock_KillZombies_ANIM.upk">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Content\MPCard\MPCard_AdvDronMP.upk">
@@ -217,6 +241,12 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="Content\New Units\AdventMedic.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\New Units\Advent_Sniper_Rifle_WPN.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\New Units\ARC_Advent_Sniper.upk">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Content\New Units\CharTextures-a_WOTC_AlienPack_DLCTFC_XPACK_.tfc">
@@ -289,7 +319,16 @@
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\MPSquadValidator.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_AdventSniper.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_Centurion.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_KillWarlockSiredZombies.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_KillZombies.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_MPStun.uc">
@@ -361,6 +400,9 @@
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_PlaceTurret_Custom.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_PossessTurnLife.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Ability_SectoidCommanderAbilitySet.uc">
       <SubType>Content</SubType>
     </Content>
@@ -394,10 +436,19 @@
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Condition_GreaterMindMerge.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Condition_KillZombies.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Condition_NotFullHP.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Condition_RevivalProtocolNew.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Condition_UnitTypeNew.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Condition_UnitTypePossess.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Condition_ViperTongueMP.uc">
@@ -412,6 +463,9 @@
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_ApplyViperTongueDamageMP.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_DamnGoodGround.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_EnergyShiledDamageReduce.uc">
       <SubType>Content</SubType>
     </Content>
@@ -419,6 +473,9 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_Executioner_AP.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_HeadShot.uc">
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\ModernMultiplayerRebalanceMode\Classes\X2Effect_GreaterMindMerge.uc">

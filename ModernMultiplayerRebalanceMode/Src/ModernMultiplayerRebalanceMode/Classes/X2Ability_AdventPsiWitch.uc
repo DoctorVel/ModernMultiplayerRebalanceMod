@@ -13,8 +13,9 @@ static function X2AbilityTemplate Parry()
 {
     local X2AbilityTemplate Template;
     local X2Effect_EtheralGhost Effect;
+	local X2Condition_UnitTypePossess UnitTypeCondition;
 
-    `CREATE_X2ABILITY_TEMPLATE(Template, 'Parry');
+    `CREATE_X2ABILITY_TEMPLATE(Template, 'EtherealGhost');
 
     Template.eAbilityIconBehaviorHUD = eAbilityIconBehavior_NeverShow;
         Template.bDisplayInUITacticalText = false;
@@ -23,11 +24,14 @@ static function X2AbilityTemplate Parry()
         Template.bHideOnClassUnlock = true;
 
     Template.AbilityToHitCalc = default.DeadEye;
-    Template.AbilityTargetStyle = default.SelfTarget;
-    Template.AbilityTriggers.AddItem(default.UnitPostBeginPlayTrigger);
+	Template.AbilityTargetStyle = default.SimpleSingleTarget;
+    Template.AbilityTriggers.AddItem(default.PlayerInputTrigger);
+
+	UnitTypeCondition = new class'X2Condition_UnitTypePossess';
+	Template.AbilityTargetConditions.AddItem(UnitTypeCondition);
 
     Effect = new class'X2Effect_EtheralGhost';
-    Effect.BuildPersistentEffect(1, true);
+    Effect.BuildPersistentEffect(3, false, true, false, eGameRule_PlayerTurnEnd);
     Template.AddTargetEffect(Effect);
 
         Template.Hostility = eHostility_Neutral;

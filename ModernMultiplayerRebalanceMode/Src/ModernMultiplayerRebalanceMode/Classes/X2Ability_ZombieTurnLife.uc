@@ -36,8 +36,8 @@ static function X2AbilityTemplate AddLinkedEffectAbility()
 	SireZombieLinkEffect = new class'X2Effect_IRI_DelayedDamage';
 
 	
-		SireZombieLinkEffect.BuildPersistentEffect(4, false, false, false, eGameRule_PlayerTurnEnd);
-		SireZombieLinkEffect.SetDisplayInfo(ePerkBuff_Bonus, default.DelayedDamageBuffName, default.DelayedDamageBuffText, Template.IconImage);
+	SireZombieLinkEffect.BuildPersistentEffect(4, false, false, false, eGameRule_PlayerTurnEnd);
+	SireZombieLinkEffect.SetDisplayInfo(ePerkBuff_Bonus, default.DelayedDamageBuffName, default.DelayedDamageBuffText, Template.IconImage);
 
 
 	SireZombieLinkEffect.DeathActionClass = class'X2Action_ZombieSireDeath';

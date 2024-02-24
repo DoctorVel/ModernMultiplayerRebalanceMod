@@ -49,6 +49,7 @@ static function X2Effect_RemoveEffects CreateMindControlRemoveEffects()
 	RemoveEffects.EffectNamesToRemove.AddItem(class'X2AbilityTemplateManager'.default.BerserkName);
 	RemoveEffects.EffectNamesToRemove.AddItem(class'X2AbilityTemplateManager'.default.ShatteredName);
 	RemoveEffects.EffectNamesToRemove.AddItem(class'X2Ability_AdvPriest'.default.HolyWarriorEffectName);
+	RemoveEffects.EffectNamesToRemove.AddItem('PsionicShield');
 	RemoveEffects.DamageTypes.AddItem('mental'); 
 
 	return RemoveEffects;

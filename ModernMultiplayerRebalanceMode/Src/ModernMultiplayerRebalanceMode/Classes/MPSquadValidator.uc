@@ -40,7 +40,7 @@ static final function bool ValidateSquad(const XComGameState CheckSquad, out str
 	if (!CountUnitsOfType(UnitTypes, 'AdvPriestMP', 6, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'AdvMEC_M2_MP', 2, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'AdvGeneralMP', 2, strDisabledReason)) return false;
-	if (!CountUnitsOfType(UnitTypes, 'AdvPsiWitchMP', 1, strDisabledReason)) return false;
+	if (!CountUnitsOfType(UnitTypes, 'AdvPsiWitchM3', 1, strDisabledReason)) return false;
 	if (!CountUnitsOfType(UnitTypes, 'AdvDroneMP', 2, strDisabledReason)) return false;
 
 	if (!CountUnitsOfType(UnitTypes, 'TheLostDasherMP', 6, strDisabledReason)) return false;
@@ -151,8 +151,8 @@ static final function bool IsValidUnitType(const name UnitType)
 		case 'AdvMEC_M2_MP':
 		case 'AdvGeneralMP':
 		case 'AdvDroneMP':
-		case 'AdvPsiWitch_MP':
 		case 'AdvPsiWitchM3':
+		case 'AdvPsiWitch_MP':
 		case 'TheLostDasherMP':
 
 		case 'FacelessMP':

@@ -68,8 +68,6 @@ static function X2DataTemplate CreateMassReanimateAbility()
 	Cooldown.NumGlobalTurns = 4;
 	Template.AbilityCooldown = Cooldown;
 
-
-
 	SpawnZombieEffect = new class'X2Effect_SpawnPsiZombie';
 	SpawnZombieEffect.AnimationName = 'HL_GetUp_Multi';
 	SpawnZombieEffect.BuildPersistentEffect(1);

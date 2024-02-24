@@ -5,6 +5,7 @@ static function array<X2DataTemplate> CreateTemplates()
 	local array<X2DataTemplate> Templates;
 
 	Templates.AddItem(Add_StandardShotWarlock());
+	Templates.AddItem(AddEtherealPossess());
 	
 	return Templates;
 }
@@ -112,4 +113,104 @@ static function X2AbilityTemplate Add_StandardShotWarlock( Name AbilityName='Sta
 	Template.bFrameEvenWhenUnitIsHidden = true;
 
 	return Template;	
+}
+
+
+static function X2DataTemplate AddEtherealPossess()
+{
+	local X2AbilityTemplate Template;
+	local X2AbilityCost_ActionPoints ActionPointCost;
+	local X2AbilityCharges Charges;
+	local X2AbilityCost_Charges ChargeCost;
+	local X2Condition_UnitProperty UnitPropertyCondition;
+	local X2Condition_UnitEffects ExcludeEffectsCondition;
+	local X2Condition_UnitTypePossess  UnitTypeCondition;
+	local X2Condition_UnitEffectsApplying ApplyingEffectsCondition;
+	local X2Effect_PersistentStatChange PossessEffect;
+	local X2Effect_EtheralGhost Effect;
+
+	`CREATE_X2ABILITY_TEMPLATE(Template, 'EtherealPossess');
+	Template.IconImage = "img:///UILibrary_XPACK_Common.PerkIcons.UIPerk_possess";
+	Template.Hostility = eHostility_Offensive;
+	Template.AbilitySourceName = 'eAbilitySource_Psionic';
+	Template.eAbilityIconBehaviorHUD = eAbilityIconBehavior_AlwaysShow;
+
+	ActionPointCost = new class'X2AbilityCost_ActionPoints';
+	ActionPointCost.iNumPoints = 1;
+	Template.AbilityCosts.AddItem(ActionPointCost);
+
+	Charges = new class 'X2AbilityCharges';
+	Charges.InitialCharges = 1;
+	Template.AbilityCharges = Charges;
+
+	ChargeCost = new class'X2AbilityCost_Charges';
+	ChargeCost.NumCharges = 1;
+	Template.AbilityCosts.AddItem(ChargeCost);
+
+	Template.AbilityToHitCalc = default.DeadEye;
+	Template.AbilityTargetStyle = default.SimpleSingleTarget;
+	Template.AbilityTriggers.AddItem(default.PlayerInputTrigger);
+
+	// Shooter Conditions
+	//
+	Template.AbilityShooterConditions.AddItem(default.LivingShooterProperty);
+	Template.AddShooterEffectExclusions();	// Discuss with Jake/Design what exclusions are allowed here
+
+	ApplyingEffectsCondition = new class'X2Condition_UnitEffectsApplying';
+	ApplyingEffectsCondition.AddExcludeEffect(class'X2Ability_AdvPriest'.default.HolyWarriorEffectName, 'AA_AbilityUnavailable');
+	ApplyingEffectsCondition.AddExcludeEffect(class'X2Effect_MindControl'.default.EffectName, 'AA_UnitIsMindControlling');
+	Template.AbilityTargetConditions.AddItem(ApplyingEffectsCondition);
+
+	// Target Conditions
+	//
+	Template.AbilityTargetConditions.AddItem(default.GameplayVisibilityCondition);
+	
+	UnitTypeCondition = new class'X2Condition_UnitTypePossess';
+	Template.AbilityTargetConditions.AddItem(UnitTypeCondition);
+
+	UnitPropertyCondition = new class'X2Condition_UnitProperty';
+	UnitPropertyCondition.ExcludeDead = true;
+	UnitPropertyCondition.ExcludeHostileToSource = true;
+	UnitPropertyCondition.ExcludeFriendlyToSource = false;
+	UnitPropertyCondition.ExcludeRobotic = true;
+	UnitPropertyCondition.FailOnNonUnits = true;
+	UnitPropertyCondition.ExcludeCivilian = true;
+	Template.AbilityTargetConditions.AddItem(UnitPropertyCondition);
+
+	ExcludeEffectsCondition = new class'X2Condition_UnitEffects';
+	ExcludeEffectsCondition.AddExcludeEffect(class'X2Ability_AdvPriest'.default.HolyWarriorEffectName, 'AA_AbilityUnavailable');
+	ExcludeEffectsCondition.AddExcludeEffect(class'X2Effect_EnergyShield'.default.EffectName, 'AA_DuplicateEffectIgnored');
+	ExcludeEffectsCondition.AddExcludeEffect(class'X2Effect_Stasis'.default.EffectName, 'AA_AbilityUnavailable');
+	Template.AbilityTargetConditions.AddItem(ExcludeEffectsCondition);
+	
+	PossessEffect = new class'X2Effect_PersistentStatChange';
+	PossessEffect.BuildPersistentEffect(3, false, true, false, eGameRule_PlayerTurnEnd);
+	PossessEffect.SetDisplayInfo (ePerkBuff_Bonus, Template.LocFriendlyName, Template.GetMyHelpText(), Template.IconImage,,, Template.AbilitySourceName);
+	PossessEffect.DuplicateResponse = eDupe_Ignore;
+	PossessEffect.AddPersistentStatChange(eStat_ShieldHP, 10);
+	PossessEffect.AddPersistentStatChange(eStat_Will, 200);
+	PossessEffect.AddPersistentStatChange(eStat_Mobility, 2);
+	PossessEffect.AddPersistentStatChange(eStat_Offense, 30);
+	PossessEffect.EffectName='EtherealPossess';
+	PossessEffect.bRemoveWhenTargetDies = true;
+	Template.AddTargetEffect(PossessEffect);
+
+	Template.AddShooterEffectExclusions();
+
+	Effect = new class'X2Effect_EtheralGhost';
+    Effect.BuildPersistentEffect(3, false, true, false, eGameRule_PlayerTurnEnd);
+    Template.AddTargetEffect(Effect);
+
+	Template.AdditionalAbilities.AddItem('PossessTurnLife');
+
+	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
+	Template.BuildVisualizationFn = TypicalAbility_BuildVisualization;
+	Template.CustomFireAnim = 'HL_EtherealPosses';
+	Template.bFrameEvenWhenUnitIsHidden = true;
+	Template.CinescriptCameraType = "HL_EtherealPosses";
+
+	Template.bShowActivation = true;
+
+
+	return Template;
 }

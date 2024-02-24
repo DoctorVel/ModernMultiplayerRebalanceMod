@@ -139,7 +139,13 @@ static event OnPostTemplatesCreated()
 	PistolReturnFirePatch();
 	RebuildPerkContentCache();
 	OverwatchShotPatch();
-
+	PsiZombiePatch2();
+	AdventPsiWitchPatch();
+	SectoidMPPatch();
+	PlatedSparkArmorStatsPatch();
+	PsiAmp_CVPatch();
+	SoldierPatch();
+	TemplarInvertPatch();
 } 
 
 
@@ -1395,6 +1401,7 @@ static private function MindScorchPatch()
     local X2DataTemplate            DifficultyVariant;
     local X2Effect_ApplyWeaponDamage Damage;
 	local X2Condition_UnitProperty UnitPropertyCondition;
+	local X2Condition_UnitType UnitType;
     local int i;
 
     AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
@@ -1437,6 +1444,10 @@ static private function MindScorchPatch()
 		UnitPropertyCondition.ExcludeTurret = true;
 	    UnitPropertyCondition.ExcludeRobotic = true;
 	    Template.AbilityTargetConditions.AddItem(UnitPropertyCondition);
+
+		UnitType = new class'X2Condition_UnitType';
+		UnitType.ExcludeTypes.AddItem('Spectre');
+		Template.AbilityTargetConditions.AddItem(UnitType);
     }
 }
 
@@ -1541,6 +1552,7 @@ static private function CorressPatch2()
 	    Template.AddTargetEffect(SpawnZombieEffect);
 
 		Template.AdditionalAbilities.AddItem('ZombieTurnLife');
+		Template.AdditionalAbilities.AddItem('KillWarlockZombies');
 	}
 }
 
@@ -1579,6 +1591,7 @@ static private function HolyWarriorM3Patch()
     local array<X2DataTemplate>        DifficultyVariants;
     local X2DataTemplate            DifficultyVariant;
 	local X2Effect_PersistentStatChange HolyWarriorEffect;
+	//local X2Condition_UnitEffectsApplying ApplyingEffectsCondition;
 	local int i;
 
     AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
@@ -1598,6 +1611,12 @@ static private function HolyWarriorM3Patch()
             }
         
 		}
+
+		//ApplyingEffectsCondition = new class'X2Condition_UnitEffectsApplying';
+		//ApplyingEffectsCondition.AddExcludeEffect('PsionicShield', 'AA_DuplicateEffectIgnored');
+		//ApplyingEffectsCondition.AddExcludeEffect('X2Effect_PsionicShieldReduce', 'AA_DuplicateEffectIgnored');
+		//Template.AbilityTargetConditions.AddItem(ApplyingEffectsCondition);
+
 		HolyWarriorEffect = new class'X2Effect_PersistentStatChange';
 		HolyWarriorEffect.EffectName = class'X2Ability_AdvPriest'.default.HolyWarriorEffectName;
 		HolyWarriorEffect.DuplicateResponse = eDupe_Ignore;
@@ -1701,6 +1720,175 @@ static private function AdvPsiWitchM3_WPNPatch()
 
 }
 
+static private function AdventPsiWitchPatch()
+{
+    local X2CharacterTemplateManager    CharacterTemplateManager;
+    local X2CharacterTemplate    Template;
+    local array<X2DataTemplate>    DifficultyVariants;
+    local X2DataTemplate        DifficultyVariant;
+
+    CharacterTemplateManager = class'X2CharacterTemplateManager'.static.GetCharacterTemplateManager();
+
+    CharacterTemplateManager.FindDataTemplateAllDifficulties('AdvPsiWitchM3', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2CharacterTemplate(DifficultyVariant);
+        if (Template != none)
+        {
+        Template.CharacterBaseStats[eStat_AlertLevel]=2;
+		Template.CharacterBaseStats[eStat_ArmorChance]=100;
+		Template.CharacterBaseStats[eStat_ArmorMitigation]=3;
+		Template.CharacterBaseStats[eStat_ArmorPiercing]=0;
+		Template.CharacterBaseStats[eStat_CritChance]=0;
+		Template.CharacterBaseStats[eStat_Defense]=10;
+		Template.CharacterBaseStats[eStat_Dodge]=0;
+		Template.CharacterBaseStats[eStat_HP]=20;
+		Template.CharacterBaseStats[eStat_Mobility]=12;
+		Template.CharacterBaseStats[eStat_Offense]=100;
+		Template.CharacterBaseStats[eStat_PsiOffense]=200;
+		Template.CharacterBaseStats[eStat_SightRadius]=27;
+		Template.CharacterBaseStats[eStat_DetectionRadius]=12;
+		Template.CharacterBaseStats[eStat_UtilityItems]=1;
+		Template.CharacterBaseStats[eStat_Will]=200;
+		Template.CharacterBaseStats[eStat_HackDefense]=50;
+		Template.CharacterBaseStats[eStat_FlankingCritChance]=33;
+		Template.CharacterBaseStats[eStat_FlankingAimBonus]=0;
+		Template.CharacterBaseStats[eStat_Strength]=50;
+
+		Template.Abilities.RemoveItem('TriggerDamagedTeleportListener');
+		Template.Abilities.RemoveItem('AvatarDamagedTeleport');
+		Template.Abilities.RemoveItem('DarkEventAbility_UndyingLoyalty');
+        }
+    }
+}
+
+static private function PsiZombiePatch()
+{
+    local X2CharacterTemplateManager    CharacterTemplateManager;
+    local X2CharacterTemplate    Template;
+    local array<X2DataTemplate>    DifficultyVariants;
+    local X2DataTemplate        DifficultyVariant;
+
+    CharacterTemplateManager = class'X2CharacterTemplateManager'.static.GetCharacterTemplateManager();
+
+    CharacterTemplateManager.FindDataTemplateAllDifficulties('PsiZombie', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2CharacterTemplate(DifficultyVariant);
+        if (Template != none)
+        {
+        Template.CharacterBaseStats[eStat_AlertLevel]=2;
+		Template.CharacterBaseStats[eStat_ArmorChance]=0;
+		Template.CharacterBaseStats[eStat_ArmorMitigation]=0;
+		Template.CharacterBaseStats[eStat_ArmorPiercing]=0;
+		Template.CharacterBaseStats[eStat_CritChance]=0;
+		Template.CharacterBaseStats[eStat_Defense]=0;
+		Template.CharacterBaseStats[eStat_Dodge]=0;
+		Template.CharacterBaseStats[eStat_HP]=7;
+		Template.CharacterBaseStats[eStat_Mobility]=12;
+		Template.CharacterBaseStats[eStat_Offense]=75;
+		Template.CharacterBaseStats[eStat_PsiOffense]=0;
+		Template.CharacterBaseStats[eStat_SightRadius]=27;
+		Template.CharacterBaseStats[eStat_DetectionRadius]=12;
+		Template.CharacterBaseStats[eStat_UtilityItems]=1;
+		Template.CharacterBaseStats[eStat_Will]=50;
+		Template.CharacterBaseStats[eStat_HackDefense]=50;
+		Template.CharacterBaseStats[eStat_FlankingCritChance]=33;
+		Template.CharacterBaseStats[eStat_FlankingAimBonus]=0;
+		Template.CharacterBaseStats[eStat_Strength]=50;
+        }
+    }
+}
+
+static private function SectoidMPPatch()
+{
+    local X2CharacterTemplateManager    CharacterTemplateManager;
+    local X2CharacterTemplate    Template;
+    local array<X2DataTemplate>    DifficultyVariants;
+    local X2DataTemplate        DifficultyVariant;
+
+    CharacterTemplateManager = class'X2CharacterTemplateManager'.static.GetCharacterTemplateManager();
+
+    CharacterTemplateManager.FindDataTemplateAllDifficulties('SectoidMP', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2CharacterTemplate(DifficultyVariant);
+        if (Template != none)
+        {
+		Template.Abilities.AddItem('PsionicShield');
+		Template.Abilities.AddItem('DelayedPsiExplosion');
+		Template.Abilities.AddItem('SectoidDeathOverride');
+       	Template.AdditionalAnimSets.AddItem(AnimSet(`CONTENT.RequestGameArchetype("Sectoid_PsionicShield.AS_PsionicShield")));
+        }
+    }
+}
+// Psi-Operative
+
+static private function PsiAmp_CVPatch()
+{
+    local X2ItemTemplateManager ItemTemplateManager;
+	local X2WeaponTemplate Template;
+	local array<X2DataTemplate>    DifficultyVariants;
+    local X2DataTemplate        DifficultyVariant;
+
+	ItemTemplateManager = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
+	ItemTemplateManager.FindDataTemplateAllDifficulties('PsiAmp_CV', DifficultyVariants);
+	 foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2WeaponTemplate(DifficultyVariant);
+        if (Template != none)
+        {
+		
+		Template.Abilities.AddItem('KillZombies');
+	    }
+	}
+
+}
+
+static private function AdvPriestMP_PsiAmpPatch()
+{
+    local X2ItemTemplateManager ItemTemplateManager;
+	local X2WeaponTemplate Template;
+	local array<X2DataTemplate>    DifficultyVariants;
+    local X2DataTemplate        DifficultyVariant;
+
+	ItemTemplateManager = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
+	ItemTemplateManager.FindDataTemplateAllDifficulties('AdvPriestMP_PsiAmp', DifficultyVariants);
+	 foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2WeaponTemplate(DifficultyVariant);
+        if (Template != none)
+        {
+		Template.Abilities.AddItem('KillZombies');
+	    }
+	}
+
+}
+
+static private function SoldierPatch()
+{
+    local X2CharacterTemplateManager    CharacterTemplateManager;
+    local X2CharacterTemplate    Template;
+    local array<X2DataTemplate>    DifficultyVariants;
+    local X2DataTemplate        DifficultyVariant;
+
+    CharacterTemplateManager = class'X2CharacterTemplateManager'.static.GetCharacterTemplateManager();
+
+    CharacterTemplateManager.FindDataTemplateAllDifficulties('Soldier', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2CharacterTemplate(DifficultyVariant);
+        if (Template != none)
+        {
+       	Template.AdditionalAnimSets.AddItem(AnimSet(`CONTENT.RequestGameArchetype("Warlock_KillZombies_ANIM.AS_PsiAgentKillZombies")));
+        }
+    }
+}
+
 
 // Gatekeeper
 
@@ -1725,6 +1913,7 @@ static private function GatekeeperMP_WPNPatch()
 	}
 
 }
+
 
 static private function GatekeeperPatch()
 {
@@ -2292,12 +2481,34 @@ static private function NovaPatch()
     }
 }
 
+static private function PlatedSparkArmorStatsPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('PlatedSparkArmorStats', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+
+		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
+
+    }
+}
+
 static private function SparkFlamethrowerPatch()
 {
     local X2AbilityTemplateManager    AbilityTemplateManager;
     local X2AbilityTemplate            Template;
     local array<X2DataTemplate>        DifficultyVariants;
     local X2DataTemplate            DifficultyVariant;
+	local int i;
 
     AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
 
@@ -2307,6 +2518,14 @@ static private function SparkFlamethrowerPatch()
     {
         Template = X2AbilityTemplate(DifficultyVariant);
         if (Template == none) continue;
+
+		 for (i = Template.AbilityShooterConditions.Length - 1; i >= 0; i--)
+        {
+            if (X2Condition_UnitProperty(Template.AbilityShooterConditions[i]) != none)
+            {
+                Template.AbilityShooterConditions.Remove(i, 1);
+            }
+        }
 
 		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
 
@@ -2350,6 +2569,26 @@ static private function SparkSoldierPatch()
     {
         Template = X2CharacterTemplate(DifficultyVariant);
         if (Template == none) continue;
+
+		Template.CharacterBaseStats[eStat_AlertLevel]=2;
+		Template.CharacterBaseStats[eStat_ArmorChance]=100;
+		Template.CharacterBaseStats[eStat_ArmorMitigation]=1;
+		Template.CharacterBaseStats[eStat_ArmorPiercing]=0;
+		Template.CharacterBaseStats[eStat_CritChance]=0;
+		Template.CharacterBaseStats[eStat_Defense]=10;
+		Template.CharacterBaseStats[eStat_Dodge]=0;
+		Template.CharacterBaseStats[eStat_HP]=7;
+		Template.CharacterBaseStats[eStat_Mobility]=12;
+		Template.CharacterBaseStats[eStat_Offense]=70;
+		Template.CharacterBaseStats[eStat_PsiOffense]=0;
+		Template.CharacterBaseStats[eStat_SightRadius]=27;
+		Template.CharacterBaseStats[eStat_DetectionRadius]=12;
+		Template.CharacterBaseStats[eStat_UtilityItems]=3;
+		Template.CharacterBaseStats[eStat_Will]=0;
+		Template.CharacterBaseStats[eStat_HackDefense]=80;
+		Template.CharacterBaseStats[eStat_FlankingCritChance]=33;
+		Template.CharacterBaseStats[eStat_FlankingAimBonus]=0;
+		Template.CharacterBaseStats[eStat_Strength]=50;
 
 		Template.AddTemplateAvailablility(Template.BITFIELD_GAMEAREA_Multiplayer);
 		Template.strHackIconImage = "UILibrary_Common.TargetIcons.Hack_robot_icon";
@@ -2844,7 +3083,7 @@ static private function DarkEventAbility_UndyingLoyaltyPatch()
     }
 }
 
-static private function PsiZombiePatch()
+static private function PsiZombiePatch2()
 {
     local X2CharacterTemplateManager    CharacterTemplateManager;
     local X2CharacterTemplate    Template;
@@ -3056,6 +3295,48 @@ static private function HunkerDownPatch()
 		PersistentStatChangeEffect.DuplicateResponse = eDupe_Refresh;
 		Template.AddTargetEffect(PersistentStatChangeEffect);
     }
+}
+
+static private function TemplarInvertPatch()
+{
+    local X2AbilityTemplateManager    AbilityTemplateManager;
+    local X2AbilityTemplate            Template;
+    local array<X2DataTemplate>        DifficultyVariants;
+    local X2DataTemplate            DifficultyVariant;
+	local X2AbilityCost_ActionPoints ActionPointCost;
+	local X2AbilityCost_Focus FocusCost;
+	local int i;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('TemplarInvert', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+         if (Template == none) continue;
+        
+        for (i = Template.AbilityCosts.Length - 1; i >= 0; i--)
+        {
+            if (X2AbilityCost_ActionPoints(Template.AbilityCosts[i]) != none)
+            {
+                Template.AbilityCosts.Remove(i, 1);
+            }
+        
+		}
+		Template.AbilityCosts.RemoveItem(new class'X2AbilityCost_Focus');
+
+		FocusCost = new class'X2AbilityCost_Focus';
+		FocusCost.FocusAmount = 2;
+		Template.AbilityCosts.AddItem(FocusCost);
+
+		ActionPointCost = new class'X2AbilityCost_ActionPoints';
+		ActionPointCost.iNumPoints = 1;
+		ActionPointCost.bConsumeAllPoints = true;
+		Template.AbilityCosts.AddItem(ActionPointCost);
+
+    }
+
 }
 
 // Spectre
@@ -3537,7 +3818,11 @@ static private function RebuildPerkContentCache()
 	Content.CachePerkContent('SectoidMindControl');
 	Content.CachePerkContent('DroneAidProtocol');
 	Content.CachePerkContent('PsionicShield');
-	Content.CachePerkContent('AHWElderLifeStyle');
+	Content.CachePerkContent('EtherealLifeSteal');
+	Content.CachePerkContent('EtherealMindControl');
+	Content.CachePerkContent('KillZombies');
+	Content.CachePerkContent('EtherealPossess');
+
 }
 
 static private function OverwatchShotPatch()
@@ -3573,3 +3858,28 @@ static private function OverwatchShotPatch()
     }
 }
 
+
+// Archon
+
+
+static private function FrenzyTriggerPatch()
+{
+    local X2AbilityTemplateManager           AbilityTemplateManager;
+    local X2AbilityTemplate                       Template;
+    local array<X2DataTemplate>             DifficultyVariants;
+    local X2DataTemplate                         DifficultyVariant;
+	local array<name> SkipExclusions;
+
+    AbilityTemplateManager = class'X2AbilityTemplateManager'.static.GetAbilityTemplateManager();
+
+    AbilityTemplateManager.FindDataTemplateAllDifficulties('FrenzyTrigger', DifficultyVariants);
+
+    foreach DifficultyVariants(DifficultyVariant)
+    {
+        Template = X2AbilityTemplate(DifficultyVariant);
+        if (Template == none) continue;
+        
+     SkipExclusions.RemoveItem(class'X2StatusEffects'.default.BurningName);
+
+    }
+}
